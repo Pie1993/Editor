@@ -140,28 +140,6 @@ public class EditorManager {
 
 	}
 
-	private void createCube(int posx, int posy, int posz) {
-		if (currentType != CubeType.STONE) {
-
-			Cube tmp = new Cube(geometry, posx, posy, posz, currentType);
-			spatialMap.put(tmp.geometry.getLocalTranslation().toString(), tmp);
-			bulletAppState.getPhysicsSpace().add(tmp.geometry);
-
-			nodoScena.attachChild(tmp.geometry);
-			tmp.geometry.setMaterial(getMaterial(currentType));
-		} else {
-			Spatial spatial = wedgeCube.clone();
-			spatial.setLocalTranslation(posx, posy, posz);
-			spatial.rotate(wedge.getLocalRotation());
-			spatial.addControl(new RigidBodyControl(CollisionShapeFactory
-					.createMeshShape(spatial), 0));
-			bulletAppState.getPhysicsSpace().add(spatial);
-			nodoScena.attachChild(spatial);
-
-		}
-
-	}
-
 	private Material getMaterial(CubeType type) {
 		switch (type) {
 		case GRASS:
@@ -528,6 +506,28 @@ public class EditorManager {
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		}
+
+	}
+
+	private void createCube(int posx, int posy, int posz) {
+		if (currentType != CubeType.STONE) {
+
+			Cube tmp = new Cube(geometry, posx, posy, posz, currentType);
+			spatialMap.put(tmp.geometry.getLocalTranslation().toString(), tmp);
+			bulletAppState.getPhysicsSpace().add(tmp.geometry);
+
+			nodoScena.attachChild(tmp.geometry);
+			tmp.geometry.setMaterial(getMaterial(currentType));
+		} else {
+			Spatial spatial = wedgeCube.clone();
+			spatial.setLocalTranslation(posx, posy, posz);
+			spatial.rotate(wedge.getLocalRotation());
+			spatial.addControl(new RigidBodyControl(CollisionShapeFactory
+					.createMeshShape(spatial), 0));
+			bulletAppState.getPhysicsSpace().add(spatial);
+			nodoScena.attachChild(spatial);
+
 		}
 
 	}
