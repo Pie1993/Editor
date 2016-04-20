@@ -1,5 +1,9 @@
 package Editor;
 
+import com.jme3.niftygui.NiftyJmeDisplay;
+import com.jme3.renderer.ViewPort;
+
+import de.lessvoid.nifty.Nifty;
 import de.lessvoid.nifty.builder.ImageBuilder;
 import de.lessvoid.nifty.builder.LayerBuilder;
 import de.lessvoid.nifty.builder.PanelBuilder;
@@ -8,22 +12,21 @@ import de.lessvoid.nifty.controls.button.builder.ButtonBuilder;
 
 public class ScreenNiftyCube {
 
-	public ScreenNiftyCube(MyEditor myEditor) {
+	public ScreenNiftyCube(Nifty nifty, NiftyJmeDisplay display,
+			ViewPort viewPort, MyScreenController myScreenController) {
 
-		myEditor.myEditorScreen = myEditor.display.getNifty();
-		myEditor.myEditorScreen.setIgnoreKeyboardEvents(true);
-		myEditor.getGuiViewPort().addProcessor(myEditor.display);
-//
-//		myEditor.getFlyByCamera().setDragToRotate(false);
-		
+		nifty = display.getNifty();
+		nifty.setIgnoreKeyboardEvents(true);
+		viewPort.addProcessor(display);
+		//
+		// myEditor.getFlyByCamera().setDragToRotate(false);
 
-		myEditor.myEditorScreen.loadStyleFile("nifty-default-styles.xml");
-		myEditor.myEditorScreen.loadControlFile("nifty-default-controls.xml");
+		nifty.loadStyleFile("nifty-default-styles.xml");
+		nifty.loadControlFile("nifty-default-controls.xml");
 
-		myEditor.myEditorScreen.addScreen("CubeScreen", new ScreenBuilder(
-				"CubeScreen") {
+		nifty.addScreen("CubeScreen", new ScreenBuilder("CubeScreen") {
 			{
-				controller(myEditor.myScreenController); // Screen properties
+				controller(myScreenController); // Screen properties
 
 				layer(new LayerBuilder("Layer_ID") {
 					{
@@ -203,10 +206,9 @@ public class ScreenNiftyCube {
 				}); // layer
 
 			}
-		}.build(myEditor.myEditorScreen));
+		}.build(nifty));
 
-		myEditor.myEditorScreen.gotoScreen("CubeScreen"); // start the screen
-	
+		nifty.gotoScreen("CubeScreen"); // start the screen
 
 	}
 

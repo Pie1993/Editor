@@ -3,6 +3,8 @@ package Editor;
 import java.io.File;
 import java.io.FilenameFilter;
 
+import com.jme3.niftygui.NiftyJmeDisplay;
+
 import de.lessvoid.nifty.Nifty;
 import de.lessvoid.nifty.controls.ListBox;
 import de.lessvoid.nifty.controls.TextField;
@@ -10,74 +12,86 @@ import de.lessvoid.nifty.screen.Screen;
 import de.lessvoid.nifty.screen.ScreenController;
 
 public class MyScreenController implements ScreenController {
-	private MyEditor myEditor;
+	Nifty nifty;
+	NiftyJmeDisplay display;
 
-	public MyScreenController(MyEditor myEditor) {
-		this.myEditor = myEditor;
+	public MyScreenController(NiftyJmeDisplay display) {
+
+		this.display = display;
 
 	}
 
 	public void GrassCube() {
-		myEditor.currentType = CubeType.GRASS;
-		myEditor.nodoModel.detachAllChildren();
-		myEditor.nodoModel.attachChild(myEditor.modelCube);
+		EditorManager.getIstance().currentType = CubeType.GRASS;
+
+		EditorManager.getIstance().nodoModel.detachAllChildren();
+		EditorManager.getIstance().nodoModel.attachChild(EditorManager
+				.getIstance().modelCube);
 
 	}
 
 	public void WoodCube() {
-		myEditor.currentType = CubeType.WOOD;
+		EditorManager.getIstance().currentType = CubeType.WOOD;
 
 	}
 
 	public void StoneCube() {
-		myEditor.currentType = CubeType.STONE;
-		myEditor.nodoModel.detachAllChildren();
-		myEditor.nodoModel.attachChild(myEditor.wedge);
+		EditorManager.getIstance().currentType = CubeType.STONE;
+		EditorManager.getIstance().nodoModel.detachAllChildren();
+		EditorManager.getIstance().nodoModel.attachChild(EditorManager
+				.getIstance().wedge);
 	}
 
 	public void WallCube() {
-		myEditor.currentType = CubeType.WALL;
+		EditorManager.getIstance().currentType = CubeType.WALL;
 
 	}
 
 	public void LoadMap() {
 
-		String selection = (String) myEditor.listBox.getSelection().get(0);
-		myEditor.loadMap(selection);
-		myEditor.changeScreen("CubeScreen");
-		myEditor.myEditorScreen.setIgnoreKeyboardEvents(true);
+		String selection = (String) EditorManager.getIstance().listBox
+				.getSelection().get(0);
+		EditorManager.getIstance().loadMap(selection);
+
+		changeScreen("CubeScreen");
+		nifty.setIgnoreKeyboardEvents(true);
+
+	}
+
+	private void changeScreen(String string) {
+		nifty.gotoScreen(string);
 
 	}
 
 	public void SaveMap() {
 
-		Screen screen = myEditor.myEditorScreen.getCurrentScreen();
+		Screen screen = nifty.getCurrentScreen();
 
 		TextField txt = screen.findNiftyControl("nameMap", TextField.class);
-		myEditor.nameMap = txt.getText();
-		myEditor.saveMap();
-		myEditor.myEditorScreen.gotoScreen("CubeScreen");
-		myEditor.myEditorScreen.setIgnoreKeyboardEvents(true);
+		EditorManager.getIstance().nameMap = txt.getText();
+		EditorManager.getIstance().saveMap();
+		changeScreen("CubeScreen");
+		nifty.setIgnoreKeyboardEvents(true);
 	}
 
 	public void SaveScreen() {
 
-		myEditor.changeScreen("SaveScreen");
-		myEditor.myEditorScreen.setIgnoreKeyboardEvents(false);
+		changeScreen("SaveScreen");
+		nifty.setIgnoreKeyboardEvents(false);
 
 	}
 
 	public void LoadScreen() {
 		fillMyListBox();
-		myEditor.changeScreen("LoadScreen");
-		myEditor.myEditorScreen.setIgnoreKeyboardEvents(true);
+		changeScreen("LoadScreen");
+		nifty.setIgnoreKeyboardEvents(true);
 
 	}
 
 	public void Return() {
 
-		myEditor.changeScreen("CubeScreen");
-		myEditor.myEditorScreen.setIgnoreKeyboardEvents(true);
+		changeScreen("CubeScreen");
+		nifty.setIgnoreKeyboardEvents(true);
 	}
 
 	@Override
@@ -100,7 +114,7 @@ public class MyScreenController implements ScreenController {
 
 	public void fillMyListBox() {
 
-		Screen screen = myEditor.myEditorScreen.getScreen("LoadScreen");
+		Screen screen = nifty.getScreen("LoadScreen");
 		FilenameFilter filenameFilter = new FilenameFilter() {
 
 			@Override
@@ -109,13 +123,14 @@ public class MyScreenController implements ScreenController {
 			}
 		};
 
-		myEditor.listBox = screen.findNiftyControl("listBox", ListBox.class);
-		myEditor.listBox.clear();
+		EditorManager.getIstance().listBox = screen.findNiftyControl("listBox",
+				ListBox.class);
+		EditorManager.getIstance().listBox.clear();
 		File folder = new File(CubikArenaPath.getMappath());
 		File[] listOfFiles = folder.listFiles(filenameFilter);
 
 		for (File file : listOfFiles) {
-			myEditor.listBox.addItem(file.getName());
+			EditorManager.getIstance().listBox.addItem(file.getName());
 
 		}
 

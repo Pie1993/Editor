@@ -1,5 +1,9 @@
 package Editor;
 
+import com.jme3.niftygui.NiftyJmeDisplay;
+import com.jme3.renderer.ViewPort;
+
+import de.lessvoid.nifty.Nifty;
 import de.lessvoid.nifty.builder.LayerBuilder;
 import de.lessvoid.nifty.builder.PanelBuilder;
 import de.lessvoid.nifty.builder.ScreenBuilder;
@@ -9,15 +13,16 @@ import de.lessvoid.nifty.controls.textfield.builder.TextFieldBuilder;
 public class ScreenSaveMap {
 	java.awt.TextField textField;
 
-	public ScreenSaveMap(MyEditor myEditor) {
+	public ScreenSaveMap(Nifty nifty, NiftyJmeDisplay display,
+			ViewPort viewPort, MyScreenController myScreenController) {
 
+		nifty = display.getNifty();
 		textField = new java.awt.TextField();
-		myEditor.myEditorScreen.loadStyleFile("nifty-default-styles.xml");
-		myEditor.myEditorScreen.loadControlFile("nifty-default-controls.xml");
-		myEditor.myEditorScreen.addScreen("SaveScreen", new ScreenBuilder(
-				"SaveScreen") {
+		nifty.loadStyleFile("nifty-default-styles.xml");
+		nifty.loadControlFile("nifty-default-controls.xml");
+		nifty.addScreen("SaveScreen", new ScreenBuilder("SaveScreen") {
 			{
-				controller(myEditor.myScreenController);
+				controller(myScreenController);
 				layer(new LayerBuilder("Layer_Save") {
 					{
 
@@ -64,7 +69,7 @@ public class ScreenSaveMap {
 				});
 
 			}
-		}.build(myEditor.myEditorScreen));
+		}.build(nifty));
 	}
 
 }
