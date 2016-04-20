@@ -4,7 +4,7 @@
     <eAnnotations xmi:id="_NQa8AAcKEeaDK8bSOxUzpg" source="http://ns.yatta.de/umllab">
       <contents xmi:type="ecore:EAnnotation" xmi:id="_NQa8AQcKEeaDK8bSOxUzpg" source="codegen">
         <details xmi:id="_NQbjEAcKEeaDK8bSOxUzpg" key="codegenDirectory" value="/Editor/src"/>
-        <details xmi:id="_OHTgsAcKEeaDK8bSOxUzpg" key="AssociatedSourceCode" value="/Editor/src/Editor/Cube.java;1262217743/1;/Editor/src/Editor/CubeType.java;117391007/1;/Editor/src/Editor/CubikArenaPath.java;1167677349/1;/Editor/src/Editor/StoreMapFile.java;2249578582/1;/Editor/src/Editor/GuiComponentLoader.java;924313465/1;/Editor/src/Editor/MyActionListener.java;2647182585/1;/Editor/src/Editor/MyEditor.java;1315533868/1;/Editor/src/Editor/ScreenSaveMap.java;978374836/1;/Editor/src/Editor/PrototypeInterface.java;2895829170/1;/Editor/src/Editor/ScreenLoadMap.java;239333784/1;/Editor/src/Editor/ScreenNiftyCube.java;1362020850/1;/Editor/src/Editor/MyScreenController.java;1438339438/1;/Editor/src/Editor/EditorManager.java;2567430640/1;"/>
+        <details xmi:id="_OHTgsAcKEeaDK8bSOxUzpg" key="AssociatedSourceCode" value="/Editor/src/Editor/Cube.java;1262217743/1;/Editor/src/Editor/CubeType.java;117391007/1;/Editor/src/Editor/CubikArenaPath.java;1167677349/1;/Editor/src/Editor/StoreMapFile.java;2249578582/1;/Editor/src/Editor/GuiComponentLoader.java;924313465/1;/Editor/src/Editor/MyActionListener.java;2647182585/1;/Editor/src/Editor/MyEditor.java;1315533868/1;/Editor/src/Editor/ScreenSaveMap.java;978374836/1;/Editor/src/Editor/PrototypeInterface.java;2895829170/1;/Editor/src/Editor/ScreenLoadMap.java;239333784/1;/Editor/src/Editor/ScreenNiftyCube.java;1362020850/1;/Editor/src/Editor/MyScreenController.java;1438339438/1;/Editor/src/Editor/EditorManager.java;1213957310/1;"/>
       </contents>
     </eAnnotations>
     <elementImport xmi:id="_NqMG4AcKEeaDK8bSOxUzpg">
@@ -1490,8 +1490,7 @@
 		healt.scale(0.77f);
 		wedge = assetManager.loadModel(&quot;Models/half_cube/half_cube.obj&quot;);
 		wedge.setLocalTranslation(0, 0, 0);
-		wedgeCube = wedge.clone();
-		wedgeCube.setMaterial(materials[0]);
+		wedgeCube = assetManager.loadModel(&quot;Models/half_cube/half_cube.obj&quot;);
 
 	</body>
         </ownedBehavior>
@@ -1581,7 +1580,7 @@
           <language>java</language>
           <body>bulletAppState = new BulletAppState();
 		stateManager.attach(bulletAppState);
-		bulletAppState.setDebugEnabled(true);
+		bulletAppState.setDebugEnabled(false);
 	</body>
         </ownedBehavior>
         <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_OAl0sQcKEeaDK8bSOxUzpg" name="createPlayer" specification="_N-_SMAcKEeaDK8bSOxUzpg">
@@ -1796,7 +1795,12 @@
 			nodoScena.attachChild(tmp.geometry);
 			tmp.geometry.setMaterial(getMaterial(currentType));
 		} else {
-			Spatial spatial = wedgeCube.clone();
+			Spatial spatial = assetManager
+					.loadModel(&quot;Models/half_cube/half_cube.obj&quot;);
+			materials[0].setTexture(&quot;ColorMap&quot;,
+					assetManager.loadTexture(&quot;Models/half_cube/brick.png&quot;));
+			spatial.setMaterial(materials[0]);
+
 			spatial.setLocalTranslation(posx, posy, posz);
 			spatial.rotate(wedge.getLocalRotation());
 			spatial.addControl(new RigidBodyControl(CollisionShapeFactory

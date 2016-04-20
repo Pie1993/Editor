@@ -238,8 +238,7 @@ public class EditorManager {
 		healt.scale(0.77f);
 		wedge = assetManager.loadModel("Models/half_cube/half_cube.obj");
 		wedge.setLocalTranslation(0, 0, 0);
-		wedgeCube = wedge.clone();
-		wedgeCube.setMaterial(materials[0]);
+		wedgeCube = assetManager.loadModel("Models/half_cube/half_cube.obj");
 
 	}
 
@@ -325,7 +324,7 @@ public class EditorManager {
 
 		bulletAppState = new BulletAppState();
 		stateManager.attach(bulletAppState);
-		bulletAppState.setDebugEnabled(true);
+		bulletAppState.setDebugEnabled(false);
 	}
 
 	private void createPlayer() {
@@ -523,7 +522,12 @@ public class EditorManager {
 			nodoScena.attachChild(tmp.geometry);
 			tmp.geometry.setMaterial(getMaterial(currentType));
 		} else {
-			Spatial spatial = wedgeCube.clone();
+			Spatial spatial = assetManager
+					.loadModel("Models/half_cube/half_cube.obj");
+			materials[0].setTexture("ColorMap",
+					assetManager.loadTexture("Models/half_cube/brick.png"));
+			spatial.setMaterial(materials[0]);
+
 			spatial.setLocalTranslation(posx, posy, posz);
 			spatial.rotate(wedge.getLocalRotation());
 			spatial.addControl(new RigidBodyControl(CollisionShapeFactory
