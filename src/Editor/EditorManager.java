@@ -112,8 +112,11 @@ public class EditorManager {
 			CollisionResult closest = results.getClosestCollision();
 			cursorPos = closest.getContactPoint();
 			position();
-			nodoModel.setLocalTranslation(cursorPos);
-
+			if (closest.getGeometry().getName().startsWith("Terrain"))
+				nodoModel.setLocalTranslation(cursorPos);
+			else
+				nodoModel.setLocalTranslation(closest.getGeometry()
+						.getLocalTranslation());
 			Long currentTime = GregorianCalendar.getInstance()
 					.getTimeInMillis();
 

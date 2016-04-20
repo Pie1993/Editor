@@ -94,8 +94,8 @@ public class MyActionListener implements ActionListener {
 			activeMouse = !activeMouse;
 			flyCam.setDragToRotate(activeMouse);
 			flyCam.setRotationSpeed(0);
-			insert = false;
-			delete = false;
+			insert = delete = forward = backward = leftStrafe = rightStrafe = up = down = false;
+
 		}
 
 		if (name.equals("Exit")) {
