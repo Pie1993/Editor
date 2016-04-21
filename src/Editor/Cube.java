@@ -2,18 +2,19 @@ package Editor;
 
 import com.jme3.bullet.control.RigidBodyControl;
 import com.jme3.bullet.util.CollisionShapeFactory;
-import com.jme3.scene.Geometry;
+import com.jme3.scene.Spatial;
 
 public class Cube implements PrototypeInterface {
-	Geometry geometry;
+	Spatial geometry;
 	CubeType type;
 	RigidBodyControl control;
 
-	public Cube(Geometry geometry, int posx, int posy, int posz, CubeType type) {
+	public Cube(Spatial geometry, int posx, int posy, int posz, CubeType type) {
 
 		this.geometry = geometry.clone();
 		this.geometry.setLocalTranslation(posx, posy, posz);
-		this.control = new RigidBodyControl(CollisionShapeFactory.createMeshShape(this.geometry), 0);
+		this.control = new RigidBodyControl(
+				CollisionShapeFactory.createMeshShape(this.geometry), 0);
 		this.geometry.addControl(control);
 		this.type = type;
 

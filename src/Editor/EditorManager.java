@@ -12,16 +12,12 @@ import java.util.StringTokenizer;
 
 import com.jme3.app.state.AppStateManager;
 import com.jme3.asset.AssetManager;
-import com.jme3.bounding.BoundingBox;
 import com.jme3.bullet.BulletAppState;
-import com.jme3.bullet.collision.shapes.CapsuleCollisionShape;
 import com.jme3.bullet.control.CharacterControl;
 import com.jme3.bullet.control.RigidBodyControl;
 import com.jme3.bullet.util.CollisionShapeFactory;
 import com.jme3.collision.CollisionResult;
 import com.jme3.collision.CollisionResults;
-import com.jme3.material.Material;
-import com.jme3.math.ColorRGBA;
 import com.jme3.math.FastMath;
 import com.jme3.math.Quaternion;
 import com.jme3.math.Ray;
@@ -32,41 +28,38 @@ import com.jme3.scene.Geometry;
 import com.jme3.scene.Node;
 import com.jme3.scene.Spatial;
 import com.jme3.scene.debug.WireBox;
-import com.jme3.scene.shape.Box;
 import com.jme3.terrain.geomipmap.TerrainQuad;
-import com.jme3.texture.Texture;
-import com.jme3.texture.Texture.WrapMode;
 
 import de.lessvoid.nifty.controls.ListBox;
 
 public class EditorManager {
-	HashMap<String, Cube> spatialMap;
+
+	String nameMap;
 	CubeType currentType = CubeType.WALL;
+
 	Vector3f walkDirection = new Vector3f(0, 0, 0);
 	Vector3f viewDirection = new Vector3f(1, 0, 1);
 	private Vector3f camDir = new Vector3f();
 	private Vector3f camLeft = new Vector3f();
 	ListBox listBox;
-	String nameMap;
-	Material materials[];
-	private final static int SIZEMAP = 256;
 	public boolean stop = false;
 	BulletAppState bulletAppState;
-	TerrainQuad terrainQuad;
-	Geometry geometry;
+	private final static int SIZEMAP = 256;
+	private HashMap<String, Cube> spatialMap;
+
 	private Ray ray = new Ray();
-	Spatial healt, wedge, wedgeCube;
+	Spatial wedge;
 	private Camera cam;
 	private float moveSpeed = 0.3f;
 	private float riseSpeed = 0.2f;
 	Long coolDown = (long) 0;
 	private Quaternion tmpQuat = new Quaternion();
 	private MyActionListener actionListener;
-	private WireBox wireBoxCube, wireBoxTriangle;
+	private WireBox wireBoxCube;
 	private CharacterControl player;
 	BatchNode nodoScena, nodoModel;
 	Vector3f cursorPos;
-	Box box;
+
 	Geometry modelCube, modelTriangle;
 	private AssetManager assetManager;
 	private AppStateManager stateManager;
@@ -116,7 +109,7 @@ public class EditorManager {
 				nodoModel.setLocalTranslation(cursorPos);
 			else
 				nodoModel.setLocalTranslation(closest.getGeometry()
-						.getLocalTranslation());
+						.getWorldTranslation());
 			Long currentTime = GregorianCalendar.getInstance()
 					.getTimeInMillis();
 
@@ -143,37 +136,67 @@ public class EditorManager {
 
 	}
 
-	private Material getMaterial(CubeType type) {
-		switch (type) {
-		case GRASS:
-			return materials[0];
-		case STONE:
-			return materials[1];
-		case WALL:
-			return materials[2];
-		case WOOD:
-			return materials[3];
+	public static EditorManager getIstance() {
+		if (manager == null)
+			manager = new EditorManager();
 
-		default:
-			return materials[0];
-		}
+		return manager;
+	}
+
+	private EditorManager() {
+		Creator.getIstance().init(cursorPos, assetManager);
+		spatialMap = new HashMap<String, Cube>();
 
 	}
 
-	public void myClone() {
+	private static EditorManager manager;
 
-		int posx = (int) cursorPos.x;
-		int posz = (int) cursorPos.z;
-		int posy = (int) cursorPos.y;
-		String key = "(" + posx + ".0, " + posy + ".0, " + posz + ".0)";
-		if (!IsPositionValide(posx, posy, posz) || spatialMap.containsKey(key)) {
-			return;
-		}
-		createCube(posx, posy, posz);
+	public void init(Camera cam, MyActionListener actionListener,
+			AssetManager assetManager, AppStateManager stateManager,
+			Node rootNode) {
+		this.cursorPos = new Vector3f(SIZEMAP / 2 - 1, 0, SIZEMAP / 2 - 1);
+		this.cam = cam;
+		this.actionListener = actionListener;
+		this.stateManager = stateManager;
+		this.rootNode = rootNode;
+		this.assetManager = assetManager;
+		Creator.getIstance().init(cursorPos, assetManager);
+		Creator.getIstance().initPrototypeCube();
+		modelCube = Creator.getIstance().createModelCube();
+		wedge = Creator.getIstance().createWedge();
+		nodoModel = new BatchNode();
+		nodoModel.attachChild(modelCube);
+		rootNode.attachChild(nodoModel);
+		player = Creator.getIstance().createPlayer();
+		cam.setLocation(new Vector3f(0, 0, 0));
+		initScene();
+		initBulletAppState();
+		initPhysicsSpace();
 
 	}
 
-	boolean IsPositionValide(int posx, int posy, int posz) {
+	public void initScene() {
+		TerrainQuad terrainQuad = Creator.getIstance().createScene(
+				assetManager, SIZEMAP);
+		nodoScena = new BatchNode();
+		nodoScena.attachChild(terrainQuad);
+		rootNode.attachChild(nodoScena);
+	}
+
+	private void initBulletAppState() {
+
+		bulletAppState = new BulletAppState();
+		stateManager.attach(bulletAppState);
+		bulletAppState.setDebugEnabled(true);
+	}
+
+	private void initPhysicsSpace() {
+
+		bulletAppState.getPhysicsSpace().addAll(rootNode);
+		bulletAppState.getPhysicsSpace().add(player);
+	}
+
+	public boolean IsPositionValide(int posx, int posy, int posz) {
 		if (posx < 1 || posz < 1 || posx >= SIZEMAP || posz >= SIZEMAP
 				|| posx % 2 == 0 || posz % 2 == 0 || posy % 2 == 0 || posy < 1) {
 			return false;
@@ -192,23 +215,24 @@ public class EditorManager {
 		if (results.size() > 0) {
 			// how to react when a collision was detected
 			cursorPos = results.getClosestCollision().getGeometry()
-					.getLocalTranslation();
+					.getWorldTranslation();
 			Geometry geometry = results.getClosestCollision().getGeometry();
 
 			// positionRemove();
 			int x = (int) cursorPos.x;
 			int y = (int) cursorPos.y;
 			int z = (int) cursorPos.z;
-
 			if (IsPositionValide(x, y, z)) {
-				if (spatialMap.containsKey(geometry.getLocalTranslation()
+				if (spatialMap.containsKey(geometry.getWorldTranslation()
 						.toString())) {
-					spatialMap.get(geometry.getLocalTranslation().toString())
+
+					spatialMap.get(geometry.getWorldTranslation().toString())
 							.activeControl(false);
 
+					nodoScena.detachChild(geometry.getParent());
 					nodoScena.detachChild(geometry);
 					spatialMap
-							.remove(geometry.getLocalTranslation().toString());
+							.remove(geometry.getWorldTranslation().toString());
 
 				}
 			}
@@ -216,127 +240,41 @@ public class EditorManager {
 
 	}
 
-	public void initPrototypeCube() {
-		box = new Box(1, 1, 1);
-		geometry = new Geometry("Box", box);
-		materials = new Material[10];
-		for (int i = 0; i < 10; i++)
-			materials[i] = new Material(assetManager,
-					"Common/MatDefs/Misc/Unshaded.j3md");
-		materials[0].setTexture("ColorMap", GuiComponentLoader.getIstance()
-				.getGrassTexture());
-		materials[1].setTexture("ColorMap", GuiComponentLoader.getIstance()
-				.getStoneTexture());
-		materials[2].setTexture("ColorMap", GuiComponentLoader.getIstance()
-				.getWallTexture());
-		materials[3].setTexture("ColorMap", GuiComponentLoader.getIstance()
-				.getWoodTexture());
-		materials[4].setColor("Color", ColorRGBA.Blue);
-		healt = assetManager.loadModel("Models/health/health.obj");
+	// private void optimize() {
+	// // TODO Auto-generated method stub
+	// // GeometryBatchFactory.optimize(nodoScena);
+	// for (Map.Entry<String, Cube> entry : spatialMap.entrySet()) {
+	// entry.getValue().activeControl(false);
+	// }
+	// spatialMap.clear();
+	// nodoScena.addControl(new RigidBodyControl(CollisionShapeFactory
+	// .createMeshShape(nodoScena)));
+	// nodoScena.updateModelBound();
+	// nodoScena.batch();
+	//
+	// }
 
-		healt.setMaterial(materials[4]);
-		healt.scale(0.77f);
-		wedge = assetManager.loadModel("Models/half_cube/half_cube.obj");
-		wedge.setLocalTranslation(0, 0, 0);
-		wedgeCube = assetManager.loadModel("Models/half_cube/half_cube.obj");
+	public void myClone() {
 
-	}
+		int posx = (int) cursorPos.x;
+		int posz = (int) cursorPos.z;
+		int posy = (int) cursorPos.y;
+		String key = "(" + posx + ".0, " + posy + ".0, " + posz + ".0)";
+		if (!IsPositionValide(posx, posy, posz) || spatialMap.containsKey(key)) {
+			return;
+		}
+		Cube tmp = Creator.getIstance().createCube(posx, posy, posz,
+				currentType);
+		tmp.geometry.rotate(wedge.getLocalRotation());
+		tmp.geometry.addControl(new RigidBodyControl(CollisionShapeFactory
+				.createMeshShape(tmp.geometry), 0));
+		bulletAppState.getPhysicsSpace().add(tmp.geometry);
+		nodoScena.attachChild(tmp.geometry);
 
-	private void createWireBox() {
-		wireBoxCube = new WireBox();
-		modelCube = new Geometry("box", wireBoxCube);
-		wireBoxCube.fromBoundingBox((BoundingBox) modelCube.getModelBound());
-		wireBoxCube.setLineWidth(2f);
-		final Material material = new Material(assetManager,
-				"Common/MatDefs/Misc/Unshaded.j3md");
-		modelCube.setMaterial(material);
-		material.setColor("Color", ColorRGBA.LightGray);
-		final Material material1 = new Material(assetManager,
-				"Common/MatDefs/Misc/Unshaded.j3md");
-		material1.setColor("Color", ColorRGBA.LightGray);
-		material1.getAdditionalRenderState().setWireframe(true);
-		wedge.setMaterial(material1);
+		spatialMap.put(tmp.geometry.getWorldTranslation().toString(), tmp);
+		bulletAppState.getPhysicsSpace().add(tmp.geometry);
+		nodoScena.attachChild(tmp.geometry);
 
-	}
-
-	public static EditorManager getIstance() {
-		if (manager == null)
-			manager = new EditorManager();
-
-		return manager;
-	}
-
-	private EditorManager() {
-
-	}
-
-	private static EditorManager manager;
-
-	public void init(Camera cam, MyActionListener actionListener,
-			AssetManager assetManager, AppStateManager stateManager,
-			Node rootNode) {
-		this.cam = cam;
-		this.actionListener = actionListener;
-		this.stateManager = stateManager;
-		this.cursorPos = new Vector3f(SIZEMAP / 2 - 1, 0, SIZEMAP / 2 - 1);
-		this.rootNode = rootNode;
-		this.spatialMap = new HashMap<String, Cube>();
-		this.assetManager = assetManager;
-		initPrototypeCube();
-		createWireBox();
-		nodoModel = new BatchNode();
-		nodoModel.attachChild(modelCube);
-		rootNode.attachChild(nodoModel);
-		createPlayer();
-		initScene();
-		initBulletAppState();
-		initPhysicsSpace();
-
-	}
-
-	public void initScene() {
-		float s[] = new float[1];
-		terrainQuad = new TerrainQuad("Terrain", SIZEMAP, SIZEMAP + 1, s);
-		Material material = new Material(assetManager,
-				"Common/MatDefs/Terrain/Terrain.j3md");
-		material.setTexture("Alpha",
-				assetManager.loadTexture("Textures/alpha.png"));
-		Texture texture = GuiComponentLoader.getIstance().getGrassTexture();
-		texture.setWrap(WrapMode.Repeat);
-
-		material.setTexture("Tex1", texture);
-		material.setFloat("Tex1Scale", 128f);
-		terrainQuad.setMaterial(material);
-
-		nodoScena = new BatchNode();
-
-		RigidBodyControl terrainControl = new RigidBodyControl(0);
-		terrainQuad.setLocalTranslation(SIZEMAP / 2, 0, SIZEMAP / 2);
-		terrainQuad.addControl(terrainControl);
-		nodoScena.attachChild(terrainQuad);
-		rootNode.attachChild(nodoScena);
-
-		// getPhysicsSpace().setGravity(new Vector3f(0, -9.8f, 0));
-
-	}
-
-	private void initBulletAppState() {
-
-		bulletAppState = new BulletAppState();
-		stateManager.attach(bulletAppState);
-		bulletAppState.setDebugEnabled(false);
-	}
-
-	private void createPlayer() {
-
-		CapsuleCollisionShape capsuleShape = new CapsuleCollisionShape(1.25f,
-				3f, 1);
-		player = new CharacterControl(capsuleShape, 0.05f);
-		player.setJumpSpeed(10);
-		player.setFallSpeed(10);
-		player.setGravity(0);
-		cam.setLocation(new Vector3f(0, 0, 0));
-		player.setPhysicsLocation(new Vector3f(128, 2.5f, 128));
 	}
 
 	public void clearScene() {
@@ -348,12 +286,6 @@ public class EditorManager {
 
 		spatialMap.clear();
 
-	}
-
-	private void initPhysicsSpace() {
-
-		bulletAppState.getPhysicsSpace().addAll(rootNode);
-		bulletAppState.getPhysicsSpace().add(player);
 	}
 
 	public void position() {
@@ -422,20 +354,6 @@ public class EditorManager {
 			cursorPos.z = 1;
 		if (cursorPos.y < 1)
 			cursorPos.y = 1;
-
-	}
-
-	private void optimize() {
-		// TODO Auto-generated method stub
-		// GeometryBatchFactory.optimize(nodoScena);
-		for (Map.Entry<String, Cube> entry : spatialMap.entrySet()) {
-			entry.getValue().activeControl(false);
-		}
-		spatialMap.clear();
-		nodoScena.addControl(new RigidBodyControl(CollisionShapeFactory
-				.createMeshShape(nodoScena)));
-		nodoScena.updateModelBound();
-		nodoScena.batch();
 
 	}
 
@@ -508,33 +426,6 @@ public class EditorManager {
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}
-
-	}
-
-	private void createCube(int posx, int posy, int posz) {
-		if (currentType != CubeType.STONE) {
-
-			Cube tmp = new Cube(geometry, posx, posy, posz, currentType);
-			spatialMap.put(tmp.geometry.getLocalTranslation().toString(), tmp);
-			bulletAppState.getPhysicsSpace().add(tmp.geometry);
-
-			nodoScena.attachChild(tmp.geometry);
-			tmp.geometry.setMaterial(getMaterial(currentType));
-		} else {
-			Spatial spatial = assetManager
-					.loadModel("Models/half_cube/half_cube.obj");
-			materials[0].setTexture("ColorMap",
-					assetManager.loadTexture("Models/half_cube/brick.png"));
-			spatial.setMaterial(materials[0]);
-
-			spatial.setLocalTranslation(posx, posy, posz);
-			spatial.rotate(wedge.getLocalRotation());
-			spatial.addControl(new RigidBodyControl(CollisionShapeFactory
-					.createMeshShape(spatial), 0));
-			bulletAppState.getPhysicsSpace().add(spatial);
-			nodoScena.attachChild(spatial);
-
 		}
 
 	}

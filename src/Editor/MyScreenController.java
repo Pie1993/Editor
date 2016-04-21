@@ -18,6 +18,7 @@ public class MyScreenController implements ScreenController {
 	public MyScreenController(NiftyJmeDisplay display) {
 
 		this.display = display;
+		nifty = display.getNifty();
 
 	}
 
@@ -59,6 +60,7 @@ public class MyScreenController implements ScreenController {
 	}
 
 	private void changeScreen(String string) {
+
 		nifty.gotoScreen(string);
 
 	}
@@ -81,7 +83,7 @@ public class MyScreenController implements ScreenController {
 
 	}
 
-	public void LoadScreen() {
+	public void loadScreen() {
 		fillMyListBox();
 		changeScreen("LoadScreen");
 		nifty.setIgnoreKeyboardEvents(true);

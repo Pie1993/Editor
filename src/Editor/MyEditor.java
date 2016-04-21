@@ -32,7 +32,7 @@ public class MyEditor extends SimpleApplication {
 		assetManager.registerLocator("./assets/", FileLocator.class); // /cambia
 																		// percorso
 		init();
-		GuiComponentLoader.getIstance().init(assetManager);
+		ComponentLoader.getIstance().init(assetManager);
 		EditorManager.getIstance().init(cam, actionListener, assetManager,
 				stateManager, rootNode);
 		initCrossHairs();

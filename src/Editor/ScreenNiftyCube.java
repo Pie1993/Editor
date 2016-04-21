@@ -41,7 +41,7 @@ public class ScreenNiftyCube {
 									{
 										height("5%");
 										width("20%");
-										interactOnClick("LoadScreen()");
+										interactOnClick("loadScreen()");
 
 									}
 								});
