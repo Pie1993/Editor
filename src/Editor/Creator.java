@@ -17,7 +17,6 @@ import com.jme3.texture.Texture;
 import com.jme3.texture.Texture.WrapMode;
 
 public class Creator {
-	private Vector3f cursorPos;
 
 	Box box;
 	Geometry geometry;
@@ -55,8 +54,8 @@ public class Creator {
 		if (currentType != CubeType.STONE) {
 
 			tmp = new Cube(geometry, posx, posy, posz, currentType);
-			tmp.geometry.setMaterial(ComponentLoader.getIstance()
-					.getMaterial(currentType));
+			tmp.geometry.setMaterial(ComponentLoader.getIstance().getMaterial(
+					currentType));
 
 		} else {
 
@@ -71,19 +70,18 @@ public class Creator {
 			tmp = new Cube(
 					assetManager.loadModel("Models/half_cube/half_cube.obj"),
 					posx, posy, posz, currentType);
-			tmp.geometry.setMaterial(ComponentLoader.getIstance()
-					.getMaterial(currentType));
+			tmp.geometry.setMaterial(ComponentLoader.getIstance().getMaterial(
+					currentType));
 
 		}
 
 		return tmp;
 	}
 
-	public void init(Vector3f cursorPos, AssetManager assetManager) {
-		this.cursorPos = cursorPos;
+	public void init(AssetManager assetManager) {
 
 		this.assetManager = assetManager;
-
+		initPrototypeCube();
 	}
 
 	public static Creator getIstance() {
@@ -98,7 +96,7 @@ public class Creator {
 
 	private static Creator creator;
 
-	public TerrainQuad createScene(AssetManager assetManager, int SIZEMAP) {
+	public TerrainQuad createScene(int SIZEMAP) {
 		float s[] = new float[1];
 		TerrainQuad terrainQuad = new TerrainQuad("Terrain", SIZEMAP,
 				SIZEMAP + 1, s);
@@ -119,7 +117,7 @@ public class Creator {
 		return terrainQuad;
 	}
 
-	public void initPrototypeCube() {
+	private void initPrototypeCube() {
 		box = new Box(1, 1, 1);
 		geometry = new Geometry("Box", box);
 

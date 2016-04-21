@@ -1,14 +1,10 @@
 package Editor;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
 import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.StringTokenizer;
+import java.util.Map.Entry;
+import java.util.Set;
 
 import com.jme3.app.state.AppStateManager;
 import com.jme3.asset.AssetManager;
@@ -27,21 +23,19 @@ import com.jme3.scene.BatchNode;
 import com.jme3.scene.Geometry;
 import com.jme3.scene.Node;
 import com.jme3.scene.Spatial;
-import com.jme3.scene.debug.WireBox;
 import com.jme3.terrain.geomipmap.TerrainQuad;
 
 import de.lessvoid.nifty.controls.ListBox;
 
 public class EditorManager {
 
-	String nameMap;
 	CubeType currentType = CubeType.WALL;
 
 	Vector3f walkDirection = new Vector3f(0, 0, 0);
 	Vector3f viewDirection = new Vector3f(1, 0, 1);
 	private Vector3f camDir = new Vector3f();
 	private Vector3f camLeft = new Vector3f();
-	ListBox listBox;
+	ListBox<String> listBox;
 	public boolean stop = false;
 	BulletAppState bulletAppState;
 	private final static int SIZEMAP = 256;
@@ -55,13 +49,13 @@ public class EditorManager {
 	Long coolDown = (long) 0;
 	private Quaternion tmpQuat = new Quaternion();
 	private MyActionListener actionListener;
-	private WireBox wireBoxCube;
+
 	private CharacterControl player;
 	BatchNode nodoScena, nodoModel;
 	Vector3f cursorPos;
 
 	Geometry modelCube, modelTriangle;
-	private AssetManager assetManager;
+
 	private AppStateManager stateManager;
 	private Node rootNode;
 
@@ -144,7 +138,7 @@ public class EditorManager {
 	}
 
 	private EditorManager() {
-		Creator.getIstance().init(cursorPos, assetManager);
+
 		spatialMap = new HashMap<String, Cube>();
 
 	}
@@ -159,9 +153,8 @@ public class EditorManager {
 		this.actionListener = actionListener;
 		this.stateManager = stateManager;
 		this.rootNode = rootNode;
-		this.assetManager = assetManager;
-		Creator.getIstance().init(cursorPos, assetManager);
-		Creator.getIstance().initPrototypeCube();
+		Creator.getIstance().init(assetManager);
+
 		modelCube = Creator.getIstance().createModelCube();
 		wedge = Creator.getIstance().createWedge();
 		nodoModel = new BatchNode();
@@ -175,9 +168,8 @@ public class EditorManager {
 
 	}
 
-	public void initScene() {
-		TerrainQuad terrainQuad = Creator.getIstance().createScene(
-				assetManager, SIZEMAP);
+	private void initScene() {
+		TerrainQuad terrainQuad = Creator.getIstance().createScene(SIZEMAP);
 		nodoScena = new BatchNode();
 		nodoScena.attachChild(terrainQuad);
 		rootNode.attachChild(nodoScena);
@@ -196,7 +188,7 @@ public class EditorManager {
 		bulletAppState.getPhysicsSpace().add(player);
 	}
 
-	public boolean IsPositionValide(int posx, int posy, int posz) {
+	private boolean IsPositionValide(int posx, int posy, int posz) {
 		if (posx < 1 || posz < 1 || posx >= SIZEMAP || posz >= SIZEMAP
 				|| posx % 2 == 0 || posz % 2 == 0 || posy % 2 == 0 || posy < 1) {
 			return false;
@@ -288,7 +280,7 @@ public class EditorManager {
 
 	}
 
-	public void position() {
+	private void position() {
 
 		int x = (int) cursorPos.x;
 
@@ -357,77 +349,7 @@ public class EditorManager {
 
 	}
 
-	public void loadMap(String nameSelected) {
-		// TODO Auto-generated method stub
-
-		File file = new File(CubikArenaPath.getMappath(), nameSelected);
-
-		if (!file.exists())
-			return;
-		FileReader fileReader = null;
-		try {
-			fileReader = new FileReader(file);
-		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
-		clearScene();
-
-		BufferedReader bufferedReader = new BufferedReader(fileReader);
-		String string;
-		try {
-			while ((string = bufferedReader.readLine()) != null) {
-				StringTokenizer stringTokenizer = new StringTokenizer(string,
-						" ");
-				while (stringTokenizer.hasMoreTokens()) {
-					String token = stringTokenizer.nextToken();
-
-					if (token.equals("WALL"))
-						currentType = CubeType.WALL;
-					if (token.equals("STONE"))
-						currentType = CubeType.STONE;
-					if (token.equals("GRASS"))
-						currentType = CubeType.GRASS;
-					if (token.equals("WOOD"))
-						currentType = CubeType.WOOD;
-					if (stringTokenizer.equals(" "))
-						stringTokenizer.nextToken();
-					stringTokenizer.nextToken();
-					cursorPos.x = Integer.parseInt(stringTokenizer.nextToken());
-					stringTokenizer.nextToken();
-					cursorPos.y = Integer.parseInt(stringTokenizer.nextToken());
-					stringTokenizer.nextToken();
-					cursorPos.z = Integer.parseInt(stringTokenizer.nextToken());
-					myClone();
-				}
-			}
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} finally {
-			try {
-
-				fileReader.close();
-				bufferedReader.close();
-
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-
-		}
-
+	public Set<Entry<String, Cube>> getSpatialMap() {
+		return spatialMap.entrySet();
 	}
-
-	public void saveMap() {
-		try {
-			// nodoScena.batch();
-			StoreMapFile storeMapFile = new StoreMapFile(spatialMap, nameMap);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
-	}
-
 }

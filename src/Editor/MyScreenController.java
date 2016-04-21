@@ -2,6 +2,7 @@ package Editor;
 
 import java.io.File;
 import java.io.FilenameFilter;
+import java.io.IOException;
 
 import com.jme3.niftygui.NiftyJmeDisplay;
 
@@ -52,8 +53,8 @@ public class MyScreenController implements ScreenController {
 
 		String selection = (String) EditorManager.getIstance().listBox
 				.getSelection().get(0);
-		EditorManager.getIstance().loadMap(selection);
-
+		EditorManager.getIstance().clearScene();
+		MapFile.loadMap(selection);
 		changeScreen("CubeScreen");
 		nifty.setIgnoreKeyboardEvents(true);
 
@@ -70,8 +71,12 @@ public class MyScreenController implements ScreenController {
 		Screen screen = nifty.getCurrentScreen();
 
 		TextField txt = screen.findNiftyControl("nameMap", TextField.class);
-		EditorManager.getIstance().nameMap = txt.getText();
-		EditorManager.getIstance().saveMap();
+		try {
+			MapFile.storeMap(txt.getText());
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		changeScreen("CubeScreen");
 		nifty.setIgnoreKeyboardEvents(true);
 	}
