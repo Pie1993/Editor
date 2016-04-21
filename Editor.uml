@@ -4,7 +4,7 @@
     <eAnnotations xmi:id="_l9D30AetEeaX_qWA-pHB_w" source="http://ns.yatta.de/umllab">
       <contents xmi:type="ecore:EAnnotation" xmi:id="_l9D30QetEeaX_qWA-pHB_w" source="codegen">
         <details xmi:id="_l9D30getEeaX_qWA-pHB_w" key="codegenDirectory" value="/Editor/src"/>
-        <details xmi:id="_nFW8oAetEeaX_qWA-pHB_w" key="AssociatedSourceCode" value="/Editor/src/Editor/ComponentLoader.java;1285613759/1;/Editor/src/Editor/Creator.java;3899056722/1;/Editor/src/Editor/Cube.java;73038153/1;/Editor/src/Editor/CubeType.java;117391007/1;/Editor/src/Editor/CubikArenaPath.java;1167677349/1;/Editor/src/Editor/MyActionListener.java;2647182585/1;/Editor/src/Editor/MyEditor.java;2758195846/1;/Editor/src/Editor/ScreenSaveMap.java;978374836/1;/Editor/src/Editor/PrototypeInterface.java;2895829170/1;/Editor/src/Editor/ScreenLoadMap.java;239333784/1;/Editor/src/Editor/ScreenNiftyCube.java;3003608493/1;/Editor/src/Editor/MyScreenController.java;4010512236/1;/Editor/src/Editor/EditorManager.java;1967632608/1;/Editor/src/Editor/MapFile.java;490271179/1;"/>
+        <details xmi:id="_nFW8oAetEeaX_qWA-pHB_w" key="AssociatedSourceCode" value="/Editor/src/Editor/ComponentLoader.java;1116009257/1;/Editor/src/Editor/Creator.java;3235302718/1;/Editor/src/Editor/Cube.java;73038153/1;/Editor/src/Editor/CubeType.java;4212505699/1;/Editor/src/Editor/CubikArenaPath.java;1142187854/1;/Editor/src/Editor/MyActionListener.java;2647182585/1;/Editor/src/Editor/MyEditor.java;2758195846/1;/Editor/src/Editor/ScreenSaveMap.java;978374836/1;/Editor/src/Editor/PrototypeInterface.java;2895829170/1;/Editor/src/Editor/ScreenLoadMap.java;239333784/1;/Editor/src/Editor/ScreenNiftyCube.java;3003608493/1;/Editor/src/Editor/MyScreenController.java;4010512236/1;/Editor/src/Editor/EditorManager.java;1000822741/1;/Editor/src/Editor/MapFile.java;490271179/1;"/>
       </contents>
     </eAnnotations>
     <elementImport xmi:id="_mkfrQAetEeaX_qWA-pHB_w">
@@ -141,7 +141,9 @@
         </ownedAttribute>
         <ownedAttribute xmi:id="_muiYEAetEeaX_qWA-pHB_w" name="componentLoader" visibility="private" isStatic="true" type="_mnG6YAetEeaX_qWA-pHB_w" association="_mwHscQetEeaX_qWA-pHB_w"/>
         <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_mvRX4AetEeaX_qWA-pHB_w" name="getIstance" specification="_mnUVwAetEeaX_qWA-pHB_w">
-          <ownedParameter xmi:id="_mvRX4QetEeaX_qWA-pHB_w" type="_mnG6YAetEeaX_qWA-pHB_w" direction="return"/>
+          <ownedParameter xmi:id="_mvRX4QetEeaX_qWA-pHB_w" type="_mnG6YAetEeaX_qWA-pHB_w" direction="return">
+            <name xsi:nil="true"/>
+          </ownedParameter>
           <language>java</language>
           <body>if (componentLoader == null)
 			componentLoader = new ComponentLoader();
@@ -151,7 +153,9 @@
         </ownedBehavior>
         <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_mvVpUAetEeaX_qWA-pHB_w" name="getMaterial" specification="_msSVUAetEeaX_qWA-pHB_w">
           <ownedParameter xmi:id="_mvVpUQetEeaX_qWA-pHB_w" name="type" type="_moFKwAetEeaX_qWA-pHB_w"/>
-          <ownedParameter xmi:id="_mvVpUgetEeaX_qWA-pHB_w" type="_msNc0AetEeaX_qWA-pHB_w" direction="return"/>
+          <ownedParameter xmi:id="_mvVpUgetEeaX_qWA-pHB_w" type="_msNc0AetEeaX_qWA-pHB_w" direction="return">
+            <name xsi:nil="true"/>
+          </ownedParameter>
           <language>java</language>
           <body>switch (type) {
 		case GRASS:
@@ -162,7 +166,20 @@
 			return materials[2];
 		case WOOD:
 			return materials[3];
-
+		case HEALTH:
+			return materials[4];
+		case HASTE:
+			return materials[5];
+		case AMMO:
+			return materials[6];
+		case ARMOR:
+			return materials[7];
+		case REGENERATION:
+			return materials[8];
+		case ULTRADAMAGE:
+			return materials[9];
+		case UNTOUCHABLE:
+			return materials[10];
 		default:
 			return materials[0];
 		}
@@ -172,14 +189,22 @@
           <ownedParameter xmi:id="_mvWQYQetEeaX_qWA-pHB_w" name="assetManager" type="_msIkUAetEeaX_qWA-pHB_w"/>
           <language>java</language>
           <body>this.assetManager = assetManager;
-		grassTexture = assetManager.loadTexture(&quot;Textures/grass_top.png&quot;);
-		stoneTexture = assetManager.loadTexture(&quot;Textures/StoneTexture.png&quot;);
-		wallTexture = assetManager.loadTexture(&quot;Textures/brick.png&quot;);
-		woodTexture = assetManager.loadTexture(&quot;Textures/WoodTexture.png&quot;);
-		materials = new Material[10];
-		for (int i = 0; i &lt; 10; i++)
+		// load texture
+		grassTexture = assetManager.loadTexture(CubikArenaPath
+				.getTexturespath() + &quot;grass_top.png&quot;);
+		stoneTexture = assetManager.loadTexture(CubikArenaPath
+				.getTexturespath() + &quot;StoneTexture.png&quot;);
+		wallTexture = assetManager.loadTexture(CubikArenaPath.getTexturespath()
+				+ &quot;brick.png&quot;);
+		woodTexture = assetManager.loadTexture(CubikArenaPath.getTexturespath()
+				+ &quot;WoodTexture.png&quot;);
+
+		// material
+		materials = new Material[20];
+		for (int i = 0; i &lt; 20; i++)
 			materials[i] = new Material(assetManager,
 					&quot;Common/MatDefs/Misc/Unshaded.j3md&quot;);
+
 		materials[0].setTexture(&quot;ColorMap&quot;, ComponentLoader.getIstance()
 				.getGrassTexture());
 		materials[1].setTexture(&quot;ColorMap&quot;, ComponentLoader.getIstance()
@@ -188,7 +213,13 @@
 				.getWallTexture());
 		materials[3].setTexture(&quot;ColorMap&quot;, ComponentLoader.getIstance()
 				.getWoodTexture());
-		materials[4].setColor(&quot;Color&quot;, ColorRGBA.Blue);
+		materials[4].setColor(&quot;Color&quot;, ColorRGBA.Blue); // health
+		materials[5].setColor(&quot;Color&quot;, ColorRGBA.Yellow); // haste
+		materials[6].setColor(&quot;Color&quot;, ColorRGBA.Red); // ammo
+		materials[7].setColor(&quot;Color&quot;, ColorRGBA.Gray); // armor
+		materials[8].setColor(&quot;Color&quot;, ColorRGBA.Green); // regeneration
+		materials[9].setColor(&quot;Color&quot;, ColorRGBA.LightGray); // ultradamage
+		materials[10].setColor(&quot;Color&quot;, ColorRGBA.Cyan); // untouchable
 
 	</body>
         </ownedBehavior>
@@ -216,6 +247,16 @@
         <ownedAttribute xmi:id="_mulbYQetEeaX_qWA-pHB_w" name="assetManager" visibility="private" type="_msIkUAetEeaX_qWA-pHB_w" association="_mwKvwQetEeaX_qWA-pHB_w"/>
         <ownedAttribute xmi:id="_mumCcQetEeaX_qWA-pHB_w" name="creator" visibility="private" isStatic="true" type="_mnjmUAetEeaX_qWA-pHB_w" association="_mwLW0QetEeaX_qWA-pHB_w"/>
         <ownedAttribute xmi:id="_mvokQAetEeaX_qWA-pHB_w" name="wedgeCube" visibility="package" type="_mscGUQetEeaX_qWA-pHB_w" association="_mwhVFAetEeaX_qWA-pHB_w"/>
+        <ownedAttribute xmi:id="_qf8wMAfZEeagcIUW-3GFuQ" name="haste" visibility="package" type="_mscGUQetEeaX_qWA-pHB_w" association="_qgFTEAfZEeagcIUW-3GFuQ"/>
+        <ownedAttribute xmi:id="_1tjboAfaEeagcIUW-3GFuQ" name="modelScale" visibility="private">
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#float"/>
+          <defaultValue xmi:type="uml:LiteralString" xmi:id="_1tjboQfaEeagcIUW-3GFuQ" value="0.77f"/>
+        </ownedAttribute>
+        <ownedAttribute xmi:id="_1tnGAAfaEeagcIUW-3GFuQ" name="ammo" visibility="package" type="_mscGUQetEeaX_qWA-pHB_w" association="_1tr-gAfaEeagcIUW-3GFuQ"/>
+        <ownedAttribute xmi:id="_1toUIAfaEeagcIUW-3GFuQ" name="armor" visibility="package" type="_mscGUQetEeaX_qWA-pHB_w" association="_1ttMoAfaEeagcIUW-3GFuQ"/>
+        <ownedAttribute xmi:id="_1to7MQfaEeagcIUW-3GFuQ" name="regeneration" visibility="package" type="_mscGUQetEeaX_qWA-pHB_w" association="_1tvB0AfaEeagcIUW-3GFuQ"/>
+        <ownedAttribute xmi:id="_1tpiQQfaEeagcIUW-3GFuQ" name="ultradamage" visibility="package" type="_mscGUQetEeaX_qWA-pHB_w" association="_1twP8AfaEeagcIUW-3GFuQ"/>
+        <ownedAttribute xmi:id="_1tqJUAfaEeagcIUW-3GFuQ" name="untouchable" visibility="package" type="_mscGUQetEeaX_qWA-pHB_w" association="_1txeEAfaEeagcIUW-3GFuQ"/>
         <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_mvW3cAetEeaX_qWA-pHB_w" name="createModelCube" specification="_mnlbgAetEeaX_qWA-pHB_w">
           <ownedParameter xmi:id="_mvW3cQetEeaX_qWA-pHB_w" type="_msbfQQetEeaX_qWA-pHB_w" direction="return">
             <name xsi:nil="true"/>
@@ -265,6 +306,33 @@
           </ownedParameter>
           <language>java</language>
           <body>Cube tmp;
+
+		switch (currentType) {
+		case HASTE:
+			tmp = new Cube(haste.clone(), posx, posy, posz, currentType);
+			return tmp;
+		case HEALTH:
+			tmp = new Cube(healt.clone(), posx, posy, posz, currentType);
+			return tmp;
+		case AMMO:
+			tmp = new Cube(ammo.clone(), posx, posy, posz, currentType);
+			return tmp;
+		case ARMOR:
+			tmp = new Cube(armor.clone(), posx, posy, posz, currentType);
+			return tmp;
+		case REGENERATION:
+			tmp = new Cube(regeneration.clone(), posx, posy, posz, currentType);
+			return tmp;
+		case ULTRADAMAGE:
+			tmp = new Cube(ultradamage.clone(), posx, posy, posz, currentType);
+			return tmp;
+		case UNTOUCHABLE:
+			tmp = new Cube(untouchable.clone(), posx, posy, posz, currentType);
+			return tmp;
+		default:
+			break;
+		}
+
 		if (currentType != CubeType.STONE) {
 
 			tmp = new Cube(geometry, posx, posy, posz, currentType);
@@ -341,12 +409,37 @@
           <language>java</language>
           <body>box = new Box(1, 1, 1);
 		geometry = new Geometry(&quot;Box&quot;, box);
-
-		healt = assetManager.loadModel(&quot;Models/health/health.obj&quot;);
-
+		healt = assetManager.loadModel(CubikArenaPath.getHealthpath());
 		healt.setMaterial(ComponentLoader.getIstance().getMaterial(
-				CubeType.WOOD));
-		healt.scale(0.77f);
+				CubeType.HEALTH));
+		healt.scale(modelScale);
+		haste = assetManager.loadModel(CubikArenaPath.getHastepath());
+		haste.setMaterial(ComponentLoader.getIstance().getMaterial(
+				CubeType.HASTE));
+		haste.scale(modelScale);
+		ammo = assetManager.loadModel(CubikArenaPath.getAmmopath());
+		ammo.setMaterial(ComponentLoader.getIstance()
+				.getMaterial(CubeType.AMMO));
+		ammo.scale(modelScale);
+		armor = assetManager.loadModel(CubikArenaPath.getArmorpath());
+		armor.setMaterial(ComponentLoader.getIstance().getMaterial(
+				CubeType.ARMOR));
+		armor.scale(modelScale);
+		regeneration = assetManager.loadModel(CubikArenaPath
+				.getRegenerationpath());
+		regeneration.setMaterial(ComponentLoader.getIstance().getMaterial(
+				CubeType.REGENERATION));
+		regeneration.scale(modelScale);
+		ultradamage = assetManager.loadModel(CubikArenaPath
+				.getUltradamagepath());
+		ultradamage.setMaterial(ComponentLoader.getIstance().getMaterial(
+				CubeType.ULTRADAMAGE));
+		ultradamage.scale(modelScale);
+		untouchable = assetManager.loadModel(CubikArenaPath
+				.getUntouchablepath());
+		untouchable.setMaterial(ComponentLoader.getIstance().getMaterial(
+				CubeType.UNTOUCHABLE));
+		untouchable.scale(modelScale);
 
 	</body>
         </ownedBehavior>
@@ -485,26 +578,62 @@
         <ownedLiteral xmi:id="_moGY4QetEeaX_qWA-pHB_w" name="WALL"/>
         <ownedLiteral xmi:id="_moGY4getEeaX_qWA-pHB_w" name="WOOD"/>
         <ownedLiteral xmi:id="_moG_8AetEeaX_qWA-pHB_w" name="GRASS"/>
+        <ownedLiteral xmi:id="_yf8bsAfQEeagcIUW-3GFuQ" name="HEALTH"/>
+        <ownedLiteral xmi:id="_yf9CwAfQEeagcIUW-3GFuQ" name="HASTE"/>
+        <ownedLiteral xmi:id="_yf9CwQfQEeagcIUW-3GFuQ" name="AMMO"/>
+        <ownedLiteral xmi:id="_yf9p0AfQEeagcIUW-3GFuQ" name="ARMOR"/>
+        <ownedLiteral xmi:id="_yf9p0QfQEeagcIUW-3GFuQ" name="REGENERATION"/>
+        <ownedLiteral xmi:id="_yf9p0gfQEeagcIUW-3GFuQ" name="ULTRADAMAGE"/>
+        <ownedLiteral xmi:id="_yf9p0wfQEeagcIUW-3GFuQ" name="UNTOUCHABLE"/>
       </packagedElement>
       <packagedElement xmi:type="uml:Class" xmi:id="_moG_8QetEeaX_qWA-pHB_w" name="CubikArenaPath">
         <ownedAttribute xmi:id="_mupFwAetEeaX_qWA-pHB_w" name="modelPath" visibility="private" isLeaf="true" isStatic="true" isReadOnly="true">
           <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
-          <defaultValue xmi:type="uml:LiteralString" xmi:id="_mups0AetEeaX_qWA-pHB_w" value="&quot;assets/Models&quot;"/>
+          <defaultValue xmi:type="uml:LiteralString" xmi:id="_mups0AetEeaX_qWA-pHB_w" value="&quot;Models/&quot;"/>
         </ownedAttribute>
         <ownedAttribute xmi:id="_mups0getEeaX_qWA-pHB_w" name="mapPath" visibility="private" isLeaf="true" isStatic="true" isReadOnly="true">
           <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
-          <defaultValue xmi:type="uml:LiteralString" xmi:id="_muqT4AetEeaX_qWA-pHB_w" value="&quot;assets/Map&quot;"/>
+          <defaultValue xmi:type="uml:LiteralString" xmi:id="_muqT4AetEeaX_qWA-pHB_w" value="&quot;assets/Map/&quot;"/>
         </ownedAttribute>
         <ownedAttribute xmi:id="_muqT4getEeaX_qWA-pHB_w" name="texturesPath" visibility="private" isLeaf="true" isStatic="true" isReadOnly="true">
           <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
-          <defaultValue xmi:type="uml:LiteralString" xmi:id="_muq68AetEeaX_qWA-pHB_w" value="&quot;assets/Textures&quot;"/>
+          <defaultValue xmi:type="uml:LiteralString" xmi:id="_muq68AetEeaX_qWA-pHB_w" value="&quot;Textures/&quot;"/>
         </ownedAttribute>
         <ownedAttribute xmi:id="_muq68getEeaX_qWA-pHB_w" name="soundsPath" visibility="private" isLeaf="true" isStatic="true" isReadOnly="true">
           <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
-          <defaultValue xmi:type="uml:LiteralString" xmi:id="_muriAAetEeaX_qWA-pHB_w" value="&quot;assets/Sounds&quot;"/>
+          <defaultValue xmi:type="uml:LiteralString" xmi:id="_muriAAetEeaX_qWA-pHB_w" value="&quot;Sounds/&quot;"/>
+        </ownedAttribute>
+        <ownedAttribute xmi:id="_-u_rIAfTEeagcIUW-3GFuQ" name="healthPath" visibility="private" isLeaf="true" isStatic="true" isReadOnly="true">
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+          <defaultValue xmi:type="uml:LiteralString" xmi:id="_-u_rIQfTEeagcIUW-3GFuQ" value="&quot;health/health.obj&quot;"/>
+        </ownedAttribute>
+        <ownedAttribute xmi:id="_-vA5QAfTEeagcIUW-3GFuQ" name="hastePath" visibility="private" isLeaf="true" isStatic="true" isReadOnly="true">
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+          <defaultValue xmi:type="uml:LiteralString" xmi:id="_-vA5QQfTEeagcIUW-3GFuQ" value="&quot;haste/haste.obj&quot;"/>
+        </ownedAttribute>
+        <ownedAttribute xmi:id="_-vBgUQfTEeagcIUW-3GFuQ" name="ammoPath" visibility="private" isLeaf="true" isStatic="true" isReadOnly="true">
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+          <defaultValue xmi:type="uml:LiteralString" xmi:id="_-vBgUgfTEeagcIUW-3GFuQ" value="&quot;ammo/ammo.obj&quot;"/>
+        </ownedAttribute>
+        <ownedAttribute xmi:id="_-vCHYAfTEeagcIUW-3GFuQ" name="regenerationPath" visibility="private" isLeaf="true" isStatic="true" isReadOnly="true">
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+          <defaultValue xmi:type="uml:LiteralString" xmi:id="_-vCHYQfTEeagcIUW-3GFuQ" value="&quot;regeneration/regeneration.obj&quot;"/>
+        </ownedAttribute>
+        <ownedAttribute xmi:id="_-vCucQfTEeagcIUW-3GFuQ" name="armorPath" visibility="private" isLeaf="true" isStatic="true" isReadOnly="true">
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+          <defaultValue xmi:type="uml:LiteralString" xmi:id="_-vCucgfTEeagcIUW-3GFuQ" value="&quot;armor/armor.obj&quot;"/>
+        </ownedAttribute>
+        <ownedAttribute xmi:id="_-vDVgQfTEeagcIUW-3GFuQ" name="ultradamagePath" visibility="private" isLeaf="true" isStatic="true" isReadOnly="true">
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+          <defaultValue xmi:type="uml:LiteralString" xmi:id="_-vDVggfTEeagcIUW-3GFuQ" value="&quot;ultradamage/ultradamage.obj&quot;"/>
+        </ownedAttribute>
+        <ownedAttribute xmi:id="_-vD8kQfTEeagcIUW-3GFuQ" name="untouchablePath" visibility="private" isLeaf="true" isStatic="true" isReadOnly="true">
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+          <defaultValue xmi:type="uml:LiteralString" xmi:id="_-vD8kgfTEeagcIUW-3GFuQ" value="&quot;untouchable/untouchable.obj&quot;"/>
         </ownedAttribute>
         <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_mvcXAAetEeaX_qWA-pHB_w" name="getModelpath" specification="_moHnAAetEeaX_qWA-pHB_w">
           <ownedParameter xmi:id="_mvcXAQetEeaX_qWA-pHB_w" direction="return">
+            <name xsi:nil="true"/>
             <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
           </ownedParameter>
           <language>java</language>
@@ -513,6 +642,7 @@
         </ownedBehavior>
         <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_mvcXAgetEeaX_qWA-pHB_w" name="getMappath" specification="_moI1IAetEeaX_qWA-pHB_w">
           <ownedParameter xmi:id="_mvcXAwetEeaX_qWA-pHB_w" direction="return">
+            <name xsi:nil="true"/>
             <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
           </ownedParameter>
           <language>java</language>
@@ -521,6 +651,7 @@
         </ownedBehavior>
         <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_mvc-EAetEeaX_qWA-pHB_w" name="getTexturespath" specification="_moJcMAetEeaX_qWA-pHB_w">
           <ownedParameter xmi:id="_mvc-EQetEeaX_qWA-pHB_w" direction="return">
+            <name xsi:nil="true"/>
             <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
           </ownedParameter>
           <language>java</language>
@@ -529,10 +660,74 @@
         </ownedBehavior>
         <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_mvc-EgetEeaX_qWA-pHB_w" name="getSoundspath" specification="_moKDQAetEeaX_qWA-pHB_w">
           <ownedParameter xmi:id="_mvc-EwetEeaX_qWA-pHB_w" direction="return">
+            <name xsi:nil="true"/>
             <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
           </ownedParameter>
           <language>java</language>
           <body>return soundsPath;
+	</body>
+        </ownedBehavior>
+        <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_-vFKsAfTEeagcIUW-3GFuQ" name="getHealthpath" specification="_-uswMAfTEeagcIUW-3GFuQ">
+          <ownedParameter xmi:id="_-vFKsQfTEeagcIUW-3GFuQ" direction="return">
+            <name xsi:nil="true"/>
+            <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+          </ownedParameter>
+          <language>java</language>
+          <body>return modelPath + healthPath;
+	</body>
+        </ownedBehavior>
+        <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_-vFxwAfTEeagcIUW-3GFuQ" name="getHastepath" specification="_-utXQAfTEeagcIUW-3GFuQ">
+          <ownedParameter xmi:id="_-vFxwQfTEeagcIUW-3GFuQ" direction="return">
+            <name xsi:nil="true"/>
+            <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+          </ownedParameter>
+          <language>java</language>
+          <body>return modelPath + hastePath;
+	</body>
+        </ownedBehavior>
+        <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_-vFxwgfTEeagcIUW-3GFuQ" name="getAmmopath" specification="_-ut-UAfTEeagcIUW-3GFuQ">
+          <ownedParameter xmi:id="_-vFxwwfTEeagcIUW-3GFuQ" direction="return">
+            <name xsi:nil="true"/>
+            <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+          </ownedParameter>
+          <language>java</language>
+          <body>return modelPath + ammoPath;
+	</body>
+        </ownedBehavior>
+        <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_-vFxxAfTEeagcIUW-3GFuQ" name="getRegenerationpath" specification="_-ut-UQfTEeagcIUW-3GFuQ">
+          <ownedParameter xmi:id="_-vFxxQfTEeagcIUW-3GFuQ" direction="return">
+            <name xsi:nil="true"/>
+            <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+          </ownedParameter>
+          <language>java</language>
+          <body>return modelPath + regenerationPath;
+	</body>
+        </ownedBehavior>
+        <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_-vFxxgfTEeagcIUW-3GFuQ" name="getArmorpath" specification="_-ut-UgfTEeagcIUW-3GFuQ">
+          <ownedParameter xmi:id="_-vFxxwfTEeagcIUW-3GFuQ" direction="return">
+            <name xsi:nil="true"/>
+            <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+          </ownedParameter>
+          <language>java</language>
+          <body>return modelPath + armorPath;
+	</body>
+        </ownedBehavior>
+        <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_-vGY0AfTEeagcIUW-3GFuQ" name="getUltradamagepath" specification="_-ut-UwfTEeagcIUW-3GFuQ">
+          <ownedParameter xmi:id="_-vGY0QfTEeagcIUW-3GFuQ" direction="return">
+            <name xsi:nil="true"/>
+            <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+          </ownedParameter>
+          <language>java</language>
+          <body>return modelPath + ultradamagePath;
+	</body>
+        </ownedBehavior>
+        <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_-vGY0gfTEeagcIUW-3GFuQ" name="getUntouchablepath" specification="_-uy20AfTEeagcIUW-3GFuQ">
+          <ownedParameter xmi:id="_-vGY0wfTEeagcIUW-3GFuQ" direction="return">
+            <name xsi:nil="true"/>
+            <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+          </ownedParameter>
+          <language>java</language>
+          <body>return modelPath + untouchablePath;
 	</body>
         </ownedBehavior>
         <ownedOperation xmi:id="_moHnAAetEeaX_qWA-pHB_w" name="getModelpath" isStatic="true" method="_mvcXAAetEeaX_qWA-pHB_w">
@@ -552,6 +747,41 @@
         </ownedOperation>
         <ownedOperation xmi:id="_moKDQAetEeaX_qWA-pHB_w" name="getSoundspath" isStatic="true" method="_mvc-EgetEeaX_qWA-pHB_w">
           <ownedParameter xmi:id="_moKDQQetEeaX_qWA-pHB_w" direction="return">
+            <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+          </ownedParameter>
+        </ownedOperation>
+        <ownedOperation xmi:id="_-uswMAfTEeagcIUW-3GFuQ" name="getHealthpath" isStatic="true" method="_-vFKsAfTEeagcIUW-3GFuQ">
+          <ownedParameter xmi:id="_-u49cAfTEeagcIUW-3GFuQ" direction="return">
+            <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+          </ownedParameter>
+        </ownedOperation>
+        <ownedOperation xmi:id="_-utXQAfTEeagcIUW-3GFuQ" name="getHastepath" isStatic="true" method="_-vFxwAfTEeagcIUW-3GFuQ">
+          <ownedParameter xmi:id="_-u5kgAfTEeagcIUW-3GFuQ" direction="return">
+            <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+          </ownedParameter>
+        </ownedOperation>
+        <ownedOperation xmi:id="_-ut-UAfTEeagcIUW-3GFuQ" name="getAmmopath" isStatic="true" method="_-vFxwgfTEeagcIUW-3GFuQ">
+          <ownedParameter xmi:id="_-u5kgQfTEeagcIUW-3GFuQ" direction="return">
+            <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+          </ownedParameter>
+        </ownedOperation>
+        <ownedOperation xmi:id="_-ut-UQfTEeagcIUW-3GFuQ" name="getRegenerationpath" isStatic="true" method="_-vFxxAfTEeagcIUW-3GFuQ">
+          <ownedParameter xmi:id="_-u6LkAfTEeagcIUW-3GFuQ" direction="return">
+            <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+          </ownedParameter>
+        </ownedOperation>
+        <ownedOperation xmi:id="_-ut-UgfTEeagcIUW-3GFuQ" name="getArmorpath" isStatic="true" method="_-vFxxgfTEeagcIUW-3GFuQ">
+          <ownedParameter xmi:id="_-u6yoAfTEeagcIUW-3GFuQ" direction="return">
+            <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+          </ownedParameter>
+        </ownedOperation>
+        <ownedOperation xmi:id="_-ut-UwfTEeagcIUW-3GFuQ" name="getUltradamagepath" isStatic="true" method="_-vGY0AfTEeagcIUW-3GFuQ">
+          <ownedParameter xmi:id="_-u6yoQfTEeagcIUW-3GFuQ" direction="return">
+            <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+          </ownedParameter>
+        </ownedOperation>
+        <ownedOperation xmi:id="_-uy20AfTEeagcIUW-3GFuQ" name="getUntouchablepath" isStatic="true" method="_-vGY0gfTEeagcIUW-3GFuQ">
+          <ownedParameter xmi:id="_-u6yogfTEeagcIUW-3GFuQ" direction="return">
             <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
           </ownedParameter>
         </ownedOperation>
@@ -1500,7 +1730,7 @@
       </packagedElement>
       <packagedElement xmi:type="uml:Class" xmi:id="_mpA-4AetEeaX_qWA-pHB_w" name="EditorManager">
         <ownedAttribute xmi:id="_mu2hIAetEeaX_qWA-pHB_w" name="currentType" visibility="package" type="_moFKwAetEeaX_qWA-pHB_w">
-          <defaultValue xmi:type="uml:LiteralString" xmi:id="_mu2hIQetEeaX_qWA-pHB_w" value="CubeType.WALL"/>
+          <defaultValue xmi:type="uml:LiteralString" xmi:id="_mu2hIQetEeaX_qWA-pHB_w" value="CubeType.UNTOUCHABLE"/>
         </ownedAttribute>
         <ownedAttribute xmi:id="_mu3IMAetEeaX_qWA-pHB_w" name="walkDirection" visibility="package" type="_msa4MAetEeaX_qWA-pHB_w" association="_mwSrkQetEeaX_qWA-pHB_w">
           <defaultValue xmi:type="uml:LiteralString" xmi:id="_mu3IMQetEeaX_qWA-pHB_w" value="new Vector3f(0, 0, 0)"/>
@@ -1524,7 +1754,7 @@
           <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#int"/>
           <defaultValue xmi:type="uml:LiteralString" xmi:id="_mu8nwgetEeaX_qWA-pHB_w" value="256"/>
         </ownedAttribute>
-        <ownedAttribute xmi:id="_mu9O0QetEeaX_qWA-pHB_w" name="spatialMap" visibility="public" type="_msxdgQetEeaX_qWA-pHB_w" isReadOnly="true" association="_mwWV8QetEeaX_qWA-pHB_w"/>
+        <ownedAttribute xmi:id="_mu9O0QetEeaX_qWA-pHB_w" name="spatialMap" visibility="private" type="_msxdgQetEeaX_qWA-pHB_w" isReadOnly="true" association="_mwWV8QetEeaX_qWA-pHB_w"/>
         <ownedAttribute xmi:id="_mu-c8AetEeaX_qWA-pHB_w" name="ray" visibility="private" type="_mteoIQetEeaX_qWA-pHB_w" association="_mwW9AQetEeaX_qWA-pHB_w">
           <defaultValue xmi:type="uml:LiteralString" xmi:id="_mu-c8QetEeaX_qWA-pHB_w" value="new Ray()"/>
         </ownedAttribute>
@@ -1857,6 +2087,15 @@
 
 	</body>
         </ownedBehavior>
+        <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_N3ga0AeyEeaX_qWA-pHB_w" name="getSpatialMap" specification="_mpKv4AetEeaX_qWA-pHB_w">
+          <ownedParameter xmi:id="_N3ga0QeyEeaX_qWA-pHB_w" type="_N3cwcAeyEeaX_qWA-pHB_w" direction="return">
+            <name xsi:nil="true"/>
+            <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_N3ga0geyEeaX_qWA-pHB_w" value="*"/>
+          </ownedParameter>
+          <language>java</language>
+          <body>return spatialMap.entrySet();
+	</body>
+        </ownedBehavior>
         <ownedOperation xmi:id="_mpEpQAetEeaX_qWA-pHB_w" name="update" method="_mvk54AetEeaX_qWA-pHB_w"/>
         <ownedOperation xmi:id="_mpFQUAetEeaX_qWA-pHB_w" name="getIstance" isStatic="true" method="_mvk54QetEeaX_qWA-pHB_w">
           <ownedParameter xmi:id="_mtjgoAetEeaX_qWA-pHB_w" type="_mpA-4AetEeaX_qWA-pHB_w" direction="return"/>
@@ -1894,6 +2133,11 @@
           <ownedParameter xmi:id="_muacQwetEeaX_qWA-pHB_w" name="assetManager" type="_msIkUAetEeaX_qWA-pHB_w"/>
           <ownedParameter xmi:id="_muacRAetEeaX_qWA-pHB_w" name="stateManager" type="_mta9wQetEeaX_qWA-pHB_w"/>
           <ownedParameter xmi:id="_muacRQetEeaX_qWA-pHB_w" name="rootNode" type="_mthEYAetEeaX_qWA-pHB_w"/>
+        </ownedOperation>
+        <ownedOperation xmi:id="_mpKv4AetEeaX_qWA-pHB_w" name="getSpatialMap" method="_N3ga0AeyEeaX_qWA-pHB_w">
+          <ownedParameter xmi:id="_Dyc2YAeyEeaX_qWA-pHB_w" type="_N3cwcAeyEeaX_qWA-pHB_w" direction="return">
+            <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_N3IAUAeyEeaX_qWA-pHB_w" value="*"/>
+          </ownedParameter>
         </ownedOperation>
       </packagedElement>
       <packagedElement xmi:type="uml:Association" xmi:id="_mwECEAetEeaX_qWA-pHB_w" name="" memberEnd="_mwECEQetEeaX_qWA-pHB_w _muf70AetEeaX_qWA-pHB_w">
@@ -2024,6 +2268,24 @@
       </packagedElement>
       <packagedElement xmi:type="uml:Association" xmi:id="_mwijMQetEeaX_qWA-pHB_w" name="" memberEnd="_mwijMgetEeaX_qWA-pHB_w _mvzjYgetEeaX_qWA-pHB_w">
         <ownedEnd xmi:id="_mwijMgetEeaX_qWA-pHB_w" name="" type="_mpA-4AetEeaX_qWA-pHB_w" association="_mwijMQetEeaX_qWA-pHB_w"/>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Association" xmi:id="_qgFTEAfZEeagcIUW-3GFuQ" name="" memberEnd="_qgFTEQfZEeagcIUW-3GFuQ _qf8wMAfZEeagcIUW-3GFuQ">
+        <ownedEnd xmi:id="_qgFTEQfZEeagcIUW-3GFuQ" name="" type="_mnjmUAetEeaX_qWA-pHB_w" association="_qgFTEAfZEeagcIUW-3GFuQ"/>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Association" xmi:id="_1tr-gAfaEeagcIUW-3GFuQ" name="" memberEnd="_1tr-gQfaEeagcIUW-3GFuQ _1tnGAAfaEeagcIUW-3GFuQ">
+        <ownedEnd xmi:id="_1tr-gQfaEeagcIUW-3GFuQ" name="" type="_mnjmUAetEeaX_qWA-pHB_w" association="_1tr-gAfaEeagcIUW-3GFuQ"/>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Association" xmi:id="_1ttMoAfaEeagcIUW-3GFuQ" name="" memberEnd="_1ttMoQfaEeagcIUW-3GFuQ _1toUIAfaEeagcIUW-3GFuQ">
+        <ownedEnd xmi:id="_1ttMoQfaEeagcIUW-3GFuQ" name="" type="_mnjmUAetEeaX_qWA-pHB_w" association="_1ttMoAfaEeagcIUW-3GFuQ"/>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Association" xmi:id="_1tvB0AfaEeagcIUW-3GFuQ" name="" memberEnd="_1tvB0QfaEeagcIUW-3GFuQ _1to7MQfaEeagcIUW-3GFuQ">
+        <ownedEnd xmi:id="_1tvB0QfaEeagcIUW-3GFuQ" name="" type="_mnjmUAetEeaX_qWA-pHB_w" association="_1tvB0AfaEeagcIUW-3GFuQ"/>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Association" xmi:id="_1twP8AfaEeagcIUW-3GFuQ" name="" memberEnd="_1twP8QfaEeagcIUW-3GFuQ _1tpiQQfaEeagcIUW-3GFuQ">
+        <ownedEnd xmi:id="_1twP8QfaEeagcIUW-3GFuQ" name="" type="_mnjmUAetEeaX_qWA-pHB_w" association="_1twP8AfaEeagcIUW-3GFuQ"/>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Association" xmi:id="_1txeEAfaEeagcIUW-3GFuQ" name="" memberEnd="_1txeEQfaEeagcIUW-3GFuQ _1tqJUAfaEeagcIUW-3GFuQ">
+        <ownedEnd xmi:id="_1txeEQfaEeagcIUW-3GFuQ" name="" type="_mnjmUAetEeaX_qWA-pHB_w" association="_1txeEAfaEeagcIUW-3GFuQ"/>
       </packagedElement>
     </packagedElement>
     <packagedElement xmi:type="uml:Package" xmi:id="_mlYcEAetEeaX_qWA-pHB_w" name="java">
@@ -2202,7 +2464,7 @@
   <UMLLabProfile:LegacyStyledElement xmi:id="_mui_IAetEeaX_qWA-pHB_w" base_Element="_muiYEAetEeaX_qWA-pHB_w"/>
   <UMLLabProfile:LegacyStyledElement xmi:id="_mukNQAetEeaX_qWA-pHB_w" base_Element="_mujmMQetEeaX_qWA-pHB_w"/>
   <UMLLabProfile:LegacyStyledElement xmi:id="_mukNQgetEeaX_qWA-pHB_w" base_Element="_mukNQQetEeaX_qWA-pHB_w"/>
-  <UMLLabProfile:MultiDeclaration xmi:id="_muk0UQetEeaX_qWA-pHB_w" base_Property="_muk0UAetEeaX_qWA-pHB_w" siblings="_mvokQAetEeaX_qWA-pHB_w" root="true"/>
+  <UMLLabProfile:MultiDeclaration xmi:id="_muk0UQetEeaX_qWA-pHB_w" base_Property="_muk0UAetEeaX_qWA-pHB_w" siblings="_qf8wMAfZEeagcIUW-3GFuQ _1tnGAAfaEeagcIUW-3GFuQ _1toUIAfaEeagcIUW-3GFuQ _1to7MQfaEeagcIUW-3GFuQ _1tpiQQfaEeagcIUW-3GFuQ _1tqJUAfaEeagcIUW-3GFuQ _mvokQAetEeaX_qWA-pHB_w" root="true"/>
   <UMLLabProfile:LegacyStyledElement xmi:id="_mulbYAetEeaX_qWA-pHB_w" base_Element="_muk0UAetEeaX_qWA-pHB_w"/>
   <UMLLabProfile:LegacyStyledElement xmi:id="_mumCcAetEeaX_qWA-pHB_w" base_Element="_mulbYQetEeaX_qWA-pHB_w"/>
   <UMLLabProfile:LegacyStyledElement xmi:id="_mumpgAetEeaX_qWA-pHB_w" base_Element="_mumCcQetEeaX_qWA-pHB_w"/>
@@ -2235,13 +2497,7 @@
   <UMLLabProfile:LegacyStyledElement xmi:id="_mu8nwAetEeaX_qWA-pHB_w" base_Element="_mu8AsQetEeaX_qWA-pHB_w"/>
   <UMLLabProfile:LegacyStyledElement xmi:id="_mu9O0AetEeaX_qWA-pHB_w" base_Element="_mu8nwQetEeaX_qWA-pHB_w"/>
   <UMLLabProfile:Generics xmi:id="_mu914AetEeaX_qWA-pHB_w" genericsValue="String, Cube" base_Element="_mu9O0QetEeaX_qWA-pHB_w"/>
-  <UMLLabProfile:LegacyStyledElement xmi:id="_mu914QetEeaX_qWA-pHB_w" base_Element="_mu9O0QetEeaX_qWA-pHB_w">
-    <associatedElement xmi:type="uml:Operation" xmi:id="_mpKv4AetEeaX_qWA-pHB_w" name="getSpatialMap" method="_N3ga0AeyEeaX_qWA-pHB_w">
-      <ownedParameter xmi:id="_Dyc2YAeyEeaX_qWA-pHB_w" type="_N3cwcAeyEeaX_qWA-pHB_w" direction="return">
-        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_N3IAUAeyEeaX_qWA-pHB_w" value="*"/>
-      </ownedParameter>
-    </associatedElement>
-  </UMLLabProfile:LegacyStyledElement>
+  <UMLLabProfile:LegacyStyledElement xmi:id="_mu914QetEeaX_qWA-pHB_w" base_Element="_mu9O0QetEeaX_qWA-pHB_w"/>
   <UMLLabProfile:LegacyStyledElement xmi:id="_mu-c8getEeaX_qWA-pHB_w" base_Element="_mu-c8AetEeaX_qWA-pHB_w"/>
   <UMLLabProfile:LegacyStyledElement xmi:id="_mu_EAQetEeaX_qWA-pHB_w" base_Element="_mu_EAAetEeaX_qWA-pHB_w"/>
   <UMLLabProfile:LegacyStyledElement xmi:id="_mu_rEAetEeaX_qWA-pHB_w" base_Element="_mu_EAgetEeaX_qWA-pHB_w"/>
@@ -2333,14 +2589,31 @@
   <UMLLabProfile:StyledElement xmi:id="_KF7cEQexEeaX_qWA-pHB_w" base_Element="_KF61AAexEeaX_qWA-pHB_w"/>
   <UMLLabProfile:Generics xmi:id="_N3InYAeyEeaX_qWA-pHB_w" genericsValue="String, Cube" base_Element="_mpKv4AetEeaX_qWA-pHB_w"/>
   <UMLLabProfile:Reference xmi:id="_N3dXgQeyEeaX_qWA-pHB_w" base_Element="_N3dXgAeyEeaX_qWA-pHB_w"/>
-  <uml:OpaqueBehavior xmi:id="_N3ga0AeyEeaX_qWA-pHB_w" name="getSpatialMap" specification="_mpKv4AetEeaX_qWA-pHB_w">
-    <ownedParameter xmi:id="_N3ga0QeyEeaX_qWA-pHB_w" type="_N3cwcAeyEeaX_qWA-pHB_w" direction="return">
-      <name xsi:nil="true"/>
-      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_N3ga0geyEeaX_qWA-pHB_w" value="*"/>
-    </ownedParameter>
-    <language>java</language>
-    <body>return spatialMap.entrySet();
-	</body>
-  </uml:OpaqueBehavior>
   <UMLLabProfile:Generics xmi:id="_m9fAwAeyEeaX_qWA-pHB_w" genericsValue="String" base_Element="_mu6ykQetEeaX_qWA-pHB_w"/>
+  <UMLLabProfile:LegacyStyledElement xmi:id="_-vASMAfTEeagcIUW-3GFuQ" base_Element="_-u_rIAfTEeagcIUW-3GFuQ"/>
+  <UMLLabProfile:LegacyStyledElement xmi:id="_-vBgUAfTEeagcIUW-3GFuQ" base_Element="_-vA5QAfTEeagcIUW-3GFuQ"/>
+  <UMLLabProfile:LegacyStyledElement xmi:id="_-vBgUwfTEeagcIUW-3GFuQ" base_Element="_-vBgUQfTEeagcIUW-3GFuQ"/>
+  <UMLLabProfile:LegacyStyledElement xmi:id="_-vCucAfTEeagcIUW-3GFuQ" base_Element="_-vCHYAfTEeagcIUW-3GFuQ"/>
+  <UMLLabProfile:LegacyStyledElement xmi:id="_-vDVgAfTEeagcIUW-3GFuQ" base_Element="_-vCucQfTEeagcIUW-3GFuQ"/>
+  <UMLLabProfile:LegacyStyledElement xmi:id="_-vD8kAfTEeagcIUW-3GFuQ" base_Element="_-vDVgQfTEeagcIUW-3GFuQ"/>
+  <UMLLabProfile:LegacyStyledElement xmi:id="_-vEjoAfTEeagcIUW-3GFuQ" base_Element="_-vD8kQfTEeagcIUW-3GFuQ"/>
+  <UMLLabProfile:MultiDeclaration xmi:id="_qgBBoAfZEeagcIUW-3GFuQ" base_Property="_qf8wMAfZEeagcIUW-3GFuQ"/>
+  <UMLLabProfile:LegacyStyledElement xmi:id="_qgCPwAfZEeagcIUW-3GFuQ" base_Element="_qf8wMAfZEeagcIUW-3GFuQ"/>
+  <UMLLabProfile:Reference xmi:id="_qgI9cAfZEeagcIUW-3GFuQ" base_Element="_qgFTEAfZEeagcIUW-3GFuQ"/>
+  <UMLLabProfile:LegacyStyledElement xmi:id="_1tkCsAfaEeagcIUW-3GFuQ" base_Element="_1tjboAfaEeagcIUW-3GFuQ"/>
+  <UMLLabProfile:MultiDeclaration xmi:id="_1tntEAfaEeagcIUW-3GFuQ" base_Property="_1tnGAAfaEeagcIUW-3GFuQ"/>
+  <UMLLabProfile:LegacyStyledElement xmi:id="_1tntEQfaEeagcIUW-3GFuQ" base_Element="_1tnGAAfaEeagcIUW-3GFuQ"/>
+  <UMLLabProfile:MultiDeclaration xmi:id="_1toUIQfaEeagcIUW-3GFuQ" base_Property="_1toUIAfaEeagcIUW-3GFuQ"/>
+  <UMLLabProfile:LegacyStyledElement xmi:id="_1to7MAfaEeagcIUW-3GFuQ" base_Element="_1toUIAfaEeagcIUW-3GFuQ"/>
+  <UMLLabProfile:MultiDeclaration xmi:id="_1to7MgfaEeagcIUW-3GFuQ" base_Property="_1to7MQfaEeagcIUW-3GFuQ"/>
+  <UMLLabProfile:LegacyStyledElement xmi:id="_1tpiQAfaEeagcIUW-3GFuQ" base_Element="_1to7MQfaEeagcIUW-3GFuQ"/>
+  <UMLLabProfile:MultiDeclaration xmi:id="_1tpiQgfaEeagcIUW-3GFuQ" base_Property="_1tpiQQfaEeagcIUW-3GFuQ"/>
+  <UMLLabProfile:LegacyStyledElement xmi:id="_1tpiQwfaEeagcIUW-3GFuQ" base_Element="_1tpiQQfaEeagcIUW-3GFuQ"/>
+  <UMLLabProfile:MultiDeclaration xmi:id="_1tqJUQfaEeagcIUW-3GFuQ" base_Property="_1tqJUAfaEeagcIUW-3GFuQ"/>
+  <UMLLabProfile:LegacyStyledElement xmi:id="_1tqJUgfaEeagcIUW-3GFuQ" base_Element="_1tqJUAfaEeagcIUW-3GFuQ"/>
+  <UMLLabProfile:Reference xmi:id="_1tslkAfaEeagcIUW-3GFuQ" base_Element="_1tr-gAfaEeagcIUW-3GFuQ"/>
+  <UMLLabProfile:Reference xmi:id="_1tuawAfaEeagcIUW-3GFuQ" base_Element="_1ttMoAfaEeagcIUW-3GFuQ"/>
+  <UMLLabProfile:Reference xmi:id="_1tvo4AfaEeagcIUW-3GFuQ" base_Element="_1tvB0AfaEeagcIUW-3GFuQ"/>
+  <UMLLabProfile:Reference xmi:id="_1tw3AAfaEeagcIUW-3GFuQ" base_Element="_1twP8AfaEeagcIUW-3GFuQ"/>
+  <UMLLabProfile:Reference xmi:id="_1tyFIAfaEeagcIUW-3GFuQ" base_Element="_1txeEAfaEeagcIUW-3GFuQ"/>
 </xmi:XMI>

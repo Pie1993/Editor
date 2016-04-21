@@ -52,7 +52,20 @@ public class ComponentLoader {
 			return materials[2];
 		case WOOD:
 			return materials[3];
-
+		case HEALTH:
+			return materials[4];
+		case HASTE:
+			return materials[5];
+		case AMMO:
+			return materials[6];
+		case ARMOR:
+			return materials[7];
+		case REGENERATION:
+			return materials[8];
+		case ULTRADAMAGE:
+			return materials[9];
+		case UNTOUCHABLE:
+			return materials[10];
 		default:
 			return materials[0];
 		}
@@ -60,14 +73,22 @@ public class ComponentLoader {
 
 	public void init(AssetManager assetManager) {
 		this.assetManager = assetManager;
-		grassTexture = assetManager.loadTexture("Textures/grass_top.png");
-		stoneTexture = assetManager.loadTexture("Textures/StoneTexture.png");
-		wallTexture = assetManager.loadTexture("Textures/brick.png");
-		woodTexture = assetManager.loadTexture("Textures/WoodTexture.png");
-		materials = new Material[10];
-		for (int i = 0; i < 10; i++)
+		// load texture
+		grassTexture = assetManager.loadTexture(CubikArenaPath
+				.getTexturespath() + "grass_top.png");
+		stoneTexture = assetManager.loadTexture(CubikArenaPath
+				.getTexturespath() + "StoneTexture.png");
+		wallTexture = assetManager.loadTexture(CubikArenaPath.getTexturespath()
+				+ "brick.png");
+		woodTexture = assetManager.loadTexture(CubikArenaPath.getTexturespath()
+				+ "WoodTexture.png");
+
+		// material
+		materials = new Material[20];
+		for (int i = 0; i < 20; i++)
 			materials[i] = new Material(assetManager,
 					"Common/MatDefs/Misc/Unshaded.j3md");
+
 		materials[0].setTexture("ColorMap", ComponentLoader.getIstance()
 				.getGrassTexture());
 		materials[1].setTexture("ColorMap", ComponentLoader.getIstance()
@@ -76,7 +97,13 @@ public class ComponentLoader {
 				.getWallTexture());
 		materials[3].setTexture("ColorMap", ComponentLoader.getIstance()
 				.getWoodTexture());
-		materials[4].setColor("Color", ColorRGBA.Blue);
+		materials[4].setColor("Color", ColorRGBA.Blue); // health
+		materials[5].setColor("Color", ColorRGBA.Yellow); // haste
+		materials[6].setColor("Color", ColorRGBA.Red); // ammo
+		materials[7].setColor("Color", ColorRGBA.Gray); // armor
+		materials[8].setColor("Color", ColorRGBA.Green); // regeneration
+		materials[9].setColor("Color", ColorRGBA.LightGray); // ultradamage
+		materials[10].setColor("Color", ColorRGBA.Cyan); // untouchable
 
 	}
 

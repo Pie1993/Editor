@@ -29,7 +29,7 @@ import de.lessvoid.nifty.controls.ListBox;
 
 public class EditorManager {
 
-	CubeType currentType = CubeType.WALL;
+	CubeType currentType = CubeType.UNTOUCHABLE;
 
 	Vector3f walkDirection = new Vector3f(0, 0, 0);
 	Vector3f viewDirection = new Vector3f(1, 0, 1);
@@ -232,20 +232,6 @@ public class EditorManager {
 
 	}
 
-	// private void optimize() {
-	// // TODO Auto-generated method stub
-	// // GeometryBatchFactory.optimize(nodoScena);
-	// for (Map.Entry<String, Cube> entry : spatialMap.entrySet()) {
-	// entry.getValue().activeControl(false);
-	// }
-	// spatialMap.clear();
-	// nodoScena.addControl(new RigidBodyControl(CollisionShapeFactory
-	// .createMeshShape(nodoScena)));
-	// nodoScena.updateModelBound();
-	// nodoScena.batch();
-	//
-	// }
-
 	public void myClone() {
 
 		int posx = (int) cursorPos.x;
@@ -352,4 +338,17 @@ public class EditorManager {
 	public Set<Entry<String, Cube>> getSpatialMap() {
 		return spatialMap.entrySet();
 	}
+	// private void optimize() {
+	// // TODO Auto-generated method stub
+	// // GeometryBatchFactory.optimize(nodoScena);
+	// for (Map.Entry<String, Cube> entry : spatialMap.entrySet()) {
+	// entry.getValue().activeControl(false);
+	// }
+	// spatialMap.clear();
+	// nodoScena.addControl(new RigidBodyControl(CollisionShapeFactory
+	// .createMeshShape(nodoScena)));
+	// nodoScena.updateModelBound();
+	// nodoScena.batch();
+	//
+	// }
 }
