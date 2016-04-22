@@ -5,6 +5,7 @@ import com.jme3.bounding.BoundingBox;
 import com.jme3.bullet.collision.shapes.CapsuleCollisionShape;
 import com.jme3.bullet.control.CharacterControl;
 import com.jme3.bullet.control.RigidBodyControl;
+import com.jme3.light.DirectionalLight;
 import com.jme3.material.Material;
 import com.jme3.math.ColorRGBA;
 import com.jme3.math.Vector3f;
@@ -21,7 +22,7 @@ public class Creator {
 	Box box;
 	Geometry geometry;
 	Spatial healt, haste, ammo, armor, regeneration, ultradamage, untouchable,
-			wedgeCube;
+			rocketLauncher, chainsaw, laser, shotgun, wedgeCube;
 	private float modelScale = 0.77f;
 	private AssetManager assetManager;
 
@@ -56,25 +57,37 @@ public class Creator {
 
 		switch (currentType) {
 		case HASTE:
-			tmp = new Cube(haste.clone(), posx, posy, posz, currentType);
+			tmp = new Cube(haste, posx, posy, posz, currentType);
 			return tmp;
 		case HEALTH:
-			tmp = new Cube(healt.clone(), posx, posy, posz, currentType);
+			tmp = new Cube(healt, posx, posy, posz, currentType);
 			return tmp;
 		case AMMO:
-			tmp = new Cube(ammo.clone(), posx, posy, posz, currentType);
+			tmp = new Cube(ammo, posx, posy, posz, currentType);
 			return tmp;
 		case ARMOR:
-			tmp = new Cube(armor.clone(), posx, posy, posz, currentType);
+			tmp = new Cube(armor, posx, posy, posz, currentType);
 			return tmp;
 		case REGENERATION:
-			tmp = new Cube(regeneration.clone(), posx, posy, posz, currentType);
+			tmp = new Cube(regeneration, posx, posy, posz, currentType);
 			return tmp;
 		case ULTRADAMAGE:
-			tmp = new Cube(ultradamage.clone(), posx, posy, posz, currentType);
+			tmp = new Cube(ultradamage, posx, posy, posz, currentType);
 			return tmp;
 		case UNTOUCHABLE:
-			tmp = new Cube(untouchable.clone(), posx, posy, posz, currentType);
+			tmp = new Cube(untouchable, posx, posy, posz, currentType);
+			return tmp;
+		case ROCKETLAUNCHER:
+			tmp = new Cube(rocketLauncher, posx, posy, posz, currentType);
+			return tmp;
+		case CHAINSAW:
+			tmp = new Cube(chainsaw, posx, posy, posz, currentType);
+			return tmp;
+		case LASER:
+			tmp = new Cube(laser, posx, posy, posz, currentType);
+			return tmp;
+		case SHOTGUN:
+			tmp = new Cube(shotgun, posx, posy, posz, currentType);
 			return tmp;
 		default:
 			break;
@@ -143,6 +156,12 @@ public class Creator {
 		RigidBodyControl terrainControl = new RigidBodyControl(0);
 		terrainQuad.setLocalTranslation(SIZEMAP / 2, 0, SIZEMAP / 2);
 		terrainQuad.addControl(terrainControl);
+
+		DirectionalLight sun = new DirectionalLight();
+		sun.setColor(ColorRGBA.White);
+		sun.setDirection(new Vector3f(-.5f, -.5f, -.5f).normalizeLocal());
+		terrainQuad.addLight(sun);
+
 		return terrainQuad;
 	}
 
@@ -180,6 +199,16 @@ public class Creator {
 		untouchable.setMaterial(ComponentLoader.getIstance().getMaterial(
 				CubeType.UNTOUCHABLE));
 		untouchable.scale(modelScale);
+
+		rocketLauncher = assetManager.loadModel(CubikArenaPath
+				.getRocketlauncherpath());
+		rocketLauncher.scale(modelScale);
+		chainsaw = assetManager.loadModel(CubikArenaPath.getChainsawpath());
+		chainsaw.scale(modelScale);
+		laser = assetManager.loadModel(CubikArenaPath.getLaserpath());
+		laser.scale(modelScale);
+		shotgun = assetManager.loadModel(CubikArenaPath.getShotgunpath());
+		shotgun.scale(modelScale);
 
 	}
 

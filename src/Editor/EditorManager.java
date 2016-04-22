@@ -6,14 +6,11 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
 
-import jogamp.opengl.glu.mipmap.HalveImage;
-
 import com.jme3.app.state.AppStateManager;
 import com.jme3.asset.AssetManager;
 import com.jme3.bullet.BulletAppState;
 import com.jme3.bullet.control.CharacterControl;
 import com.jme3.bullet.control.RigidBodyControl;
-import com.jme3.bullet.util.CollisionShapeFactory;
 import com.jme3.collision.CollisionResult;
 import com.jme3.collision.CollisionResults;
 import com.jme3.math.FastMath;
@@ -31,7 +28,7 @@ import de.lessvoid.nifty.controls.ListBox;
 
 public class EditorManager {
 
-	CubeType currentType = CubeType.UNTOUCHABLE;
+	CubeType currentType = CubeType.SHOTGUN;
 
 	Vector3f walkDirection = new Vector3f(0, 0, 0);
 	Vector3f viewDirection = new Vector3f(1, 0, 1);
@@ -181,7 +178,7 @@ public class EditorManager {
 
 		bulletAppState = new BulletAppState();
 		stateManager.attach(bulletAppState);
-		bulletAppState.setDebugEnabled(false);
+		bulletAppState.setDebugEnabled(true);
 	}
 
 	private void initPhysicsSpace() {
@@ -243,16 +240,14 @@ public class EditorManager {
 		if (!IsPositionValide(posx, posy, posz) || spatialMap.containsKey(key)) {
 			return;
 		}
-		Cube tmp = Creator.getIstance().createCube(posx, posy, posz, currentType);
+		Cube tmp = Creator.getIstance().createCube(posx, posy, posz,
+				currentType);
 		tmp.geometry.rotate(wedge.getLocalRotation());
-		RigidBodyControl geometryControl = new RigidBodyControl(CollisionShapeFactory
-				.createMeshShape(tmp.geometry), 0);
-		
-		tmp.geometry.addControl(geometryControl);		
-		tmp.geometry.getControl(RigidBodyControl.class).setPhysicsRotation(wedge.getLocalRotation());
-
+		tmp.geometry.getControl(RigidBodyControl.class).setPhysicsRotation(
+				wedge.getLocalRotation());
 		spatialMap.put(tmp.geometry.getWorldTranslation().toString(), tmp);
 		bulletAppState.getPhysicsSpace().add(tmp.geometry);
+		System.out.println(tmp.geometry.getName());
 		nodoScena.attachChild(tmp.geometry);
 
 	}
