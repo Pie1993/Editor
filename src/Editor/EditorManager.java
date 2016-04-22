@@ -6,6 +6,8 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
 
+import jogamp.opengl.glu.mipmap.HalveImage;
+
 import com.jme3.app.state.AppStateManager;
 import com.jme3.asset.AssetManager;
 import com.jme3.bullet.BulletAppState;
@@ -179,7 +181,7 @@ public class EditorManager {
 
 		bulletAppState = new BulletAppState();
 		stateManager.attach(bulletAppState);
-		bulletAppState.setDebugEnabled(true);
+		bulletAppState.setDebugEnabled(false);
 	}
 
 	private void initPhysicsSpace() {
@@ -241,13 +243,13 @@ public class EditorManager {
 		if (!IsPositionValide(posx, posy, posz) || spatialMap.containsKey(key)) {
 			return;
 		}
-		Cube tmp = Creator.getIstance().createCube(posx, posy, posz,
-				currentType);
+		Cube tmp = Creator.getIstance().createCube(posx, posy, posz, currentType);
 		tmp.geometry.rotate(wedge.getLocalRotation());
-		tmp.geometry.addControl(new RigidBodyControl(CollisionShapeFactory
-				.createMeshShape(tmp.geometry), 0));
-		bulletAppState.getPhysicsSpace().add(tmp.geometry);
-		nodoScena.attachChild(tmp.geometry);
+		RigidBodyControl geometryControl = new RigidBodyControl(CollisionShapeFactory
+				.createMeshShape(tmp.geometry), 0);
+		
+		tmp.geometry.addControl(geometryControl);		
+		tmp.geometry.getControl(RigidBodyControl.class).setPhysicsRotation(wedge.getLocalRotation());
 
 		spatialMap.put(tmp.geometry.getWorldTranslation().toString(), tmp);
 		bulletAppState.getPhysicsSpace().add(tmp.geometry);

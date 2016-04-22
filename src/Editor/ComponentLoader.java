@@ -77,11 +77,11 @@ public class ComponentLoader {
 		grassTexture = assetManager.loadTexture(CubikArenaPath
 				.getTexturespath() + "grass_top.png");
 		stoneTexture = assetManager.loadTexture(CubikArenaPath
-				.getTexturespath() + "StoneTexture.png");
+				.getTexturespath() + "stone.png");
 		wallTexture = assetManager.loadTexture(CubikArenaPath.getTexturespath()
 				+ "brick.png");
 		woodTexture = assetManager.loadTexture(CubikArenaPath.getTexturespath()
-				+ "WoodTexture.png");
+				+ "planks_oak.png");
 
 		// material
 		materials = new Material[20];
