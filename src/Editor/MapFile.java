@@ -77,7 +77,7 @@ public class MapFile {
 					cursorPos.y = Integer.parseInt(stringTokenizer.nextToken());
 					stringTokenizer.nextToken();
 					cursorPos.z = Integer.parseInt(stringTokenizer.nextToken());
-					EditorManager.getIstance().myClone();
+					EditorManager.getIstance().insert();
 				}
 			}
 		} catch (IOException e) {

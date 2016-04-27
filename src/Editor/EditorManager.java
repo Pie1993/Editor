@@ -28,7 +28,7 @@ import de.lessvoid.nifty.controls.ListBox;
 
 public class EditorManager {
 
-	CubeType currentType = CubeType.CHAINSAW;
+	CubeType currentType = CubeType.WALL;
 
 	Vector3f walkDirection = new Vector3f(0, 0, 0);
 	Vector3f viewDirection = new Vector3f(1, 0, 1);
@@ -109,7 +109,7 @@ public class EditorManager {
 			if (currentTime - 190 > coolDown) {
 				coolDown = currentTime;
 				if (actionListener.insert) {
-					myClone();
+					insert();
 				}
 				if (actionListener.delete)
 					remove();
@@ -231,7 +231,7 @@ public class EditorManager {
 
 	}
 
-	public void myClone() {
+	public void insert() {
 
 		int posx = (int) cursorPos.x;
 		int posz = (int) cursorPos.z;
@@ -247,7 +247,7 @@ public class EditorManager {
 				wedge.getLocalRotation());
 		spatialMap.put(tmp.geometry.getWorldTranslation().toString(), tmp);
 		bulletAppState.getPhysicsSpace().add(tmp.geometry);
-		System.out.println(tmp.geometry.getName());
+
 		nodoScena.attachChild(tmp.geometry);
 
 	}

@@ -69,7 +69,13 @@ public class MyActionListener implements ActionListener {
 			if (name.equals("Insert") && !delete) {
 				if (isPressed) {
 					insert = true;
-					EditorManager.getIstance().myClone();
+					// for (int i = 1; i < 256; i += 2)
+					// for (int j = 1; j < 256; j += 2) {
+					// EditorManager.getIstance().cursorPos.x = i;
+					// EditorManager.getIstance().cursorPos.z = j;
+
+					EditorManager.getIstance().insert();
+					// }
 				} else
 					insert = false;
 			}

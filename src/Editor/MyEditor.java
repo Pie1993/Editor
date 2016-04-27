@@ -1,9 +1,14 @@
 package Editor;
 
+import java.io.File;
+import java.io.IOException;
+
 import com.jme3.app.SimpleApplication;
 import com.jme3.asset.plugins.FileLocator;
+import com.jme3.export.binary.BinaryExporter;
 import com.jme3.font.BitmapText;
 import com.jme3.niftygui.NiftyJmeDisplay;
+import com.jme3.scene.Node;
 import com.jme3.system.AppSettings;
 
 import de.lessvoid.nifty.Nifty;
@@ -14,9 +19,33 @@ public class MyEditor extends SimpleApplication {
 
 	@Override
 	public void stop() {
-		// TODO Auto-generated method stub
+		saveMap();
+
 		super.stop();
 
+	}
+
+	private void load() {
+
+		try {
+			Node loadedNode = (Node) assetManager.loadModel("Salvataggio/"
+					+ "savedgame.j3o");
+			rootNode.attachChild(loadedNode);
+		} catch (com.jme3.asset.AssetNotFoundException e) {
+			System.out.println("cazzo");
+		}
+
+	}
+
+	private void saveMap() {
+
+		File file = new File("Salvataggio/" + "savedgame.j3o");
+		BinaryExporter exporter = BinaryExporter.getInstance();
+		try {
+			exporter.save(rootNode, file);
+		} catch (IOException ex) {
+			System.out.println("vaffanculo");
+		}
 	}
 
 	public static void main(String[] args) {
@@ -39,7 +68,7 @@ public class MyEditor extends SimpleApplication {
 		AppSettings newSetting = new AppSettings(true);
 		newSetting.setFrameRate(60);
 		setSettings(newSetting);
-
+		load();
 	}
 
 	private void init() {
