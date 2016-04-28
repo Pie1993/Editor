@@ -21,9 +21,8 @@ public class Creator {
 
 	Box box;
 	Geometry geometry;
-	Spatial health, haste, ammo, armor,
-			regeneration, ultradamage, untouchable, rocketLauncher, chainsaw,
-			laser, shotgun, rifle, sniper, wedgeCube;
+	Spatial health, haste, ammo, armor, regeneration, ultradamage, untouchable,
+			rocketLauncher, chainsaw, laser, shotgun, rifle, sniper, wedgeCube;
 	private float modelScale = 0.5f;
 	private AssetManager assetManager;
 
@@ -62,27 +61,33 @@ public class Creator {
 			return tmp;
 		case MINHEALTH:
 			tmp = new Cube(health, posx, posy, posz, currentType);
-			tmp.geometry.setMaterial(ComponentLoader.getIstance().getMaterial(CubeType.MINHEALTH));
+			tmp.geometry.setMaterial(ComponentLoader.getIstance().getMaterial(
+					CubeType.MINHEALTH));
 			return tmp;
 		case MINARMOR:
 			tmp = new Cube(armor, posx, posy, posz, currentType);
-			tmp.geometry.setMaterial(ComponentLoader.getIstance().getMaterial(CubeType.MINARMOR));
+			tmp.geometry.setMaterial(ComponentLoader.getIstance().getMaterial(
+					CubeType.MINARMOR));
 			return tmp;
 		case MIDHEALTH:
 			tmp = new Cube(health, posx, posy, posz, currentType);
-			tmp.geometry.setMaterial(ComponentLoader.getIstance().getMaterial(CubeType.MIDHEALTH));
+			tmp.geometry.setMaterial(ComponentLoader.getIstance().getMaterial(
+					CubeType.MIDHEALTH));
 			return tmp;
 		case MIDARMOR:
 			tmp = new Cube(armor, posx, posy, posz, currentType);
-			tmp.geometry.setMaterial(ComponentLoader.getIstance().getMaterial(CubeType.MIDARMOR));
+			tmp.geometry.setMaterial(ComponentLoader.getIstance().getMaterial(
+					CubeType.MIDARMOR));
 			return tmp;
 		case MAXHEALTH:
 			tmp = new Cube(health, posx, posy, posz, currentType);
-			tmp.geometry.setMaterial(ComponentLoader.getIstance().getMaterial(CubeType.MAXHEALTH));
+			tmp.geometry.setMaterial(ComponentLoader.getIstance().getMaterial(
+					CubeType.MAXHEALTH));
 			return tmp;
 		case MAXARMOR:
 			tmp = new Cube(armor, posx, posy, posz, currentType);
-			tmp.geometry.setMaterial(ComponentLoader.getIstance().getMaterial(CubeType.MAXARMOR));
+			tmp.geometry.setMaterial(ComponentLoader.getIstance().getMaterial(
+					CubeType.MAXARMOR));
 			return tmp;
 		case AMMO:
 			tmp = new Cube(ammo, posx, posy, posz, currentType);
@@ -108,11 +113,18 @@ public class Creator {
 		case SHOTGUN:
 			tmp = new Cube(shotgun, posx, posy, posz, currentType);
 			return tmp;
+		case RIFLE:
+			tmp = new Cube(rifle, posx, posy, posz, currentType);
+			return tmp;
+		case SNIPER:
+			tmp = new Cube(sniper, posx, posy, posz, currentType);
+			return tmp;
 
 		default:
 
 			tmp = new Cube(geometry, posx, posy, posz, currentType);
-			tmp.geometry.setMaterial(ComponentLoader.getIstance().getMaterial(currentType));
+			tmp.geometry.setMaterial(ComponentLoader.getIstance().getMaterial(
+					currentType));
 			return tmp;
 		}
 
@@ -221,6 +233,14 @@ public class Creator {
 		laser.scale(modelScale);
 		shotgun = assetManager.loadModel(CubikArenaPath.getShotgunpath());
 		shotgun.scale(modelScale);
+		sniper = assetManager.loadModel(CubikArenaPath.getSniperpath());
+		sniper.setMaterial(ComponentLoader.getIstance().getMaterial(
+				CubeType.SNIPER));
+		sniper.scale(modelScale);
+		rifle = assetManager.loadModel(CubikArenaPath.getRiflepath());
+		rifle.setMaterial(ComponentLoader.getIstance().getMaterial(
+				CubeType.RIFLE));
+		rifle.scale(modelScale);
 
 	}
 

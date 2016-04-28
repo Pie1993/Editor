@@ -68,15 +68,15 @@ public class MyEditor extends SimpleApplication {
 		// guiViewPort, myScreenController);
 		nifty.fromXml("./Xml/LScreen.xml", "GScreen0", myScreenController);
 		guiViewPort.addProcessor(display);
-		
+		nifty.setIgnoreKeyboardEvents(true);
 		ScreenSaveMap screenSaveMap = new ScreenSaveMap(nifty, display,
 				guiViewPort, myScreenController);
 		ScreenLoadMap screenLoadMap = new ScreenLoadMap(nifty, display,
 				guiViewPort, myScreenController);
-		FilterPostProcessor fpp=new FilterPostProcessor(assetManager);
-        BloomFilter bloom = new BloomFilter(BloomFilter.GlowMode.Objects);
-        fpp.addFilter(bloom);
-        viewPort.addProcessor(fpp);
+		FilterPostProcessor fpp = new FilterPostProcessor(assetManager);
+		BloomFilter bloom = new BloomFilter(BloomFilter.GlowMode.Objects);
+		fpp.addFilter(bloom);
+		viewPort.addProcessor(fpp);
 
 	}
 

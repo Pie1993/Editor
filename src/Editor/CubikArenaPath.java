@@ -62,6 +62,15 @@ public class CubikArenaPath {
 		return modelPath + shotgunPath;
 	}
 
+	public static String getSniperpath() {
+
+		return modelPath + sniperPath;
+	}
+
+	public static String getRiflepath() {
+		return modelPath + riflePath;
+	}
+
 	private final static String modelPath = "Models/";
 	private final static String mapPath = "assets/Map/";
 	private final static String texturesPath = "Textures/";
@@ -75,6 +84,9 @@ public class CubikArenaPath {
 	private final static String untouchablePath = "untouchable/untouchable.obj";
 	private final static String rocketLauncherPath = "rocket_launcher/rocket_launcher .j3o";
 	private final static String chainsawPath = "chainsaw/chainsaw.obj";
-	private final static String laserPath = "laser_rifle/laser_rifle.obj";
+	private final static String laserPath = "laser/laser_rifle.obj";
 	private final static String shotgunPath = "shotgun/shotgun - Copia.obj";
+	private final static String sniperPath = "sniper/sniper.obj";
+	private final static String riflePath = "rifle/machine_gun.obj";
+
 }

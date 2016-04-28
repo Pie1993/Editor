@@ -78,7 +78,6 @@ public class EditorManager {
 		}
 		if (actionListener.up) {
 			walkDirection.y += riseSpeed;
-
 		}
 		if (actionListener.down) {
 			walkDirection.y -= riseSpeed;
@@ -178,7 +177,6 @@ public class EditorManager {
 
 		bulletAppState = new BulletAppState();
 		stateManager.attach(bulletAppState);
-		bulletAppState.setDebugEnabled(true);
 	}
 
 	private void initPhysicsSpace() {

@@ -81,7 +81,7 @@ public class MyScreenController implements ScreenController {
 	public void loadScreen() {
 		fillMyListBox();
 		changeScreen("LoadScreen");
-		nifty.setIgnoreKeyboardEvents(true);
+		nifty.setIgnoreKeyboardEvents(false);
 
 	}
 
