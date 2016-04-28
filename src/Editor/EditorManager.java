@@ -28,7 +28,7 @@ import de.lessvoid.nifty.controls.ListBox;
 
 public class EditorManager {
 
-	CubeType currentType = CubeType.WALL;
+	CubeType currentType = CubeType.STONE;
 
 	Vector3f walkDirection = new Vector3f(0, 0, 0);
 	Vector3f viewDirection = new Vector3f(1, 0, 1);
@@ -157,7 +157,7 @@ public class EditorManager {
 		modelCube = Creator.getIstance().createModelCube();
 		wedge = Creator.getIstance().createWedge();
 		nodoModel = new BatchNode();
-		nodoModel.attachChild(modelCube);
+		nodoModel.attachChild(wedge);
 		rootNode.attachChild(nodoModel);
 		player = Creator.getIstance().createPlayer();
 		cam.setLocation(new Vector3f(0, 0, 0));
