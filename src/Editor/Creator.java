@@ -21,17 +21,10 @@ public class Creator {
 
 	Box box;
 	Geometry geometry;
-	Spatial stone, wall, wood, grass, midHealth, haste, ammo, midArmor,
+	Spatial health, haste, ammo, armor,
 			regeneration, ultradamage, untouchable, rocketLauncher, chainsaw,
-			laser, shotgun, anvil, Box, brick, cobbleStone, cobbleStoneMessy,
-			dirt, dirt2, dispenser, gold, gravel, ice, iron, ironPanel,
-			lantern, lapis, mycelium, netherBrick, nether, obsidian,
-			prismarine, quarz, quarz2, sand, sandStone, sandStone2, snow,
-			stoneBrick, stoneCarved, stoneFloor, stoneMossy, wood2, wood3,
-			wood4, wood5, black, blue, brown, gray, green, lightblue, orange,
-			pink, purple, red, white, yellow, rifle, sniper, minHealth,
-			maxHealth, minArmor, maxArmor, wedgeCube;
-	private float modelScale = 0.77f;
+			laser, shotgun, rifle, sniper, wedgeCube;
+	private float modelScale = 0.5f;
 	private AssetManager assetManager;
 
 	public Geometry createModelCube() {
@@ -67,14 +60,32 @@ public class Creator {
 		case HASTE:
 			tmp = new Cube(haste, posx, posy, posz, currentType);
 			return tmp;
+		case MINHEALTH:
+			tmp = new Cube(health, posx, posy, posz, currentType);
+			tmp.geometry.setMaterial(ComponentLoader.getIstance().getMaterial(CubeType.MINHEALTH));
+			return tmp;
+		case MINARMOR:
+			tmp = new Cube(armor, posx, posy, posz, currentType);
+			tmp.geometry.setMaterial(ComponentLoader.getIstance().getMaterial(CubeType.MINARMOR));
+			return tmp;
 		case MIDHEALTH:
-			tmp = new Cube(midHealth, posx, posy, posz, currentType);
+			tmp = new Cube(health, posx, posy, posz, currentType);
+			tmp.geometry.setMaterial(ComponentLoader.getIstance().getMaterial(CubeType.MIDHEALTH));
+			return tmp;
+		case MIDARMOR:
+			tmp = new Cube(armor, posx, posy, posz, currentType);
+			tmp.geometry.setMaterial(ComponentLoader.getIstance().getMaterial(CubeType.MIDARMOR));
+			return tmp;
+		case MAXHEALTH:
+			tmp = new Cube(health, posx, posy, posz, currentType);
+			tmp.geometry.setMaterial(ComponentLoader.getIstance().getMaterial(CubeType.MAXHEALTH));
+			return tmp;
+		case MAXARMOR:
+			tmp = new Cube(armor, posx, posy, posz, currentType);
+			tmp.geometry.setMaterial(ComponentLoader.getIstance().getMaterial(CubeType.MAXARMOR));
 			return tmp;
 		case AMMO:
 			tmp = new Cube(ammo, posx, posy, posz, currentType);
-			return tmp;
-		case MIDARMOR:
-			tmp = new Cube(midArmor, posx, posy, posz, currentType);
 			return tmp;
 		case REGENERATION:
 			tmp = new Cube(regeneration, posx, posy, posz, currentType);
@@ -101,8 +112,7 @@ public class Creator {
 		default:
 
 			tmp = new Cube(geometry, posx, posy, posz, currentType);
-			tmp.geometry.setMaterial(ComponentLoader.getIstance().getMaterial(
-					currentType));
+			tmp.geometry.setMaterial(ComponentLoader.getIstance().getMaterial(currentType));
 			return tmp;
 		}
 
@@ -175,10 +185,8 @@ public class Creator {
 	private void initPrototypeCube() {
 		box = new Box(1, 1, 1);
 		geometry = new Geometry("Box", box);
-		midHealth = assetManager.loadModel(CubikArenaPath.getHealthpath());
-		midHealth.setMaterial(ComponentLoader.getIstance().getMaterial(
-				CubeType.MIDHEALTH));
-		midHealth.scale(modelScale);
+		health = assetManager.loadModel(CubikArenaPath.getHealthpath());
+		health.scale(modelScale);
 		haste = assetManager.loadModel(CubikArenaPath.getHastepath());
 		haste.setMaterial(ComponentLoader.getIstance().getMaterial(
 				CubeType.HASTE));
@@ -187,10 +195,8 @@ public class Creator {
 		ammo.setMaterial(ComponentLoader.getIstance()
 				.getMaterial(CubeType.AMMO));
 		ammo.scale(modelScale);
-		midArmor = assetManager.loadModel(CubikArenaPath.getArmorpath());
-		midArmor.setMaterial(ComponentLoader.getIstance().getMaterial(
-				CubeType.MIDARMOR));
-		midArmor.scale(modelScale);
+		armor = assetManager.loadModel(CubikArenaPath.getArmorpath());
+		armor.scale(modelScale);
 		regeneration = assetManager.loadModel(CubikArenaPath
 				.getRegenerationpath());
 		regeneration.setMaterial(ComponentLoader.getIstance().getMaterial(

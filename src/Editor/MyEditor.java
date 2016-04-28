@@ -4,6 +4,8 @@ import com.jme3.app.SimpleApplication;
 import com.jme3.asset.plugins.FileLocator;
 import com.jme3.font.BitmapText;
 import com.jme3.niftygui.NiftyJmeDisplay;
+import com.jme3.post.FilterPostProcessor;
+import com.jme3.post.filters.BloomFilter;
 import com.jme3.scene.Node;
 import com.jme3.system.AppSettings;
 
@@ -66,10 +68,15 @@ public class MyEditor extends SimpleApplication {
 		// guiViewPort, myScreenController);
 		nifty.fromXml("./Xml/LScreen.xml", "GScreen0", myScreenController);
 		guiViewPort.addProcessor(display);
+		
 		ScreenSaveMap screenSaveMap = new ScreenSaveMap(nifty, display,
 				guiViewPort, myScreenController);
 		ScreenLoadMap screenLoadMap = new ScreenLoadMap(nifty, display,
 				guiViewPort, myScreenController);
+		FilterPostProcessor fpp=new FilterPostProcessor(assetManager);
+        BloomFilter bloom = new BloomFilter(BloomFilter.GlowMode.Objects);
+        fpp.addFilter(bloom);
+        viewPort.addProcessor(fpp);
 
 	}
 

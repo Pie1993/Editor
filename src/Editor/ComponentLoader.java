@@ -2,6 +2,7 @@ package Editor;
 
 import com.jme3.asset.AssetManager;
 import com.jme3.material.Material;
+import com.jme3.math.ColorRGBA;
 import com.jme3.texture.Texture;
 
 public class ComponentLoader {
@@ -10,8 +11,8 @@ public class ComponentLoader {
 	private Material materials[];
 	private Texture texture[];
 	private Texture terrainTexture;
-	private int size = 50;
-
+	private int sizeMaterials = 60;
+	private int sizeTextures = 50; 
 	private ComponentLoader() {
 
 	}
@@ -32,10 +33,8 @@ public class ComponentLoader {
 			return materials[1];
 		case BRICK:
 			return materials[2];
-
 		case COBBLESTONE:
 			return materials[3];
-
 		case COBBLESTONEMESSY:
 			return materials[4];
 		case DIRT:
@@ -126,6 +125,28 @@ public class ComponentLoader {
 			return materials[47];
 		case YELLOW:
 			return materials[48];
+		case MINHEALTH:
+			return materials[49];
+		case MINARMOR:
+			return materials[50];
+		case MIDHEALTH:
+			return materials[51];
+		case MIDARMOR:
+			return materials[52];
+		case MAXHEALTH:
+			return materials[53];
+		case MAXARMOR:
+			return materials[54];
+		case ULTRADAMAGE:
+			return materials[55];
+		case REGENERATION:
+			return materials[56];
+		case HASTE:
+			return materials[57];
+		case UNTOUCHABLE:
+			return materials[58];
+		case AMMO:
+			return materials[59];
 		default:
 			return materials[0];
 
@@ -137,9 +158,9 @@ public class ComponentLoader {
 		// load texture
 
 		// material
-		materials = new Material[size];
-		texture = new Texture[size];
-		for (int i = 0; i < size; i++)
+		materials = new Material[sizeMaterials];
+		texture = new Texture[sizeTextures];
+		for (int i = 0; i < sizeMaterials; i++)
 			materials[i] = new Material(assetManager,
 					"Common/MatDefs/Misc/Unshaded.j3md");
 		loadTextures();
@@ -207,7 +228,27 @@ public class ComponentLoader {
 		materials[46].setTexture("ColorMap", texture[46]);
 		materials[47].setTexture("ColorMap", texture[47]);
 		materials[48].setTexture("ColorMap", texture[48]);
-
+		materials[49].setColor("Color", ColorRGBA.Green);
+		materials[49].setColor("GlowColor", ColorRGBA.Green);
+		materials[50].setColor("Color", ColorRGBA.Green);
+		materials[50].setColor("GlowColor", ColorRGBA.Green);
+		materials[51].setColor("Color", ColorRGBA.Yellow);
+		materials[51].setColor("GlowColor", ColorRGBA.Yellow);
+		materials[52].setColor("Color", ColorRGBA.Yellow);
+		materials[52].setColor("GlowColor", ColorRGBA.Yellow);
+		materials[53].setColor("Color", ColorRGBA.Blue);
+		materials[53].setColor("GlowColor", ColorRGBA.Blue);
+		materials[54].setColor("Color", ColorRGBA.Red);
+		materials[54].setColor("GlowColor", ColorRGBA.Red);
+		materials[55].setColor("Color", ColorRGBA.Orange);
+		materials[55].setColor("GlowColor", ColorRGBA.Orange);
+		materials[56].setColor("Color", ColorRGBA.Magenta);
+		materials[56].setColor("GlowColor", ColorRGBA.Magenta);
+		materials[57].setColor("Color", ColorRGBA.White);
+		materials[57].setColor("GlowColor", ColorRGBA.White);
+		materials[58].setColor("Color", ColorRGBA.Cyan);
+		materials[58].setColor("GlowColor", ColorRGBA.Cyan);
+		materials[59].setTexture("ColorMap", texture[49]);
 	}
 
 	private void loadTextures() {
@@ -309,6 +350,8 @@ public class ComponentLoader {
 				+ "wool_colored_white.png");
 		texture[48] = assetManager.loadTexture(CubikArenaPath.getTexturespath()
 				+ "wool_colored_yellow.png");
+		texture[49] = assetManager.loadTexture(CubikArenaPath.getTexturespath()
+				+ "AmmoTexture.png");
 
 	}
 
