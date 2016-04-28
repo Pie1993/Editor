@@ -76,10 +76,13 @@ public class MyEditor extends SimpleApplication {
 		NiftyJmeDisplay display = new NiftyJmeDisplay(getAssetManager(),
 				inputManager, getAudioRenderer(), viewPort);
 		Nifty nifty = display.getNifty();
+		
 		actionListener = new MyActionListener(inputManager, flyCam, nifty);
 		MyScreenController myScreenController = new MyScreenController(display);
 		// ScreenNiftyCube screenNiftyCube = new ScreenNiftyCube(nifty, display,
 		// guiViewPort, myScreenController);
+		nifty.fromXml("./Xml/LScreen.xml", "GScreen0", myScreenController);
+		guiViewPort.addProcessor(display);
 		ScreenSaveMap screenSaveMap = new ScreenSaveMap(nifty, display,
 				guiViewPort, myScreenController);
 		ScreenLoadMap screenLoadMap = new ScreenLoadMap(nifty, display,
