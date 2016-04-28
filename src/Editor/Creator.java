@@ -97,35 +97,34 @@ public class Creator {
 		case SHOTGUN:
 			tmp = new Cube(shotgun, posx, posy, posz, currentType);
 			return tmp;
-		default:
-			break;
-		}
 
-		if (currentType != CubeType.STONE) {
+		default:
 
 			tmp = new Cube(geometry, posx, posy, posz, currentType);
 			tmp.geometry.setMaterial(ComponentLoader.getIstance().getMaterial(
 					currentType));
-
-		} else {
-
-			ComponentLoader
-					.getIstance()
-					.getMaterial(currentType)
-					.setTexture(
-							"ColorMap",
-							assetManager
-									.loadTexture("Textures/wool_colored_red.png"));
-
-			tmp = new Cube(
-					assetManager.loadModel("Models/half_cube/half_cube.obj"),
-					posx, posy, posz, currentType);
-			tmp.geometry.setMaterial(ComponentLoader.getIstance().getMaterial(
-					currentType));
-
+			return tmp;
 		}
 
-		return tmp;
+		// {
+		//
+		// ComponentLoader
+		// .getIstance()
+		// .getMaterial(currentType)
+		// .setTexture(
+		// "ColorMap",
+		// assetManager
+		// .loadTexture("Textures/wool_colored_red.png"));
+		//
+		// tmp = new Cube(
+		// assetManager.loadModel("Models/half_cube/half_cube.obj"),
+		// posx, posy, posz, currentType);
+		// tmp.geometry.setMaterial(ComponentLoader.getIstance().getMaterial(
+		// currentType));
+		//
+		// }
+		//
+		// return tmp;
 	}
 
 	public void init(AssetManager assetManager) {
@@ -154,7 +153,7 @@ public class Creator {
 				"Common/MatDefs/Terrain/Terrain.j3md");
 		material.setTexture("Alpha",
 				assetManager.loadTexture("Textures/alpha.png"));
-		Texture texture = ComponentLoader.getIstance().getGrassTexture();
+		Texture texture = ComponentLoader.getIstance().getTerrainTexture();
 		texture.setWrap(WrapMode.Repeat);
 
 		material.setTexture("Tex1", texture);
