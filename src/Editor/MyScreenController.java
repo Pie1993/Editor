@@ -71,7 +71,7 @@ public class MyScreenController implements ScreenController {
 
 	}
 
-	public void SaveScreen() {
+	public void saveScreen() {
 
 		changeScreen("SaveScreen");
 		nifty.setIgnoreKeyboardEvents(false);

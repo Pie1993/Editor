@@ -47,7 +47,7 @@ public class ScreenSaveMap {
 										alignCenter();
 										width("15%");
 										height("10%");
-										interactOnClick("SaveMap()");
+										interactOnClick("saveMap()");
 
 									}
 								});

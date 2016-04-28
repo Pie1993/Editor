@@ -49,7 +49,7 @@ public class ScreenLoadMap {
 										alignCenter();
 										width("95%");
 										height("15%");
-										interactOnClick("LoadMap()");
+										interactOnClick("loadMap()");
 
 									}
 								});

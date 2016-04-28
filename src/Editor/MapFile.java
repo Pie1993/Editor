@@ -60,15 +60,7 @@ public class MapFile {
 						" ");
 				while (stringTokenizer.hasMoreTokens()) {
 					String token = stringTokenizer.nextToken();
-
-					if (token.equals("WALL"))
-						currentType = CubeType.WALL;
-					if (token.equals("STONE"))
-						currentType = CubeType.STONE;
-					if (token.equals("GRASS"))
-						currentType = CubeType.GRASS;
-					if (token.equals("WOOD"))
-						currentType = CubeType.WOOD;
+					currentType = CubeType.valueOf(token);
 					if (stringTokenizer.equals(" "))
 						stringTokenizer.nextToken();
 					stringTokenizer.nextToken();

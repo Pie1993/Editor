@@ -7,7 +7,7 @@
             <panel id="GPanel0" childLayout="horizontal" visible="true" width="30%" style="nifty-panel-hint" height="10%" paddingLeft="5px" paddingTop="5px">
             	<panel id="GPanel0Right" childLayout="horizontal" height="100%" width="20%" >
             		<image filename="Textures/open.png" visibleToMouse="true"  height="90%" width="80%">
-                   		<interact onClick="loadMap()" />
+                   		<interact onClick="loadScreen()" />
                    			 <effect>
              					<onHover name="hint" hintText="Open Map"/>
              					<onHover name="imageSize" maxSize="20%" >
@@ -18,7 +18,7 @@
                 </panel>
                 <panel id="GPanel0Center1" childLayout="horizontal" height="100%" width="20%" >
                 	<image filename="Textures/floppy.png" visibleToMouse="true"  height="90%" width="80%">
-                   		<interact onClick="saveMap()" />
+                   		<interact onClick="saveScreen()" />
                    			<effect>
              					<onHover name="hint" hintText="Save Map"/>
              					<onHover name="imageSize" maxSize="20%" >
