@@ -73,9 +73,10 @@ public class MyActionListener implements ActionListener {
 					// for (int j = 1; j < 256; j += 2) {
 					// EditorManager.getIstance().cursorPos.x = i;
 					// EditorManager.getIstance().cursorPos.z = j;
-
-					EditorManager.getIstance().insert();
+					//
+					// EditorManager.getIstance().insert();
 					// }
+					EditorManager.getIstance().insert();
 				} else
 					insert = false;
 			}
@@ -105,6 +106,7 @@ public class MyActionListener implements ActionListener {
 		}
 
 		if (name.equals("Exit")) {
+
 			EditorManager.getIstance().clearScene();
 			EditorManager.getIstance().stop = true;
 		}

@@ -22,12 +22,13 @@ public class MyScreenController implements ScreenController {
 		nifty = display.getNifty();
 
 	}
-	
-	public void setType(String string){
-		
+
+	public void setType(String string) {
+
 		CubeType type = CubeType.valueOf(string.toUpperCase());
+
 		EditorManager.getIstance().setCurrentType(type);
-		
+
 	}
 
 	public void loadMap() {
@@ -61,13 +62,13 @@ public class MyScreenController implements ScreenController {
 		changeScreen("GScreen0");
 		nifty.setIgnoreKeyboardEvents(true);
 	}
-	
-	public void clearMap(){
+
+	public void clearMap() {
 		EditorManager.getIstance().clearScene();
 	}
-	
-	public void backToMenu(){
-		
+
+	public void backToMenu() {
+
 	}
 
 	public void SaveScreen() {

@@ -157,7 +157,7 @@ public class EditorManager {
 		modelCube = Creator.getIstance().createModelCube();
 		wedge = Creator.getIstance().createWedge();
 		nodoModel = new BatchNode();
-		nodoModel.attachChild(wedge);
+		nodoModel.attachChild(modelCube);
 		rootNode.attachChild(nodoModel);
 		player = Creator.getIstance().createPlayer();
 		cam.setLocation(new Vector3f(0, 0, 0));
@@ -335,6 +335,7 @@ public class EditorManager {
 	public Set<Entry<String, Cube>> getSpatialMap() {
 		return spatialMap.entrySet();
 	}
+
 	// private void optimize() {
 	// // TODO Auto-generated method stub
 	// // GeometryBatchFactory.optimize(nodoScena);
@@ -351,6 +352,6 @@ public class EditorManager {
 
 	public void setCurrentType(CubeType type) {
 		this.currentType = type;
-		
+
 	}
 }

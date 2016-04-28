@@ -192,21 +192,21 @@ public class ComponentLoader {
 		materials[31].setTexture("ColorMap", texture[31]);
 		materials[32].setTexture("ColorMap", texture[32]);
 		materials[33].setTexture("ColorMap", texture[33]);
-		materials[18].setTexture("ColorMap", texture[34]);
-		materials[19].setTexture("ColorMap", texture[35]);
-		materials[20].setTexture("ColorMap", texture[36]);
-		materials[21].setTexture("ColorMap", texture[37]);
-		materials[22].setTexture("ColorMap", texture[38]);
-		materials[23].setTexture("ColorMap", texture[39]);
-		materials[24].setTexture("ColorMap", texture[40]);
-		materials[25].setTexture("ColorMap", texture[41]);
-		materials[26].setTexture("ColorMap", texture[42]);
-		materials[27].setTexture("ColorMap", texture[43]);
-		materials[28].setTexture("ColorMap", texture[44]);
-		materials[29].setTexture("ColorMap", texture[45]);
-		materials[30].setTexture("ColorMap", texture[46]);
-		materials[31].setTexture("ColorMap", texture[47]);
-		materials[32].setTexture("ColorMap", texture[48]);
+		materials[34].setTexture("ColorMap", texture[34]);
+		materials[35].setTexture("ColorMap", texture[35]);
+		materials[36].setTexture("ColorMap", texture[36]);
+		materials[37].setTexture("ColorMap", texture[37]);
+		materials[38].setTexture("ColorMap", texture[38]);
+		materials[39].setTexture("ColorMap", texture[39]);
+		materials[40].setTexture("ColorMap", texture[40]);
+		materials[41].setTexture("ColorMap", texture[41]);
+		materials[42].setTexture("ColorMap", texture[42]);
+		materials[43].setTexture("ColorMap", texture[43]);
+		materials[44].setTexture("ColorMap", texture[44]);
+		materials[45].setTexture("ColorMap", texture[45]);
+		materials[46].setTexture("ColorMap", texture[46]);
+		materials[47].setTexture("ColorMap", texture[47]);
+		materials[48].setTexture("ColorMap", texture[48]);
 
 	}
 

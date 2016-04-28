@@ -1,11 +1,7 @@
 package Editor;
 
-import java.io.File;
-import java.io.IOException;
-
 import com.jme3.app.SimpleApplication;
 import com.jme3.asset.plugins.FileLocator;
-import com.jme3.export.binary.BinaryExporter;
 import com.jme3.font.BitmapText;
 import com.jme3.niftygui.NiftyJmeDisplay;
 import com.jme3.scene.Node;
@@ -19,8 +15,6 @@ public class MyEditor extends SimpleApplication {
 
 	@Override
 	public void stop() {
-		saveMap();
-
 		super.stop();
 
 	}
@@ -35,17 +29,6 @@ public class MyEditor extends SimpleApplication {
 			System.out.println("cazzo");
 		}
 
-	}
-
-	private void saveMap() {
-
-		File file = new File("Salvataggio/" + "savedgame.j3o");
-		BinaryExporter exporter = BinaryExporter.getInstance();
-		try {
-			exporter.save(rootNode, file);
-		} catch (IOException ex) {
-			System.out.println("vaffanculo");
-		}
 	}
 
 	public static void main(String[] args) {
@@ -68,7 +51,7 @@ public class MyEditor extends SimpleApplication {
 		AppSettings newSetting = new AppSettings(true);
 		newSetting.setFrameRate(60);
 		setSettings(newSetting);
-		load();
+		// load();
 	}
 
 	private void init() {
@@ -76,7 +59,7 @@ public class MyEditor extends SimpleApplication {
 		NiftyJmeDisplay display = new NiftyJmeDisplay(getAssetManager(),
 				inputManager, getAudioRenderer(), viewPort);
 		Nifty nifty = display.getNifty();
-		
+
 		actionListener = new MyActionListener(inputManager, flyCam, nifty);
 		MyScreenController myScreenController = new MyScreenController(display);
 		// ScreenNiftyCube screenNiftyCube = new ScreenNiftyCube(nifty, display,
