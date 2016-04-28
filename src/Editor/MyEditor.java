@@ -78,8 +78,8 @@ public class MyEditor extends SimpleApplication {
 		Nifty nifty = display.getNifty();
 		actionListener = new MyActionListener(inputManager, flyCam, nifty);
 		MyScreenController myScreenController = new MyScreenController(display);
-		ScreenNiftyCube screenNiftyCube = new ScreenNiftyCube(nifty, display,
-				guiViewPort, myScreenController);
+		// ScreenNiftyCube screenNiftyCube = new ScreenNiftyCube(nifty, display,
+		// guiViewPort, myScreenController);
 		ScreenSaveMap screenSaveMap = new ScreenSaveMap(nifty, display,
 				guiViewPort, myScreenController);
 		ScreenLoadMap screenLoadMap = new ScreenLoadMap(nifty, display,

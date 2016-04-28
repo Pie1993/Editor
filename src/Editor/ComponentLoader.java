@@ -52,13 +52,13 @@ public class ComponentLoader {
 			return materials[2];
 		case WOOD:
 			return materials[3];
-		case HEALTH:
+		case MIDHEALTH:
 			return materials[4];
 		case HASTE:
 			return materials[5];
 		case AMMO:
 			return materials[6];
-		case ARMOR:
+		case MIDARMOR:
 			return materials[7];
 		case REGENERATION:
 			return materials[8];

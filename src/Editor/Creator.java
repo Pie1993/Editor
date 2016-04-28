@@ -59,13 +59,13 @@ public class Creator {
 		case HASTE:
 			tmp = new Cube(haste, posx, posy, posz, currentType);
 			return tmp;
-		case HEALTH:
+		case MIDHEALTH:
 			tmp = new Cube(healt, posx, posy, posz, currentType);
 			return tmp;
 		case AMMO:
 			tmp = new Cube(ammo, posx, posy, posz, currentType);
 			return tmp;
-		case ARMOR:
+		case MIDARMOR:
 			tmp = new Cube(armor, posx, posy, posz, currentType);
 			return tmp;
 		case REGENERATION:
@@ -170,7 +170,7 @@ public class Creator {
 		geometry = new Geometry("Box", box);
 		healt = assetManager.loadModel(CubikArenaPath.getHealthpath());
 		healt.setMaterial(ComponentLoader.getIstance().getMaterial(
-				CubeType.HEALTH));
+				CubeType.MIDHEALTH));
 		healt.scale(modelScale);
 		haste = assetManager.loadModel(CubikArenaPath.getHastepath());
 		haste.setMaterial(ComponentLoader.getIstance().getMaterial(
@@ -182,7 +182,7 @@ public class Creator {
 		ammo.scale(modelScale);
 		armor = assetManager.loadModel(CubikArenaPath.getArmorpath());
 		armor.setMaterial(ComponentLoader.getIstance().getMaterial(
-				CubeType.ARMOR));
+				CubeType.MIDARMOR));
 		armor.scale(modelScale);
 		regeneration = assetManager.loadModel(CubikArenaPath
 				.getRegenerationpath());
