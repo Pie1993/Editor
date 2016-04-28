@@ -7,7 +7,7 @@
             <panel id="GPanel0" childLayout="horizontal" visible="true" width="30%" style="nifty-panel-hint" height="10%" paddingLeft="5px" paddingTop="5px">
             	<panel id="GPanel0Right" childLayout="horizontal" height="100%" width="20%" >
             		<image filename="Textures/open.png" visibleToMouse="true"  height="90%" width="80%">
-                   		<interact onClick="LoadMap()" />
+                   		<interact onClick="loadMap()" />
                    			 <effect>
              					<onHover name="hint" hintText="Open Map"/>
              					<onHover name="imageSize" maxSize="20%" >
@@ -40,7 +40,7 @@
                  </panel>
                  <panel id="GPanel0Left" childLayout="horizontal" height="100%" width="20%"  >
                    	<image filename="Textures/menu_icon.png" visibleToMouse="true" height="90%" width="80%">
-                   		<interact onClick="" />
+                   		<interact onClick="backToMenu()" />
                    			<effect>
              					<onHover name="hint" hintText="Back to Menu"/>
              					<onHover name="imageSize" maxSize="20%" >

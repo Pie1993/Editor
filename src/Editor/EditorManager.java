@@ -28,7 +28,7 @@ import de.lessvoid.nifty.controls.ListBox;
 
 public class EditorManager {
 
-	CubeType currentType = CubeType.STONE;
+	CubeType currentType = CubeType.ANVIL;
 
 	Vector3f walkDirection = new Vector3f(0, 0, 0);
 	Vector3f viewDirection = new Vector3f(1, 0, 1);
@@ -348,4 +348,9 @@ public class EditorManager {
 	// nodoScena.batch();
 	//
 	// }
+
+	public void setCurrentType(CubeType type) {
+		this.currentType = type;
+		
+	}
 }

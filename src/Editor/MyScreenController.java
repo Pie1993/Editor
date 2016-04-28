@@ -22,40 +22,21 @@ public class MyScreenController implements ScreenController {
 		nifty = display.getNifty();
 
 	}
-
-	public void GrassCube() {
-		EditorManager.getIstance().currentType = CubeType.GRASS;
-
-		EditorManager.getIstance().nodoModel.detachAllChildren();
-		EditorManager.getIstance().nodoModel.attachChild(EditorManager
-				.getIstance().modelCube);
-
+	
+	public void setType(String string){
+		
+		CubeType type = CubeType.valueOf(string.toUpperCase());
+		EditorManager.getIstance().setCurrentType(type);
+		
 	}
 
-	public void WoodCube() {
-		EditorManager.getIstance().currentType = CubeType.WOOD;
-
-	}
-
-	public void StoneCube() {
-		EditorManager.getIstance().currentType = CubeType.STONE;
-		EditorManager.getIstance().nodoModel.detachAllChildren();
-		EditorManager.getIstance().nodoModel.attachChild(EditorManager
-				.getIstance().wedge);
-	}
-
-	public void WallCube() {
-		EditorManager.getIstance().currentType = CubeType.WALL;
-
-	}
-
-	public void LoadMap() {
+	public void loadMap() {
 
 		String selection = (String) EditorManager.getIstance().listBox
 				.getSelection().get(0);
 		EditorManager.getIstance().clearScene();
 		MapFile.loadMap(selection);
-		changeScreen("CubeScreen");
+		changeScreen("GScreen0");
 		nifty.setIgnoreKeyboardEvents(true);
 
 	}
@@ -66,7 +47,7 @@ public class MyScreenController implements ScreenController {
 
 	}
 
-	public void SaveMap() {
+	public void saveMap() {
 
 		Screen screen = nifty.getCurrentScreen();
 
@@ -77,8 +58,16 @@ public class MyScreenController implements ScreenController {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		changeScreen("CubeScreen");
+		changeScreen("GScreen0");
 		nifty.setIgnoreKeyboardEvents(true);
+	}
+	
+	public void clearMap(){
+		EditorManager.getIstance().clearScene();
+	}
+	
+	public void backToMenu(){
+		
 	}
 
 	public void SaveScreen() {
@@ -97,7 +86,7 @@ public class MyScreenController implements ScreenController {
 
 	public void Return() {
 
-		changeScreen("CubeScreen");
+		changeScreen("GScreen0");
 		nifty.setIgnoreKeyboardEvents(true);
 	}
 
