@@ -230,7 +230,6 @@ public class Creator {
 		rocketLauncher = assetManager.loadModel(CubikArenaPath
 				.getRocketlauncherpath());
 		rocketLauncher.scale(weaponsScale + 0.1f);
-		rocketLauncher.setLocalTranslation(-1, -2, 0);
 		chainsaw = assetManager.loadModel(CubikArenaPath.getChainsawpath());
 		chainsaw.scale(weaponsScale);
 		laser = assetManager.loadModel(CubikArenaPath.getLaserpath());
