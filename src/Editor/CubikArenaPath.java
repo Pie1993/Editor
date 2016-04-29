@@ -82,11 +82,11 @@ public class CubikArenaPath {
 	private final static String armorPath = "armor/armor.obj";
 	private final static String ultradamagePath = "ultradamage/ultradamage.obj";
 	private final static String untouchablePath = "untouchable/untouchable.obj";
-	private final static String rocketLauncherPath = "rocket_launcher/rocket_launcher .j3o";
+	private final static String rocketLauncherPath = "Rocket/Rocket.mesh.j3o";
 	private final static String chainsawPath = "chainsaw/chainsaw.obj";
 	private final static String laserPath = "laser/laser_rifle.obj";
-	private final static String shotgunPath = "shotgun/shotgun - Copia.obj";
+	private final static String shotgunPath = "Shotgun/Shotgun.mesh.j3o";
 	private final static String sniperPath = "sniper/sniper.obj";
-	private final static String riflePath = "rifle/machine_gun.obj";
+	private final static String riflePath = "Rifle/Rifle.mesh.j3o";
 
 }

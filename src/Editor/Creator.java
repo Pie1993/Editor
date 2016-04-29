@@ -5,7 +5,6 @@ import com.jme3.bounding.BoundingBox;
 import com.jme3.bullet.collision.shapes.CapsuleCollisionShape;
 import com.jme3.bullet.control.CharacterControl;
 import com.jme3.bullet.control.RigidBodyControl;
-import com.jme3.light.DirectionalLight;
 import com.jme3.material.Material;
 import com.jme3.math.ColorRGBA;
 import com.jme3.math.Vector3f;
@@ -24,6 +23,7 @@ public class Creator {
 	Spatial health, haste, ammo, armor, regeneration, ultradamage, untouchable,
 			rocketLauncher, chainsaw, laser, shotgun, rifle, sniper, wedgeCube;
 	private float modelScale = 0.5f;
+	private float weaponsScale = 0.2f;
 	private AssetManager assetManager;
 
 	public Geometry createModelCube() {
@@ -185,11 +185,11 @@ public class Creator {
 		RigidBodyControl terrainControl = new RigidBodyControl(0);
 		terrainQuad.setLocalTranslation(SIZEMAP / 2, 0, SIZEMAP / 2);
 		terrainQuad.addControl(terrainControl);
-
-		DirectionalLight sun = new DirectionalLight();
-		sun.setColor(ColorRGBA.White);
-		sun.setDirection(new Vector3f(-.5f, -.5f, -.5f).normalizeLocal());
-		terrainQuad.addLight(sun);
+		//
+		// DirectionalLight sun = new DirectionalLight();
+		// sun.setColor(ColorRGBA.White);
+		// sun.setDirection(new Vector3f(-.5f, -.5f, -.5f).normalizeLocal());
+		// terrainQuad.addLight(sun);
 
 		return terrainQuad;
 	}
@@ -224,23 +224,25 @@ public class Creator {
 		untouchable.setMaterial(ComponentLoader.getIstance().getMaterial(
 				CubeType.UNTOUCHABLE));
 		untouchable.scale(modelScale);
+
+		// weapons
+
 		rocketLauncher = assetManager.loadModel(CubikArenaPath
 				.getRocketlauncherpath());
-		rocketLauncher.scale(modelScale);
+		rocketLauncher.scale(weaponsScale + 0.1f);
+		rocketLauncher.setLocalTranslation(-1, -2, 0);
 		chainsaw = assetManager.loadModel(CubikArenaPath.getChainsawpath());
-		chainsaw.scale(modelScale);
+		chainsaw.scale(weaponsScale);
 		laser = assetManager.loadModel(CubikArenaPath.getLaserpath());
-		laser.scale(modelScale);
+		laser.scale(weaponsScale);
 		shotgun = assetManager.loadModel(CubikArenaPath.getShotgunpath());
-		shotgun.scale(modelScale);
+		shotgun.scale(weaponsScale + 0.2f);
 		sniper = assetManager.loadModel(CubikArenaPath.getSniperpath());
 		sniper.setMaterial(ComponentLoader.getIstance().getMaterial(
 				CubeType.SNIPER));
-		sniper.scale(modelScale);
+		sniper.scale(weaponsScale + 0.01f);
 		rifle = assetManager.loadModel(CubikArenaPath.getRiflepath());
-		rifle.setMaterial(ComponentLoader.getIstance().getMaterial(
-				CubeType.RIFLE));
-		rifle.scale(modelScale);
+		rifle.scale(weaponsScale - 0.1f);
 
 	}
 

@@ -28,7 +28,7 @@ import de.lessvoid.nifty.controls.ListBox;
 
 public class EditorManager {
 
-	CubeType currentType = CubeType.ANVIL;
+	CubeType currentType = CubeType.CHAINSAW;
 
 	Vector3f walkDirection = new Vector3f(0, 0, 0);
 	Vector3f viewDirection = new Vector3f(1, 0, 1);
@@ -163,7 +163,7 @@ public class EditorManager {
 		initScene();
 		initBulletAppState();
 		initPhysicsSpace();
-
+		bulletAppState.setDebugEnabled(false);
 	}
 
 	private void initScene() {
@@ -245,7 +245,6 @@ public class EditorManager {
 				wedge.getLocalRotation());
 		spatialMap.put(tmp.geometry.getWorldTranslation().toString(), tmp);
 		bulletAppState.getPhysicsSpace().add(tmp.geometry);
-
 		nodoScena.attachChild(tmp.geometry);
 
 	}

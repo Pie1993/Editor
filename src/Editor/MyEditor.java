@@ -3,6 +3,8 @@ package Editor;
 import com.jme3.app.SimpleApplication;
 import com.jme3.asset.plugins.FileLocator;
 import com.jme3.font.BitmapText;
+import com.jme3.light.AmbientLight;
+import com.jme3.math.ColorRGBA;
 import com.jme3.niftygui.NiftyJmeDisplay;
 import com.jme3.post.FilterPostProcessor;
 import com.jme3.post.filters.BloomFilter;
@@ -53,6 +55,9 @@ public class MyEditor extends SimpleApplication {
 		AppSettings newSetting = new AppSettings(true);
 		newSetting.setFrameRate(60);
 		setSettings(newSetting);
+		AmbientLight light = new AmbientLight();
+		light.setColor(ColorRGBA.White);
+		rootNode.addLight(light);
 		// load();
 	}
 
