@@ -260,6 +260,7 @@ public class EditorManager {
 		}
 
 		spatialMap.clear();
+		// abahah
 
 	}
 
