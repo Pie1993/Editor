@@ -11,8 +11,9 @@ public class ComponentLoader {
 	private Material materials[];
 	private Texture texture[];
 	private Texture terrainTexture;
-	private int sizeMaterials = 60;
-	private int sizeTextures = 50; 
+	private int sizeMaterials = 62;
+	private int sizeTextures = 52;
+
 	private ComponentLoader() {
 
 	}
@@ -147,6 +148,10 @@ public class ComponentLoader {
 			return materials[58];
 		case AMMO:
 			return materials[59];
+		case SNIPER:
+			return materials[60];
+		case RIFLE:
+			return materials[61];
 		default:
 			return materials[0];
 
@@ -249,6 +254,9 @@ public class ComponentLoader {
 		materials[58].setColor("Color", ColorRGBA.Cyan);
 		materials[58].setColor("GlowColor", ColorRGBA.Cyan);
 		materials[59].setTexture("ColorMap", texture[49]);
+		materials[60].setTexture("ColorMap", texture[50]);
+		materials[61].setTexture("ColorMap", texture[51]);
+
 	}
 
 	private void loadTextures() {
@@ -352,6 +360,10 @@ public class ComponentLoader {
 				+ "wool_colored_yellow.png");
 		texture[49] = assetManager.loadTexture(CubikArenaPath.getTexturespath()
 				+ "AmmoTexture.png");
+		texture[50] = assetManager.loadTexture(CubikArenaPath.getTexturespath()
+				+ "Snipertexture.png");
+		texture[51] = assetManager.loadTexture(CubikArenaPath.getTexturespath()
+				+ "RifleTexture.png");
 
 	}
 

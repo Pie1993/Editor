@@ -60,7 +60,7 @@
             	</panel>
             </panel>
             <panel id="GPanel3" childLayout="horizontal" visible="true" width="26%" style="nifty-panel-hint" height="52%">
-            	<control id="edit_tabs" name="tabGroup" >
+            	<control id="edit_tabs" name="tabGroup" visibleToMouse="false" >
             	
   					<control id="tab_1" name="tab" caption="Blocks" >	
   					   
