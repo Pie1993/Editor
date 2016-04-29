@@ -697,7 +697,146 @@
   					</control>
 					<control id="tab_2" name="tab" caption="Wedges" >
 					    <panel id="tab_2_content" childLayout="vertical" align="center" valign="center" width="100%" height="100%">
-
+							<panel id="panel21" height="25%" width="100%" childLayout="horizontal">
+					    	    <panel  height="100%" width="33%" childLayout="center"  backgroundImage="Textures/Inventory Items/weaponsgrid.png" >
+					    	    	<image filename="Textures/Wedges Texture/hardened_clay_stained_black.png" visibleToMouse="true" childLayout="center" align="center" valign="center" height="80%" width="80%">
+                   					      <interact onClick="setType(W_BLACK)" />
+                   					     <effect>
+             								<onHover name="hint" hintText="Black"/>
+             								<onHover name="imageSize" maxSize="15%" >
+                            					<hover hoverFalloffType="none" hoverWidth="100%" hoverHeight="100%" hoverFalloffConstraint="both"/>
+                   							</onHover>
+           								 </effect>
+                   					 </image>
+					    		</panel>
+					    		<panel  height="100%" width="33%" childLayout="center"  backgroundImage="Textures/Inventory Items/weaponsgrid.png" >
+					    	    	<image filename="Textures/Wedges Texture/hardened_clay_stained_blue.png" visibleToMouse="true" childLayout="center" align="center" valign="center" height="80%" width="80%">
+                   					      <interact onClick="setType(W_BLUE)" />
+                   					     <effect>
+             								<onHover name="hint" hintText="Blue"/>
+             								<onHover name="imageSize" maxSize="15%" >
+                            					<hover hoverFalloffType="none" hoverWidth="100%" hoverHeight="100%" hoverFalloffConstraint="both"/>
+                   							</onHover>
+           								 </effect>
+                   					 </image>
+					    		</panel>
+					    		<panel  height="100%" width="33%" childLayout="center"  backgroundImage="Textures/Inventory Items/weaponsgrid.png" >
+					    	    	<image filename="Textures/Wedges Texture/hardened_clay_stained_brown.png" visibleToMouse="true" childLayout="center" align="center" valign="center" height="80%" width="80%">
+                   					      <interact onClick="setType(W_BROWN)" />
+                   					     <effect>
+             								<onHover name="hint" hintText="Brown"/>
+             								<onHover name="imageSize" maxSize="15%" >
+                            					<hover hoverFalloffType="none" hoverWidth="100%" hoverHeight="100%" hoverFalloffConstraint="both"/>
+                   							</onHover>
+           								 </effect>
+                   					 </image>
+					    		</panel>
+					    	</panel>
+					    	<panel id="panel22" height="25%" width="100%" childLayout="horizontal">
+					    	    <panel  height="100%" width="33%" childLayout="center" backgroundImage="Textures/Inventory Items/weaponsgrid.png">
+					    	    	<image filename="Textures/Wedges Texture/hardened_clay_stained_cyan.png" visibleToMouse="true" childLayout="center" align="center" valign="center" height="80%" width="80%">
+                   					      <interact onClick="setType(W_GRAY)"/>
+                   					     <effect>
+             								<onHover name="hint" hintText="Gray"/>
+             								<onHover name="imageSize" maxSize="15%" >
+                            					<hover hoverFalloffType="none" hoverWidth="100%" hoverHeight="100%" hoverFalloffConstraint="both"/>
+                   							</onHover>
+           								 </effect>
+                   					 </image>
+					    		</panel>
+					    		<panel  height="100%" width="33%" childLayout="center"  backgroundImage="Textures/Inventory Items/weaponsgrid.png" >
+					    	    	<image filename="Textures/Wedges Texture/hardened_clay_stained_green.png" visibleToMouse="true" childLayout="center" align="center" valign="center" height="80%" width="80%">
+                   					      <interact onClick="setType(W_GREEN)"/>
+                   					     <effect>
+             								<onHover name="hint" hintText="Green"/>
+             								<onHover name="imageSize" maxSize="15%" >
+                            					<hover hoverFalloffType="none" hoverWidth="100%" hoverHeight="100%" hoverFalloffConstraint="both"/>
+                   							</onHover>
+           								 </effect>
+                   					 </image>
+					    		</panel>
+					    		<panel  height="100%" width="33%" childLayout="center"  backgroundImage="Textures/Inventory Items/weaponsgrid.png">
+					    	    	<image filename="Textures/Wedges Texture/hardened_clay_stained_light_blue.png" visibleToMouse="true" childLayout="center" align="center" valign="center" height="80%" width="80%">
+                   					      <interact onClick="setType(W_LIGHT_BLUE)" />
+                   					     <effect>
+             								<onHover name="hint" hintText="Light Blue"/>
+             								<onHover name="imageSize" maxSize="15%" >
+                            					<hover hoverFalloffType="none" hoverWidth="100%" hoverHeight="100%" hoverFalloffConstraint="both"/>
+                   							</onHover>
+           								 </effect>
+                   					 </image>
+					    		</panel>
+					    	</panel>
+					    	<panel id="panel23" height="25%" width="100%" childLayout="horizontal">
+					    	    <panel height="100%" width="33%" childLayout="center"  backgroundImage="Textures/Inventory Items/weaponsgrid.png"> 
+					    	    	<image filename="Textures/Wedges Texture/hardened_clay_stained_orange.png" visibleToMouse="true" childLayout="center" align="center" valign="center" height="80%" width="80%">
+                   					      <interact onClick="setType(W_ORANGE)"/>
+                   					     <effect>
+             								<onHover name="hint" hintText="Orange"/>
+             								<onHover name="imageSize" maxSize="15%" >
+                            					<hover hoverFalloffType="none" hoverWidth="100%" hoverHeight="100%" hoverFalloffConstraint="both"/>
+                   							</onHover>
+           								 </effect>
+                   					 </image>
+					    		</panel>
+					    		<panel height="100%" width="33%" childLayout="center"  backgroundImage="Textures/Inventory Items/weaponsgrid.png" >
+					    	    	<image filename="Textures/Wedges Texture/hardened_clay_stained_pink.png" visibleToMouse="true" childLayout="center" align="center" valign="center" height="80%" width="80%">
+                   					      <interact onClick="setType(W_PINK)" />
+                   					     <effect>
+             								<onHover name="hint" hintText="Pink"/>
+             								<onHover name="imageSize" maxSize="15%" >
+                            					<hover hoverFalloffType="none" hoverWidth="100%" hoverHeight="100%" hoverFalloffConstraint="both"/>
+                   							</onHover>
+           								 </effect>
+                   					 </image>
+					    		</panel>
+					    		<panel height="100%" width="33%" childLayout="center"  backgroundImage="Textures/Inventory Items/weaponsgrid.png" >
+					    	    	<image filename="Textures/Wedges Texture/hardened_clay_stained_purple.png" visibleToMouse="true" childLayout="center" align="center" valign="center" height="80%" width="80%">
+                   					      <interact onClick="setType(W_PURPLE)" />
+                   					     <effect>
+             								<onHover name="hint" hintText="Purple"/>
+             								<onHover name="imageSize" maxSize="15%" >
+                            					<hover hoverFalloffType="none" hoverWidth="100%" hoverHeight="100%" hoverFalloffConstraint="both"/>
+                   							</onHover>
+           								 </effect>
+                   					 </image>
+					    		</panel>
+					    	</panel>
+					    	<panel id="panel24" height="25%" width="100%" childLayout="horizontal">
+					    	    <panel height="100%" width="33%" childLayout="center"  backgroundImage="Textures/Inventory Items/weaponsgrid.png" >
+					    	    	<image filename="Textures/Wedges Texture/hardened_clay_stained_red.png" visibleToMouse="true" childLayout="center" align="center" valign="center" height="80%" width="80%">
+                   					      <interact onClick="setType(W_RED)" />
+                   					     <effect>
+             								<onHover name="hint" hintText="Red"/>
+             								<onHover name="imageSize" maxSize="15%" >
+                            					<hover hoverFalloffType="none" hoverWidth="100%" hoverHeight="100%" hoverFalloffConstraint="both"/>
+                   							</onHover>
+           								 </effect>
+                   					 </image>
+					    		</panel>
+					    		<panel height="100%" width="33%" childLayout="center"  backgroundImage="Textures/Inventory Items/weaponsgrid.png" >
+					    	    	<image filename="Textures/Wedges Texture/hardened_clay_stained_white.png" visibleToMouse="true" childLayout="center" align="center" valign="center" height="80%" width="80%">
+                   					      <interact onClick="setType(W_WHITE)"/>
+                   					     <effect>
+             								<onHover name="hint" hintText="White"/>
+             								<onHover name="imageSize" maxSize="15%" >
+                            					<hover hoverFalloffType="none" hoverWidth="100%" hoverHeight="100%" hoverFalloffConstraint="both"/>
+                   							</onHover>
+           								 </effect>
+                   					 </image>
+					    		</panel>
+					    		<panel height="100%" width="33%" childLayout="center"  backgroundImage="Textures/Inventory Items/weaponsgrid.png">
+					    			<image filename="Textures/Wedges Texture/hardened_clay_stained_yellow.png" visibleToMouse="true" childLayout="center" align="center" valign="center" height="80%" width="80%">
+                   					      <interact onClick="setType(W_YELLOW)"/>
+                   					     <effect>
+             								<onHover name="hint" hintText="Yellow"/>
+             								<onHover name="imageSize" maxSize="15%" >
+                            					<hover hoverFalloffType="none" hoverWidth="100%" hoverHeight="100%" hoverFalloffConstraint="both"/>
+                   							</onHover>
+           								 </effect>
+                   					 </image>
+					    		</panel>
+					    	</panel>
 						</panel>
     				</control>
     				<control id="tab_3" name="tab" caption="Weapons" >

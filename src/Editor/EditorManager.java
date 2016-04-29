@@ -178,7 +178,7 @@ public class EditorManager {
 
 		bulletAppState = new BulletAppState();
 		stateManager.attach(bulletAppState);
-		bulletAppState.setDebugEnabled(true);
+		bulletAppState.setDebugEnabled(false);
 	}
 
 	private void initPhysicsSpace() {
