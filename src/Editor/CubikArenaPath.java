@@ -71,8 +71,16 @@ public class CubikArenaPath {
 		return modelPath + riflePath;
 	}
 
+	public static String getSavePath() {
+		return savePath;
+	}
+
+	public static String getXmlpath() {
+		return xmlPath;
+	}
+
 	private final static String modelPath = "Models/";
-	private final static String mapPath = "assets/Map/";
+	private final static String mapPath = "Map/";
 	private final static String texturesPath = "Textures/";
 	private final static String soundsPath = "Sounds/";
 	private final static String healthPath = "health/health.obj";
@@ -88,5 +96,7 @@ public class CubikArenaPath {
 	private final static String shotgunPath = "Shotgun/Shotgun.mesh.j3o";
 	private final static String sniperPath = "sniper/sniper.obj";
 	private final static String riflePath = "Rifle/Rifle.mesh.j3o";
+	private final static String savePath = "Salvataggio/";
+	private final static String xmlPath = "Xml/";
 
 }

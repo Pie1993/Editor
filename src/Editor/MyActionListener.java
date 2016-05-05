@@ -76,6 +76,7 @@ public class MyActionListener implements ActionListener {
 					//
 					// EditorManager.getIstance().insert();
 					// }
+
 					EditorManager.getIstance().insert();
 				} else
 					insert = false;
@@ -90,7 +91,12 @@ public class MyActionListener implements ActionListener {
 					delete = false;
 			}
 			if (name.equals("rotate") && isPressed) {
-				EditorManager.getIstance().wedge.rotate(0, FastMath.HALF_PI, 0);
+
+				if (EditorManager.getIstance().isWedgeActive()) {
+					System.out.println("okokokokokok");
+					EditorManager.getIstance().wedge.rotate(0,
+							FastMath.HALF_PI, 0);
+				}
 			}
 
 		}
@@ -106,8 +112,7 @@ public class MyActionListener implements ActionListener {
 		}
 
 		if (name.equals("Exit")) {
-
-			EditorManager.getIstance().clearScene();
+			;
 			EditorManager.getIstance().stop = true;
 		}
 		EditorManager.getIstance().coolDown = GregorianCalendar.getInstance()

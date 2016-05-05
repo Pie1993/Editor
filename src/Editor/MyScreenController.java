@@ -28,7 +28,15 @@ public class MyScreenController implements ScreenController {
 		CubeType type = CubeType.valueOf(string.toUpperCase());
 
 		EditorManager.getIstance().setCurrentType(type);
-
+		if (EditorManager.getIstance().isWedgeActive()) {
+			EditorManager.getIstance().nodoModel.detachAllChildren();
+			EditorManager.getIstance().nodoModel.attachChild(EditorManager
+					.getIstance().wedge);
+		} else {
+			EditorManager.getIstance().nodoModel.detachAllChildren();
+			EditorManager.getIstance().nodoModel.attachChild(EditorManager
+					.getIstance().modelCube);
+		}
 	}
 
 	public void loadMap() {
@@ -79,7 +87,9 @@ public class MyScreenController implements ScreenController {
 	}
 
 	public void loadScreen() {
+
 		fillMyListBox();
+
 		changeScreen("LoadScreen");
 		nifty.setIgnoreKeyboardEvents(false);
 
@@ -116,17 +126,19 @@ public class MyScreenController implements ScreenController {
 
 			@Override
 			public boolean accept(File dir, String name) {
-				return name.endsWith(".txt");
+				return name.endsWith(".j3o");
 			}
 		};
 
 		EditorManager.getIstance().listBox = screen.findNiftyControl("listBox",
 				ListBox.class);
-		EditorManager.getIstance().listBox.clear();
-		File folder = new File(CubikArenaPath.getMappath());
-		File[] listOfFiles = folder.listFiles(filenameFilter);
 
+		EditorManager.getIstance().listBox.clear();
+		File folder = new File("assets/" + CubikArenaPath.getSavePath());
+
+		File[] listOfFiles = folder.listFiles(filenameFilter);
 		for (File file : listOfFiles) {
+
 			EditorManager.getIstance().listBox.addItem(file.getName());
 
 		}

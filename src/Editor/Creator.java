@@ -24,6 +24,11 @@ public class Creator {
 			rocketLauncher, chainsaw, laser, shotgun, rifle, sniper, wedgeCube;
 	private float modelScale = 0.5f;
 	private float weaponsScale = 0.2f;
+	private int rocketLauncherSize, shotgunSize, rifleSize, laserSize,
+			sniperSize, minHealthSize, midHealthSize, maxHealthSize,
+			minArmorSize, midArmorSize, maxArmorSize, hasteSize, ammoSize,
+			regenerationSize, ultradamageSize, untouchableSize;
+	private int maxElement = 3;
 	private AssetManager assetManager;
 
 	public Geometry createModelCube() {
@@ -54,9 +59,16 @@ public class Creator {
 
 	public Cube createCube(int posx, int posy, int posz, CubeType currentType) {
 		Cube tmp;
-
+		if (EditorManager.getIstance().isWedgeActive()) {
+			tmp = new Cube(wedgeCube, posx, posy, posz, currentType);
+			tmp.geometry.setMaterial(ComponentLoader.getIstance().getMaterial(
+					currentType));
+			return tmp;
+		}
+		updateInformation(currentType);
 		switch (currentType) {
 		case HASTE:
+
 			tmp = new Cube(haste, posx, posy, posz, currentType);
 			return tmp;
 		case MINHEALTH:
@@ -121,10 +133,10 @@ public class Creator {
 			return tmp;
 
 		default:
-
 			tmp = new Cube(geometry, posx, posy, posz, currentType);
 			tmp.geometry.setMaterial(ComponentLoader.getIstance().getMaterial(
 					currentType));
+
 			return tmp;
 		}
 
@@ -153,6 +165,11 @@ public class Creator {
 
 		this.assetManager = assetManager;
 		initPrototypeCube();
+	}
+
+	public void reset() {
+		rocketLauncherSize = shotgunSize = rifleSize = laserSize = sniperSize = minHealthSize = midHealthSize = maxHealthSize = minArmorSize = midArmorSize = maxArmorSize = hasteSize = ammoSize = regenerationSize = ultradamageSize = untouchableSize = 0;
+
 	}
 
 	public static Creator getIstance() {
@@ -192,6 +209,10 @@ public class Creator {
 		// terrainQuad.addLight(sun);
 
 		return terrainQuad;
+	}
+
+	public AssetManager getAssetManager() {
+		return assetManager;
 	}
 
 	private void initPrototypeCube() {
@@ -260,4 +281,158 @@ public class Creator {
 
 	}
 
+	public boolean canCreate(CubeType currentType) {
+
+		switch (currentType) {
+		case ROCKETLAUNCHER:
+
+			return rocketLauncherSize < maxElement;
+		case SHOTGUN:
+			return shotgunSize < maxElement;
+		case RIFLE:
+			return rifleSize < maxElement;
+		case LASER:
+			return laserSize < maxElement;
+		case SNIPER:
+			return sniperSize < maxElement;
+		case MINHEALTH:
+			return minHealthSize < maxElement;
+		case MIDHEALTH:
+			return midHealthSize < maxElement;
+		case MAXHEALTH:
+			return maxHealthSize < maxElement;
+		case MINARMOR:
+			return minArmorSize < maxElement;
+		case MIDARMOR:
+			return midArmorSize < maxElement;
+		case MAXARMOR:
+			return maxArmorSize < maxElement;
+		case HASTE:
+			return hasteSize < maxElement;
+		case AMMO:
+			return ammoSize < maxElement;
+		case REGENERATION:
+			return regenerationSize < maxElement;
+		case ULTRADAMAGE:
+			return ultradamageSize < maxElement;
+		case UNTOUCHABLE:
+			return untouchableSize < maxElement;
+		default:
+			return true;
+		}
+
+	}
+
+	public void remove(CubeType cubeType) {
+
+		switch (cubeType) {
+		case ROCKETLAUNCHER:
+			rocketLauncherSize--;
+			break;
+		case SHOTGUN:
+			shotgunSize--;
+			break;
+		case RIFLE:
+			rifleSize--;
+			break;
+		case LASER:
+			laserSize--;
+			break;
+		case SNIPER:
+			sniperSize--;
+			break;
+		case MINHEALTH:
+			minHealthSize--;
+			break;
+		case MIDHEALTH:
+			midHealthSize--;
+			break;
+		case MAXHEALTH:
+			maxHealthSize--;
+			break;
+		case MINARMOR:
+			minArmorSize--;
+			break;
+		case MIDARMOR:
+			midArmorSize--;
+			break;
+		case MAXARMOR:
+			maxArmorSize--;
+			break;
+		case HASTE:
+			hasteSize--;
+			break;
+		case AMMO:
+			ammoSize--;
+			break;
+		case REGENERATION:
+			regenerationSize--;
+			break;
+		case ULTRADAMAGE:
+			ultradamageSize--;
+			break;
+		case UNTOUCHABLE:
+			untouchableSize--;
+			break;
+		default:
+
+		}
+
+	}
+
+	public void updateInformation(CubeType cubeType) {
+
+		switch (cubeType) {
+		case ROCKETLAUNCHER:
+			rocketLauncherSize++;
+			break;
+		case SHOTGUN:
+			shotgunSize++;
+			break;
+		case RIFLE:
+			rifleSize++;
+			break;
+		case LASER:
+			laserSize++;
+			break;
+		case SNIPER:
+			sniperSize++;
+			break;
+		case MINHEALTH:
+			minHealthSize++;
+			break;
+		case MIDHEALTH:
+			midHealthSize++;
+			break;
+		case MAXHEALTH:
+			maxHealthSize++;
+			break;
+		case MINARMOR:
+			minArmorSize++;
+			break;
+		case MIDARMOR:
+			midArmorSize++;
+			break;
+		case MAXARMOR:
+			maxArmorSize++;
+			break;
+		case HASTE:
+			hasteSize++;
+			break;
+		case AMMO:
+			ammoSize++;
+			break;
+		case REGENERATION:
+			regenerationSize++;
+			break;
+		case ULTRADAMAGE:
+			ultradamageSize++;
+			break;
+		case UNTOUCHABLE:
+			untouchableSize++;
+			break;
+		default:
+
+		}
+	}
 }

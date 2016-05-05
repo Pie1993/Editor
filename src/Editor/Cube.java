@@ -12,11 +12,19 @@ public class Cube implements PrototypeInterface {
 	public Cube(Spatial geometry, int posx, int posy, int posz, CubeType type) {
 
 		this.geometry = geometry.clone();
+		this.geometry.setName(type.name());
 		this.geometry.setLocalTranslation(posx, posy, posz);
 		this.control = new RigidBodyControl(
 				CollisionShapeFactory.createMeshShape(this.geometry), 0);
 		this.geometry.addControl(control);
 		this.type = type;
+
+	}
+
+	public Cube(Spatial p) {
+		this.geometry = p;
+		this.type = CubeType.valueOf(p.getName());
+		this.control = geometry.getControl(RigidBodyControl.class);
 
 	}
 

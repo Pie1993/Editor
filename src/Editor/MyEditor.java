@@ -8,7 +8,6 @@ import com.jme3.math.ColorRGBA;
 import com.jme3.niftygui.NiftyJmeDisplay;
 import com.jme3.post.FilterPostProcessor;
 import com.jme3.post.filters.BloomFilter;
-import com.jme3.scene.Node;
 import com.jme3.system.AppSettings;
 
 import de.lessvoid.nifty.Nifty;
@@ -23,18 +22,6 @@ public class MyEditor extends SimpleApplication {
 
 	}
 
-	private void load() {
-
-		try {
-			Node loadedNode = (Node) assetManager.loadModel("Salvataggio/"
-					+ "savedgame.j3o");
-			rootNode.attachChild(loadedNode);
-		} catch (com.jme3.asset.AssetNotFoundException e) {
-			System.out.println("cazzo");
-		}
-
-	}
-
 	public static void main(String[] args) {
 
 		MyEditor app = new MyEditor();
@@ -45,8 +32,10 @@ public class MyEditor extends SimpleApplication {
 	@Override
 	public void simpleInitApp() {
 
-		assetManager.registerLocator("./assets/", FileLocator.class); // /cambia
-																		// percorso
+		assetManager.registerLocator("./assets/", FileLocator.class); //
+
+		// cambia
+		// percorso
 		init();
 		ComponentLoader.getIstance().init(assetManager);
 		EditorManager.getIstance().init(cam, actionListener, assetManager,
@@ -58,7 +47,7 @@ public class MyEditor extends SimpleApplication {
 		AmbientLight light = new AmbientLight();
 		light.setColor(ColorRGBA.White);
 		rootNode.addLight(light);
-		// load();
+
 	}
 
 	private void init() {
@@ -71,9 +60,12 @@ public class MyEditor extends SimpleApplication {
 		MyScreenController myScreenController = new MyScreenController(display);
 		// ScreenNiftyCube screenNiftyCube = new ScreenNiftyCube(nifty, display,
 		// guiViewPort, myScreenController);
+
 		nifty.fromXml("./Xml/LScreen.xml", "GScreen0", myScreenController);
+
 		guiViewPort.addProcessor(display);
 		nifty.setIgnoreKeyboardEvents(true);
+
 		ScreenSaveMap screenSaveMap = new ScreenSaveMap(nifty, display,
 				guiViewPort, myScreenController);
 		ScreenLoadMap screenLoadMap = new ScreenLoadMap(nifty, display,
@@ -82,7 +74,6 @@ public class MyEditor extends SimpleApplication {
 		BloomFilter bloom = new BloomFilter(BloomFilter.GlowMode.Objects);
 		fpp.addFilter(bloom);
 		viewPort.addProcessor(fpp);
-
 	}
 
 	protected void initCrossHairs() {
@@ -104,8 +95,11 @@ public class MyEditor extends SimpleApplication {
 	public void simpleUpdate(float tpf) {
 		super.simpleUpdate(tpf);
 		EditorManager.getIstance().update();
-		if (EditorManager.getIstance().stop)
+		if (EditorManager.getIstance().stop) {
+			EditorManager.getIstance().clearScene();
 			stop();
+
+		}
 	}
 
 }

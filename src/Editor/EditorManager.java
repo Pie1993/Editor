@@ -29,7 +29,7 @@ import de.lessvoid.nifty.controls.ListBox;
 public class EditorManager {
 
 	CubeType currentType = CubeType.ANVIL;
-
+	TerrainQuad terrainQuad;
 	Vector3f walkDirection = new Vector3f(0, 0, 0);
 	Vector3f viewDirection = new Vector3f(1, 0, 1);
 	private Vector3f camDir = new Vector3f();
@@ -38,10 +38,9 @@ public class EditorManager {
 	public boolean stop = false;
 	BulletAppState bulletAppState;
 	private final static int SIZEMAP = 256;
-	private HashMap<String, Cube> spatialMap;
+	HashMap<String, Cube> spatialMap;
 
 	private Ray ray = new Ray();
-	Spatial wedge;
 	private Camera cam;
 	private float moveSpeed = 0.3f;
 	private float riseSpeed = 0.2f;
@@ -53,7 +52,8 @@ public class EditorManager {
 	BatchNode nodoScena, nodoModel;
 	Vector3f cursorPos;
 
-	Geometry modelCube, modelTriangle;
+	Geometry modelCube;
+	Spatial wedge;
 
 	private AppStateManager stateManager;
 	private Node rootNode;
@@ -108,9 +108,9 @@ public class EditorManager {
 
 			if (currentTime - 190 > coolDown) {
 				coolDown = currentTime;
-				if (actionListener.insert) {
+				if (actionListener.insert)
 					insert();
-				}
+
 				if (actionListener.delete)
 					remove();
 			}
@@ -153,7 +153,6 @@ public class EditorManager {
 		this.stateManager = stateManager;
 		this.rootNode = rootNode;
 		Creator.getIstance().init(assetManager);
-
 		modelCube = Creator.getIstance().createModelCube();
 		wedge = Creator.getIstance().createWedge();
 		nodoModel = new BatchNode();
@@ -168,10 +167,11 @@ public class EditorManager {
 	}
 
 	private void initScene() {
-		TerrainQuad terrainQuad = Creator.getIstance().createScene(SIZEMAP);
+		terrainQuad = Creator.getIstance().createScene(SIZEMAP);
 		nodoScena = new BatchNode();
 		nodoScena.attachChild(terrainQuad);
 		rootNode.attachChild(nodoScena);
+		nodoScena.batch();
 	}
 
 	private void initBulletAppState() {
@@ -222,8 +222,12 @@ public class EditorManager {
 
 					nodoScena.detachChild(geometry.getParent());
 					nodoScena.detachChild(geometry);
+					CubeType cubeType = spatialMap.get(
+							geometry.getWorldTranslation().toString())
+							.getType();
 					spatialMap
 							.remove(geometry.getWorldTranslation().toString());
+					Creator.getIstance().remove(cubeType);
 
 				}
 			}
@@ -237,14 +241,17 @@ public class EditorManager {
 		int posz = (int) cursorPos.z;
 		int posy = (int) cursorPos.y;
 		String key = "(" + posx + ".0, " + posy + ".0, " + posz + ".0)";
-		if (!IsPositionValide(posx, posy, posz) || spatialMap.containsKey(key)) {
+		if (!IsPositionValide(posx, posy, posz) || spatialMap.containsKey(key)
+				|| !Creator.getIstance().canCreate(currentType)) {
 			return;
 		}
 		Cube tmp = Creator.getIstance().createCube(posx, posy, posz,
 				currentType);
-		tmp.geometry.rotate(wedge.getLocalRotation());
-		tmp.geometry.getControl(RigidBodyControl.class).setPhysicsRotation(
-				wedge.getLocalRotation());
+		if (isWedgeActive()) {
+			tmp.geometry.rotate(wedge.getLocalRotation());
+			tmp.geometry.getControl(RigidBodyControl.class).setPhysicsRotation(
+					wedge.getLocalRotation());
+		}
 		spatialMap.put(tmp.geometry.getWorldTranslation().toString(), tmp);
 		bulletAppState.getPhysicsSpace().add(tmp.geometry);
 
@@ -260,6 +267,7 @@ public class EditorManager {
 		}
 
 		spatialMap.clear();
+		Creator.getIstance().reset();
 		// abahah
 
 	}
@@ -354,5 +362,11 @@ public class EditorManager {
 	public void setCurrentType(CubeType type) {
 		this.currentType = type;
 
+	}
+
+	public boolean isWedgeActive() {
+		if (currentType.name().startsWith("W_"))
+			return true;
+		return false;
 	}
 }

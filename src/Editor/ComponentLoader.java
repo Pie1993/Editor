@@ -11,8 +11,8 @@ public class ComponentLoader {
 	private Material materials[];
 	private Texture texture[];
 	private Texture terrainTexture;
-	private int sizeMaterials = 62;
-	private int sizeTextures = 52;
+	private int sizeMaterials = 74;
+	private int sizeTextures = 64;
 
 	private ComponentLoader() {
 
@@ -152,6 +152,30 @@ public class ComponentLoader {
 			return materials[60];
 		case RIFLE:
 			return materials[61];
+		case W_BLACK:
+			return materials[62];
+		case W_BLUE:
+			return materials[63];
+		case W_BROWN:
+			return materials[64];
+		case W_GRAY:
+			return materials[65];
+		case W_GREEN:
+			return materials[66];
+		case W_LIGHT_BLUE:
+			return materials[67];
+		case W_ORANGE:
+			return materials[68];
+		case W_PINK:
+			return materials[69];
+		case W_PURPLE:
+			return materials[70];
+		case W_RED:
+			return materials[71];
+		case W_WHITE:
+			return materials[72];
+		case W_YELLOW:
+			return materials[73];
 		default:
 			return materials[0];
 
@@ -256,6 +280,18 @@ public class ComponentLoader {
 		materials[59].setTexture("ColorMap", texture[49]);
 		materials[60].setTexture("ColorMap", texture[50]);
 		materials[61].setTexture("ColorMap", texture[51]);
+		materials[62].setTexture("ColorMap", texture[52]);
+		materials[63].setTexture("ColorMap", texture[53]);
+		materials[64].setTexture("ColorMap", texture[54]);
+		materials[65].setTexture("ColorMap", texture[55]);
+		materials[66].setTexture("ColorMap", texture[56]);
+		materials[67].setTexture("ColorMap", texture[57]);
+		materials[68].setTexture("ColorMap", texture[58]);
+		materials[69].setTexture("ColorMap", texture[59]);
+		materials[70].setTexture("ColorMap", texture[60]);
+		materials[71].setTexture("ColorMap", texture[61]);
+		materials[72].setTexture("ColorMap", texture[62]);
+		materials[73].setTexture("ColorMap", texture[63]);
 
 	}
 
@@ -364,6 +400,31 @@ public class ComponentLoader {
 				+ "Snipertexture.png");
 		texture[51] = assetManager.loadTexture(CubikArenaPath.getTexturespath()
 				+ "RifleTexture.png");
+
+		texture[52] = assetManager.loadTexture(CubikArenaPath.getTexturespath()
+				+ "Wedges Texture/hardened_clay_stained_black.png");
+		texture[53] = assetManager.loadTexture(CubikArenaPath.getTexturespath()
+				+ "Wedges Texture/hardened_clay_stained_blue.png");
+		texture[54] = assetManager.loadTexture(CubikArenaPath.getTexturespath()
+				+ "Wedges Texture/hardened_clay_stained_brown.png");
+		texture[55] = assetManager.loadTexture(CubikArenaPath.getTexturespath()
+				+ "Wedges Texture/hardened_clay_stained_cyan.png");
+		texture[56] = assetManager.loadTexture(CubikArenaPath.getTexturespath()
+				+ "Wedges Texture/hardened_clay_stained_green.png");
+		texture[57] = assetManager.loadTexture(CubikArenaPath.getTexturespath()
+				+ "Wedges Texture/hardened_clay_stained_light_blue.png");
+		texture[58] = assetManager.loadTexture(CubikArenaPath.getTexturespath()
+				+ "Wedges Texture/hardened_clay_stained_orange.png");
+		texture[59] = assetManager.loadTexture(CubikArenaPath.getTexturespath()
+				+ "Wedges Texture/hardened_clay_stained_pink.png");
+		texture[60] = assetManager.loadTexture(CubikArenaPath.getTexturespath()
+				+ "Wedges Texture/hardened_clay_stained_purple.png");
+		texture[61] = assetManager.loadTexture(CubikArenaPath.getTexturespath()
+				+ "Wedges Texture/hardened_clay_stained_red.png");
+		texture[62] = assetManager.loadTexture(CubikArenaPath.getTexturespath()
+				+ "Wedges Texture/hardened_clay_stained_white.png");
+		texture[63] = assetManager.loadTexture(CubikArenaPath.getTexturespath()
+				+ "Wedges Texture/hardened_clay_stained_yellow.png");
 
 	}
 
