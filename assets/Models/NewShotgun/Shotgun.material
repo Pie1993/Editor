@@ -1,4 +1,5 @@
-material RifleMaterial
+
+material ShotgunMaterial
 {
 	technique
 	{
@@ -8,7 +9,7 @@ material RifleMaterial
 
 			texture_unit
 			{
-				texture RifleTexture.png
+				texture Shotgun.png
 			}
 
 			texture_unit

@@ -2,10 +2,48 @@
 <nifty xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://nifty-gui.lessvoid.com/nifty-gui" xsi:schemaLocation="https://raw.githubusercontent.com/void256/nifty-gui/1.4/nifty-core/src/main/resources/nifty.xsd https://raw.githubusercontent.com/void256/nifty-gui/1.4/nifty-core/src/main/resources/nifty.xsd">
     <useControls filename="nifty-default-controls.xml"/>
     <useStyles filename="nifty-default-styles.xml"/>
+    
+    <popup id="popupClearMap" childLayout="center" backgroundColor="#000a">
+        <panel height="15%" width="18%" align="center" childLayout="vertical" backgroundImage="Textures/Inventory Items/weaponsgrid.png">
+            <panel height="50%" width="100%" childLayout="center">
+                <control name="label" text="CLEAR MAP?" font="Font1/ARDESTINE.fnt" color="#003ff" />
+            </panel>
+            <panel height="30%" width="100%" childLayout="horizontal" paddingLeft="68px">
+                <control name="button" label="Yes" id="Button" align="center" valign="center" visibleToMouse="true" width="30%">
+                    <interact onClick="clearMap()" ></interact>
+                </control>
+                <panel height="100%" width="10%"></panel>
+                <control name="button" label="No" id="Button" align="center" valign="center" visibleToMouse="true" width="30%">
+                    <interact onClick="closePopup(popupClearMap)"></interact>
+                </control>
+            </panel>
+        </panel>
+    </popup>
+    
+    <popup id="popupBackToMenu" childLayout="center" backgroundColor="#000a">
+        <panel height="15%" width="20%" align="center" childLayout="vertical" backgroundImage="Textures/Inventory Items/weaponsgrid.png">
+            <panel height="50%" width="100%" childLayout="center">
+                <control name="label" text="ARE YOU SURE?" font="Font1/ARDESTINE.fnt" color="#003ff" />
+            </panel>
+            <panel height="30%" width="100%" childLayout="horizontal" paddingLeft="68px">
+                <control name="button" label="Yes" id="Button" align="center" valign="center" visibleToMouse="true" width="30%">
+                    <interact onClick="backToMenu()" ></interact>
+                </control>
+                <panel height="100%" width="10%"></panel>
+                <control name="button" label="No" id="Button" align="center" valign="center" visibleToMouse="true" width="30%">
+                    <interact onClick="closePopup(popupBackToMenu)"></interact>
+                </control>
+            </panel>
+        </panel>
+    </popup>
+    
     <screen id="GScreen0" controller="Editor.MyScreenController">
         <layer id="GLayer0" childLayout="horizontal" width="100%" height="100%" visible="true" >
-            <panel id="GPanel0" childLayout="horizontal" visible="true" width="30%" style="nifty-panel-hint" height="10%" paddingLeft="5px" paddingTop="5px">
-            	<panel id="GPanel0Right" childLayout="horizontal" height="100%" width="20%" >
+            <panel id="GPanel0" childLayout="vertical" visible="true" width="16%" style="nifty-panel-hint" height="100%"  >
+            <panel id="GPanel01" childLayout="horizontal" visible="true" width="100%" style="nifty-panel-hint" height="7%" paddingTop="6px"  >
+            	<panel height="100%" width="4%"></panel>
+            	<panel id="GPanel0Right" childLayout="center" height="100%" width="25%" backgroundImage="Textures/Inventory Items/weaponsgrid.png">
+            		<interact onClick="loadScreen()" />
             		<image filename="Textures/open.png" visibleToMouse="true"  height="90%" width="80%">
                    		<interact onClick="loadScreen()" />
                    			 <effect>
@@ -16,7 +54,9 @@
            					 </effect>
                		</image>
                 </panel>
-                <panel id="GPanel0Center1" childLayout="horizontal" height="100%" width="20%" >
+                <panel height="100%" width="4%"></panel>
+                <panel id="GPanel0Center1" childLayout="center" height="100%" width="25%" backgroundImage="Textures/Inventory Items/weaponsgrid.png">
+                	<interact onClick="saveScreen()" />
                 	<image filename="Textures/floppy.png" visibleToMouse="true"  height="90%" width="80%">
                    		<interact onClick="saveScreen()" />
                    			<effect>
@@ -27,9 +67,11 @@
            					</effect>
                    	</image>
                 </panel>
-                <panel id="GPanel0Center2" childLayout="horizontal" height="100%" width="20%"  >
-                   	<image filename="Textures/erase.png" visibleToMouse="true" height="90%" width="80%">
-                   		<interact onClick="clearMap()" />
+                <panel height="100%" width="4%"></panel>
+                <panel id="GPanel0Center2" childLayout="center" height="100%" width="25%"  backgroundImage="Textures/Inventory Items/weaponsgrid.png">
+                   	<interact onClick="popup(popupClearMap)" />
+                   	<image filename="Textures/trashbin.png" visibleToMouse="true" height="80%" width="80%">
+                   		<interact onClick="popup(popupClearMap)" />
                    			<effect>
              					<onHover name="hint" hintText="Clear Map"/>
              					<onHover name="imageSize" maxSize="20%" >
@@ -38,9 +80,11 @@
            					</effect>
                    	</image>
                  </panel>
-                 <panel id="GPanel0Left" childLayout="horizontal" height="100%" width="20%"  >
-                   	<image filename="Textures/menu_icon.png" visibleToMouse="true" height="90%" width="80%">
-                   		<interact onClick="backToMenu()" />
+                 <panel height="100%" width="4%"></panel>
+                 <panel id="GPanel0Left" childLayout="center" height="100%" width="25%"  backgroundImage="Textures/Inventory Items/weaponsgrid.png">
+                   	<interact onClick="popup(popupBackToMenu)" />
+                   	<image filename="Textures/back.png" visibleToMouse="true" height="85%" width="80%">
+                   			<interact onClick="popup(popupBackToMenu)" />
                    			<effect>
              					<onHover name="hint" hintText="Back to Menu"/>
              					<onHover name="imageSize" maxSize="20%" >
@@ -50,30 +94,48 @@
                    	</image>
                  </panel>
             </panel>
-            <panel id="GPanel1" childLayout="vertical" visible="true" width="44%" style="nifty-panel-hint" height="100%">
-            	<panel id="GPanel1Top" childLayout="horizontal" height="78%" width="100%" >
+            <panel height="5%" width="4%"></panel>
+            <panel id="GPanel02" childLayout="horizontal" visible="true" width="100%" style="nifty-panel-hint" height="7%" paddingTop="6px"  >
+            	<panel height="100%" width="4%"></panel>
+            	<panel id="spawnpanel" childLayout="center" height="100%" width="25%"  backgroundImage="Textures/Inventory Items/weaponsgrid.png">
+            	    <interact onClick="setType(SPAWN,spawnpanel)" />
+            	    <image filename="Textures/Person.png" visibleToMouse="true" height="85%" width="40%">
+                   		<interact onClick="setType(SPAWN,spawnpanel)" />
+                   			<effect>
+             					<onHover name="imageSize" maxSize="20%" >
+                            		<hover hoverFalloffType="none" hoverWidth="100%" hoverHeight="100%" hoverFalloffConstraint="both"/>
+                   				</onHover>
+           					</effect>
+                   	</image>
             	</panel>
-            	<panel id="GPanel1Bottom" childLayout="center" height="22%" width="100%" paddingBottom="30px">
-            		<image filename="Textures/Inventory Items/box.png" childLayout="horizontal" align="center" visibleToMouse="true" height="40%" width="10%">
-           			</image>
-           			<control name="label" color="#003ff" text="Box" align="center" valign="bottom"></control>
+            	<panel height="100%" width="10%"></panel>
+            	<panel height="100%" width="70%" childLayout="center">
+            	    <text text="SPAWN POINT" font="Font1/ARDESTINE.fnt" width="100%" height="100%" />
             	</panel>
             </panel>
+            <panel height="54%" width="100%" style="nifty-panel-hint" visible="false"></panel>
+            <panel height="28%" width="100%" style="nifty-panel"  childLayout="vertical" >
+                <panel width="100%" height="14%" style="nifty-panel-hint" childLayout="center">
+                    <text text="TIPS:" font="Font1/ARDESTINE.fnt" width="100%" height="100%" />
+                </panel>
+           		<panel id="GPanel03" childLayout="vertical" visible="true" width="100%" height="88%"  backgroundImage="Textures/Inventory Items/weaponsgrid.png" paddingTop="5px" paddingLeft="5px">
+                	<text text=" Press mouse left to add items.&#10; Press mouse right to remove &#10; items.&#10; Press SPACE to move up.&#10; Press CTRL to move down.&#10;Press R to rotate wedges.&#10; Press E to switch focus." font="Font2/SegoeUISemibold.fnt" />
+            	</panel>
+            </panel>
+            </panel>
+            <panel id="GPanel1" childLayout="vertical" visible="false" width="58%" style="nifty-panel-hint" height="100%">
+            </panel>
+            
             <panel id="GPanel3" childLayout="horizontal" visible="true" width="26%" style="nifty-panel-hint" height="52%">
             	<control id="edit_tabs" name="tabGroup" visibleToMouse="false" >
-            	
   					<control id="tab_1" name="tab" caption="Blocks" >	
-  					   
 						<panel id="tab_1_content" childLayout="vertical" align="center" valign="center" width="100%" height="100%" >
-						
-					    
-					    
 							<panel height="1%" width="100%" ></panel>
 							 <panel id="panel1" height="14%" width="100%" align="center" childLayout="horizontal">
 							 	<panel height="100%" width="1%" ></panel>
-							 	<panel height="100%" width="14%" align="center" childLayout="center"  backgroundImage="Textures/Inventory Items/weaponsgrid.png">
+							 	<panel id="subpanel1" height="100%" width="14%" align="center" childLayout="center"  backgroundImage="Textures/Inventory Items/weaponsgrid.png">
                    					 <image filename="Textures/Inventory Items/anvilcube.png" visibleToMouse="true" childLayout="center" align="center" valign="center" height="90%" width="90%">
-                   					     <interact onClick="setType(Anvil)" />
+                   					     <interact onClick="setType(Anvil,subpanel1)"/>
                    					     <effect>
                    					         
              								<onHover name="hint" hintText="Anvil"/>
@@ -84,9 +146,9 @@
                    					 </image>
                    				</panel>
                    				
-                   				<panel height="100%" width="14%" align="center" childLayout="center"  backgroundImage="Textures/Inventory Items/weaponsgrid.png">
+                   				<panel id="subpanel2" height="100%" width="14%" align="center" childLayout="center"  backgroundImage="Textures/Inventory Items/weaponsgrid.png">
                    					 <image filename="Textures/Inventory Items/box.png" visibleToMouse="true" childLayout="center" align="center" valign="center" height="90%" width="90%">
-                   					      <interact onClick="setType(Box)" />
+                   					      <interact onClick="setType(Box,subpanel2)"/>
                    					     <effect>
                    					         
              								<onHover name="hint" hintText="Box"/>
@@ -97,9 +159,9 @@
                    					 </image>
                    				</panel>
                    				
-                   				<panel height="100%" width="14%" align="center" childLayout="center"  backgroundImage="Textures/Inventory Items/weaponsgrid.png">
+                   				<panel id="subpanel3" height="100%" width="14%" align="center" childLayout="center"  backgroundImage="Textures/Inventory Items/weaponsgrid.png">
                    					 <image filename="Textures/Inventory Items/brickcube.png" visibleToMouse="true" childLayout="center" align="center" valign="center" height="90%" width="90%">
-                   					      <interact onClick="setType(Brick)" />
+                   					      <interact onClick="setType(Brick,subpanel3)" />
                    					     <effect>
                    					         
              								<onHover name="hint" hintText="Brick"/>
@@ -110,9 +172,9 @@
                    					 </image>
                    				</panel>
                    				
-                   				<panel height="100%" width="14%" align="center" childLayout="center"  backgroundImage="Textures/Inventory Items/weaponsgrid.png">
+                   				<panel id="subpanel4" height="100%" width="14%" align="center" childLayout="center"  backgroundImage="Textures/Inventory Items/weaponsgrid.png">
                    					 <image filename="Textures/Inventory Items/cobblestonecube.png" visibleToMouse="true" childLayout="center" align="center" valign="center" height="90%" width="90%">
-                   					      <interact onClick="setType(Cobblestone)" />
+                   					      <interact onClick="setType(Cobblestone,subpanel4)" />
                    					     <effect>
                    					         
              								<onHover name="hint" hintText="Cobblestone"/>
@@ -123,9 +185,9 @@
                    					 </image>
                    				</panel>
                    				
-                   				<panel height="100%" width="14%" align="center" childLayout="center"  backgroundImage="Textures/Inventory Items/weaponsgrid.png">
+                   				<panel id="subpanel5" height="100%" width="14%" align="center" childLayout="center"  backgroundImage="Textures/Inventory Items/weaponsgrid.png">
                    					 <image filename="Textures/Inventory Items/cobblestonemessycube.png" visibleToMouse="true" childLayout="center" align="center" valign="center" height="90%" width="90%">
-                   					      <interact onClick="setType(CobblestoneMessy)" />
+                   					      <interact onClick="setType(CobblestoneMessy,subpanel5)" />
                    					     <effect>
                    					         
              								<onHover name="hint" hintText="CobblestoneMessy"/>
@@ -136,9 +198,9 @@
                    					 </image>
                    				</panel>
                    				
-                   				<panel height="100%" width="14%" align="center" childLayout="center"  backgroundImage="Textures/Inventory Items/weaponsgrid.png">
+                   				<panel id="subpanel6" height="100%" width="14%" align="center" childLayout="center"  backgroundImage="Textures/Inventory Items/weaponsgrid.png">
                    					 <image filename="Textures/Inventory Items/dirtcube.png" visibleToMouse="true" childLayout="center" align="center" valign="center" height="90%" width="90%">
-                   					      <interact onClick="setType(Dirt)" />
+                   					      <interact onClick="setType(Dirt,subpanel6)" />
                    					     <effect>
                    					         
              								<onHover name="hint" hintText="Dirt"/>
@@ -149,9 +211,9 @@
                    					 </image>
                    				</panel>
                    				
-                   				<panel height="100%" width="14%" align="center" childLayout="center" backgroundImage="Textures/Inventory Items/weaponsgrid.png">
+                   				<panel id="subpanel7" height="100%" width="14%" align="center" childLayout="center" backgroundImage="Textures/Inventory Items/weaponsgrid.png">
                    					 <image filename="Textures/Inventory Items/dirt2cube.png" visibleToMouse="true" childLayout="center" align="center" valign="center" height="90%" width="90%">
-                   					      <interact onClick="setType(Dirt2)" />
+                   					      <interact onClick="setType(Dirt2,subpanel7)" />
                    					     <effect>
                    					         
              								<onHover name="hint" hintText="Dirt2"/>
@@ -165,9 +227,9 @@
            					 </panel>
 							 <panel id="panel2" height="14%" width="100%" align="center" childLayout="horizontal" >
                       <panel height="100%" width="1%"></panel>
-                      <panel height="100%" width="14%" align="center" childLayout="center"  backgroundImage="Textures/Inventory Items/weaponsgrid.png">
+                      <panel id="subpanel8" height="100%" width="14%" align="center" childLayout="center"  backgroundImage="Textures/Inventory Items/weaponsgrid.png">
                 					<image filename="Textures/Inventory Items/dispensercube.png" visibleToMouse="true" childLayout="center" align="center" valign="center" height="90%" width="90%">
-                   					     <interact onClick="setType(Dispenser)" />
+                   					     <interact onClick="setType(Dispenser,subpanel8)" />
                    					     <effect>
                    					         
              								<onHover name="hint" hintText="Dispenser"/>
@@ -177,9 +239,21 @@
            								 </effect>
                    					 </image>
                       </panel>
-                      <panel height="100%" width="14%" align="center" childLayout="center"  backgroundImage="Textures/Inventory Items/weaponsgrid.png">
+                      <panel id="subpanel30" height="100%" width="14%" align="center" childLayout="center"  backgroundImage="Textures/Inventory Items/weaponsgrid.png">
+                   					 <image filename="Textures/Inventory Items/glasscube.png" visibleToMouse="true" childLayout="center" align="center" valign="center" height="90%" width="90%">
+                   					      <interact onClick="setType(Glass,subpanel30)" />
+                   					     <effect>
+                   					         
+             								<onHover name="hint" hintText="Glass"/>
+             								<onHover name="imageSize" maxSize="15%" >
+                            					<hover hoverFalloffType="none" hoverWidth="100%" hoverHeight="100%" hoverFalloffConstraint="both"/>
+                   							</onHover>
+           								 </effect>
+                   					 </image>
+                   					 </panel>
+                      <panel id="subpanel9" height="100%" width="14%" align="center" childLayout="center"  backgroundImage="Textures/Inventory Items/weaponsgrid.png">
                    					 <image filename="Textures/Inventory Items/goldcube.png" visibleToMouse="true" childLayout="center" align="center" valign="center" height="90%" width="90%">
-                   					      <interact onClick="setType(Gold)" />
+                   					      <interact onClick="setType(Gold,subpanel9)" />
                    					     <effect>
                    					         
              								<onHover name="hint" hintText="Gold"/>
@@ -189,9 +263,9 @@
            								 </effect>
                    					 </image>
                       </panel>
-                      <panel height="100%" width="14%" align="center" childLayout="center"  backgroundImage="Textures/Inventory Items/weaponsgrid.png">
+                      <panel id="subpanel10" height="100%" width="14%" align="center" childLayout="center"  backgroundImage="Textures/Inventory Items/weaponsgrid.png">
                    					 <image filename="Textures/Inventory Items/grasscube.png" visibleToMouse="true" childLayout="center" align="center" valign="center" height="90%" width="90%">
-                   					      <interact onClick="setType(Grass)" />
+                   					      <interact onClick="setType(Grass,subpanel10)" />
                    					     <effect>
                    					         
              								<onHover name="hint" hintText="Grass"/>
@@ -201,9 +275,9 @@
            								 </effect>
                    					 </image>
                       </panel>
-                      <panel height="100%" width="14%" align="center" childLayout="center"  backgroundImage="Textures/Inventory Items/weaponsgrid.png">
+                      <panel id="subpanel11" height="100%" width="14%" align="center" childLayout="center"  backgroundImage="Textures/Inventory Items/weaponsgrid.png">
                    					 <image filename="Textures/Inventory Items/gravelcube.png" visibleToMouse="true" childLayout="center" align="center" valign="center" height="90%" width="90%">
-                   					      <interact onClick="setType(Gravel)" />
+                   					      <interact onClick="setType(Gravel,subpanel11)" />
                    					     <effect>
                    					         
              								<onHover name="hint" hintText="Gravel"/>
@@ -213,9 +287,9 @@
            								 </effect>
                    					 </image>
                       </panel>
-                      <panel height="100%" width="14%" align="center" childLayout="center"  backgroundImage="Textures/Inventory Items/weaponsgrid.png">
+                      <panel id="subpanel12" height="100%" width="14%" align="center" childLayout="center"  backgroundImage="Textures/Inventory Items/weaponsgrid.png">
                    					 <image filename="Textures/Inventory Items/icecube.png" visibleToMouse="true" childLayout="center" align="center" valign="center" height="90%" width="90%">
-                   					      <interact onClick="setType(Ice)" />
+                   					      <interact onClick="setType(Ice,subpanel12)" />
                    					     <effect>
                    					         
              								<onHover name="hint" hintText="Ice"/>
@@ -225,9 +299,9 @@
            								 </effect>
                    					 </image>
                       </panel>
-                      <panel height="100%" width="14%" align="center" childLayout="center"  backgroundImage="Textures/Inventory Items/weaponsgrid.png">
+                      <panel id="subpanel13" height="100%" width="14%" align="center" childLayout="center"  backgroundImage="Textures/Inventory Items/weaponsgrid.png">
                    					 <image filename="Textures/Inventory Items/ironcube.png" visibleToMouse="true" childLayout="center" align="center" valign="center" height="90%" width="90%">
-                   					      <interact onClick="setType(Iron)" />
+                   					      <interact onClick="setType(Iron,subpanel13)" />
                    					     <effect>
                    					         
              								<onHover name="hint" hintText="Iron"/>
@@ -237,9 +311,14 @@
            								 </effect>
                    					 </image>
                       </panel>
-                      <panel height="100%" width="14%" align="center" childLayout="center"  backgroundImage="Textures/Inventory Items/weaponsgrid.png">
+                      
+                      <panel height="100%" width="1%"></panel>
+           					 </panel>
+           					 <panel id="panel3" height="14%" width="100%" align="center" childLayout="horizontal"  >
+           					     <panel height="100%" width="1%"></panel>
+           					     <panel id="subpanel14" height="100%" width="14%" align="center" childLayout="center"  backgroundImage="Textures/Inventory Items/weaponsgrid.png">
                    					 <image filename="Textures/Inventory Items/ironpanelcube.png" visibleToMouse="true" childLayout="center" align="center" valign="center" height="90%" width="90%">
-                   					      <interact onClick="setType(IronPanel)" />
+                   					      <interact onClick="setType(IronPanel,subpanel14)" />
                    					     <effect>
                    					         
              								<onHover name="hint" hintText="IronPanel"/>
@@ -248,14 +327,10 @@
                    							</onHover>
            								 </effect>
                    					 </image>
-                      </panel>
-                      <panel height="100%" width="1%"></panel>
-           					 </panel>
-           					 <panel id="panel3" height="14%" width="100%" align="center" childLayout="horizontal"  >
-           					     <panel height="100%" width="1%"></panel>
-                           <panel height="100%" width="14%" align="center" childLayout="center"  backgroundImage="Textures/Inventory Items/weaponsgrid.png">
+                      		</panel>
+                           <panel id="subpanel15" height="100%" width="14%" align="center" childLayout="center"  backgroundImage="Textures/Inventory Items/weaponsgrid.png">
                 					<image filename="Textures/Inventory Items/lanterncube.png" visibleToMouse="true" childLayout="center" align="center" valign="center" height="90%" width="90%">
-                   					     <interact onClick="setType(Lantern)" />
+                   					     <interact onClick="setType(Lantern,subpanel15)" />
                    					     <effect>
                    					         
              								<onHover name="hint" hintText="Lantern"/>
@@ -265,9 +340,9 @@
            								 </effect>
                    					 </image>
                             </panel>
-                             <panel height="100%" width="14%" align="center" childLayout="center"  backgroundImage="Textures/Inventory Items/weaponsgrid.png">
+                             <panel id="subpanel16" height="100%" width="14%" align="center" childLayout="center"  backgroundImage="Textures/Inventory Items/weaponsgrid.png">
                    					 <image filename="Textures/Inventory Items/lapiscube.png" visibleToMouse="true" childLayout="center" align="center" valign="center" height="90%" width="90%">
-                   					      <interact onClick="setType(Lapis)" />
+                   					      <interact onClick="setType(Lapis,subpanel16)" />
                    					     <effect>
                    					         
              								<onHover name="hint" hintText="Lapis"/>
@@ -277,9 +352,9 @@
            								 </effect>
                    					 </image>
                             </panel>
-                             <panel height="100%" width="14%" align="center" childLayout="center"  backgroundImage="Textures/Inventory Items/weaponsgrid.png">
+                             <panel id="subpanel17" height="100%" width="14%" align="center" childLayout="center"  backgroundImage="Textures/Inventory Items/weaponsgrid.png">
                    					 <image filename="Textures/Inventory Items/myceliumcube.png" visibleToMouse="true" childLayout="center" align="center" valign="center" height="90%" width="90%">
-                   					      <interact onClick="setType(Mycelium)" />
+                   					      <interact onClick="setType(Mycelium,subpanel17)" />
                    					     <effect>
                    					         
              								<onHover name="hint" hintText="Mycelium"/>
@@ -289,9 +364,9 @@
            								 </effect>
                    					 </image>
                             </panel>
-                             <panel height="100%" width="14%" align="center" childLayout="center"  backgroundImage="Textures/Inventory Items/weaponsgrid.png">
+                             <panel id="subpanel18" height="100%" width="14%" align="center" childLayout="center"  backgroundImage="Textures/Inventory Items/weaponsgrid.png">
                    					 <image filename="Textures/Inventory Items/netherbrickcube.png" visibleToMouse="true" childLayout="center" align="center" valign="center" height="90%" width="90%">
-                   					      <interact onClick="setType(NetherBrick)" />
+                   					      <interact onClick="setType(NetherBrick,subpanel18)" />
                    					     <effect>
                    					         
              								<onHover name="hint" hintText="NetherBrick"/>
@@ -301,9 +376,9 @@
            								 </effect>
                    					 </image>
                             </panel>
-                             <panel height="100%" width="14%" align="center" childLayout="center"  backgroundImage="Textures/Inventory Items/weaponsgrid.png">
+                             <panel id="subpanel19" height="100%" width="14%" align="center" childLayout="center"  backgroundImage="Textures/Inventory Items/weaponsgrid.png">
                    					 <image filename="Textures/Inventory Items/nethercube.png" visibleToMouse="true" childLayout="center" align="center" valign="center" height="90%" width="90%">
-                   					      <interact onClick="setType(Nether)" />
+                   					      <interact onClick="setType(Nether,subpanel19)" />
                    					     <effect>
                    					         
              								<onHover name="hint" hintText="Nether"/>
@@ -313,24 +388,12 @@
            								 </effect>
                    					 </image>
                             </panel>
-                             <panel height="100%" width="14%" align="center" childLayout="center"  backgroundImage="Textures/Inventory Items/weaponsgrid.png">
+                             <panel id="subpanel20" height="100%" width="14%" align="center" childLayout="center"  backgroundImage="Textures/Inventory Items/weaponsgrid.png">
                    					 <image filename="Textures/Inventory Items/obsidiancube.png" visibleToMouse="true" childLayout="center" align="center" valign="center" height="90%" width="90%">
-                   					      <interact onClick="setType(Obsidian)" />
+                   					      <interact onClick="setType(Obsidian,subpanel20)" />
                    					     <effect>
                    					         
              								<onHover name="hint" hintText="Obsidian"/>
-             								<onHover name="imageSize" maxSize="15%" >
-                            					<hover hoverFalloffType="none" hoverWidth="100%" hoverHeight="100%" hoverFalloffConstraint="both"/>
-                   							</onHover>
-           								 </effect>
-                   					 </image>
-                            </panel>
-                             <panel height="100%" width="14%" align="center" childLayout="center"  backgroundImage="Textures/Inventory Items/weaponsgrid.png">
-                   					 <image filename="Textures/Inventory Items/prismarinecube.png" visibleToMouse="true" childLayout="center" align="center" valign="center" height="90%" width="90%">
-                   					      <interact onClick="setType(Prismarine)" />
-                   					     <effect>
-                   					         
-             								<onHover name="hint" hintText="Prismarine"/>
              								<onHover name="imageSize" maxSize="15%" >
                             					<hover hoverFalloffType="none" hoverWidth="100%" hoverHeight="100%" hoverFalloffConstraint="both"/>
                    							</onHover>
@@ -341,9 +404,21 @@
            					 </panel>
            					 <panel id="panel4" height="14%" width="100%" align="center" childLayout="horizontal" >
                       <panel height="100%" width="1%" ></panel>
-                        <panel height="100%" width="14%" align="center" childLayout="center"  backgroundImage="Textures/Inventory Items/weaponsgrid.png">
+                        <panel id="subpanel21" height="100%" width="14%" align="center" childLayout="center"  backgroundImage="Textures/Inventory Items/weaponsgrid.png">
+                   					 <image filename="Textures/Inventory Items/prismarinecube.png" visibleToMouse="true" childLayout="center" align="center" valign="center" height="90%" width="90%">
+                   					      <interact onClick="setType(Prismarine,subpanel21)" />
+                   					     <effect>
+                   					         
+             								<onHover name="hint" hintText="Prismarine"/>
+             								<onHover name="imageSize" maxSize="15%" >
+                            					<hover hoverFalloffType="none" hoverWidth="100%" hoverHeight="100%" hoverFalloffConstraint="both"/>
+                   							</onHover>
+           								 </effect>
+                   					 </image>
+                            </panel>
+                        <panel id="subpanel22" height="100%" width="14%" align="center" childLayout="center"  backgroundImage="Textures/Inventory Items/weaponsgrid.png">
                 					<image filename="Textures/Inventory Items/quarzcube.png" visibleToMouse="true" childLayout="center" align="center" valign="center" height="90%" width="90%">
-                   					     <interact onClick="setType(Quarz)" />
+                   					     <interact onClick="setType(Quarz,subpanel22)" />
                    					     <effect>
                    					         
              								<onHover name="hint" hintText="Quarz"/>
@@ -354,9 +429,9 @@
                    					 </image>
                    			</panel>
                          
-                          <panel height="100%" width="14%" align="center" childLayout="center"  backgroundImage="Textures/Inventory Items/weaponsgrid.png">
+                          <panel id="subpanel23" height="100%" width="14%" align="center" childLayout="center"  backgroundImage="Textures/Inventory Items/weaponsgrid.png">
                    					 <image filename="Textures/Inventory Items/quarz2cube.png" visibleToMouse="true" childLayout="center" align="center" valign="center" height="90%" width="90%">
-                   					      <interact onClick="setType(Quarz2)" />
+                   					      <interact onClick="setType(Quarz2,subpanel23)" />
                    					     <effect>
                    					         
              								<onHover name="hint" hintText="Quarz2"/>
@@ -366,9 +441,9 @@
            								 </effect>
                    					 </image>
                             </panel>
-                            <panel height="100%" width="14%" align="center" childLayout="center"  backgroundImage="Textures/Inventory Items/weaponsgrid.png">
+                            <panel id="subpanel24" height="100%" width="14%" align="center" childLayout="center"  backgroundImage="Textures/Inventory Items/weaponsgrid.png">
                    					 <image filename="Textures/Inventory Items/sandcube.png" visibleToMouse="true" childLayout="center" align="center" valign="center" height="90%" width="90%">
-                   					      <interact onClick="setType(Sand)" />
+                   					      <interact onClick="setType(Sand,subpanel24)" />
                    					     <effect>
                    					         
              								<onHover name="hint" hintText="Sand"/>
@@ -378,9 +453,9 @@
            								 </effect>
                    					 </image>
                             </panel>
-                              <panel height="100%" width="14%" align="center" childLayout="center"  backgroundImage="Textures/Inventory Items/weaponsgrid.png">
+                              <panel id="subpanel25" height="100%" width="14%" align="center" childLayout="center"  backgroundImage="Textures/Inventory Items/weaponsgrid.png">
                    					 <image filename="Textures/Inventory Items/sandstonecube.png" visibleToMouse="true" childLayout="center" align="center" valign="center" height="90%" width="90%">
-                   					      <interact onClick="setType(SandStone)" />
+                   					      <interact onClick="setType(SandStone,subpanel25)" />
                    					     <effect>
                    					         
              								<onHover name="hint" hintText="SandStone"/>
@@ -390,9 +465,9 @@
            								 </effect>
                    					 </image>
                             </panel>
-                             <panel height="100%" width="14%" align="center" childLayout="center"  backgroundImage="Textures/Inventory Items/weaponsgrid.png">
+                             <panel id="subpanel26" height="100%" width="14%" align="center" childLayout="center"  backgroundImage="Textures/Inventory Items/weaponsgrid.png">
                    					 <image filename="Textures/Inventory Items/sandstoneredcube.png" visibleToMouse="true" childLayout="center" align="center" valign="center" height="90%" width="90%">
-                   					      <interact onClick="setType(SandStone2)" />
+                   					      <interact onClick="setType(SandStone2,subpanel26)" />
                    					     <effect>
                    					         
              								<onHover name="hint" hintText="SandStone2"/>
@@ -402,9 +477,9 @@
            								 </effect>
                    					 </image>
                             </panel>
-                             <panel height="100%" width="14%" align="center" childLayout="center"  backgroundImage="Textures/Inventory Items/weaponsgrid.png">
+                             <panel id="subpanel27" height="100%" width="14%" align="center" childLayout="center"  backgroundImage="Textures/Inventory Items/weaponsgrid.png">
                    					 <image filename="Textures/Inventory Items/snowcube.png" visibleToMouse="true" childLayout="center" align="center" valign="center" height="90%" width="90%">
-                   					      <interact onClick="setType(Snow)" />
+                   					      <interact onClick="setType(Snow,subpanel27)" />
                    					     <effect>
                    					         
              								<onHover name="hint" hintText="Snow"/>
@@ -414,9 +489,15 @@
            								 </effect>
                    					 </image>
                             </panel>
-                             <panel height="100%" width="14%" align="center" childLayout="center"  backgroundImage="Textures/Inventory Items/weaponsgrid.png">
+                             
+                             <panel height="100%" width="1%">
+           					 </panel>
+           					 </panel>
+           					 <panel id="panel5" height="14%" width="100%" align="center" childLayout="horizontal" >
+                      			<panel height="100%" width="1%"></panel>
+                      			<panel id="subpanel28" height="100%" width="14%" align="center" childLayout="center"  backgroundImage="Textures/Inventory Items/weaponsgrid.png">
                    					 <image filename="Textures/Inventory Items/stonebrickcube.png" visibleToMouse="true" childLayout="center" align="center" valign="center" height="90%" width="90%">
-                   					      <interact onClick="setType(StoneBrick)" />
+                   					      <interact onClick="setType(StoneBrick,subpanel28)" />
                    					     <effect>
                    					         
              								<onHover name="hint" hintText="StoneBrick"/>
@@ -426,14 +507,9 @@
            								 </effect>
                    					 </image>
                             </panel>
-                             <panel height="100%" width="1%">
-           					 </panel>
-           					 </panel>
-           					 <panel id="panel5" height="14%" width="100%" align="center" childLayout="horizontal" >
-                      			<panel height="100%" width="1%"></panel>
-                      			<panel height="100%" width="14%" align="center" childLayout="center"  backgroundImage="Textures/Inventory Items/weaponsgrid.png">
+                      			<panel id="subpanel29" height="100%" width="14%" align="center" childLayout="center"  backgroundImage="Textures/Inventory Items/weaponsgrid.png">
                 					<image filename="Textures/Inventory Items/stonecarved.png" visibleToMouse="true" childLayout="center" align="center" valign="center" height="90%" width="90%">
-                   					     <interact onClick="setType(StoneCarved)" />
+                   					     <interact onClick="setType(StoneCarved,subpanel29)" />
                    					     <effect>
                    					         
              								<onHover name="hint" hintText="StoneCarved"/>
@@ -443,21 +519,10 @@
            								 </effect>
                    					 </image>
                    					 </panel>
-                   					 <panel height="100%" width="14%" align="center" childLayout="center"  backgroundImage="Textures/Inventory Items/weaponsgrid.png">
-                   					 <image filename="Textures/Inventory Items/stonecube.png" visibleToMouse="true" childLayout="center" align="center" valign="center" height="90%" width="90%">
-                   					      <interact onClick="setType(Stone)" />
-                   					     <effect>
-                   					         
-             								<onHover name="hint" hintText="Stone"/>
-             								<onHover name="imageSize" maxSize="15%" >
-                            					<hover hoverFalloffType="none" hoverWidth="100%" hoverHeight="100%" hoverFalloffConstraint="both"/>
-                   							</onHover>
-           								 </effect>
-                   					 </image>
-                   					 </panel>
-                   					 <panel height="100%" width="14%" align="center" childLayout="center"  backgroundImage="Textures/Inventory Items/weaponsgrid.png">
+                   					 
+                   					 <panel id="subpanel31" height="100%" width="14%" align="center" childLayout="center"  backgroundImage="Textures/Inventory Items/weaponsgrid.png">
                    					 <image filename="Textures/Inventory Items/stonefloorcube.png" visibleToMouse="true" childLayout="center" align="center" valign="center" height="90%" width="90%">
-                   					      <interact onClick="setType(StoneFloor)" />
+                   					      <interact onClick="setType(StoneFloor,subpanel31)" />
                    					     <effect>
                    					         
              								<onHover name="hint" hintText="StoneFloor"/>
@@ -467,9 +532,9 @@
            								 </effect>
                    					 </image>
                    					 </panel>
-                   					 <panel height="100%" width="14%" align="center" childLayout="center"  backgroundImage="Textures/Inventory Items/weaponsgrid.png">
+                   					 <panel id="subpanel32" height="100%" width="14%" align="center" childLayout="center"  backgroundImage="Textures/Inventory Items/weaponsgrid.png">
                    					 <image filename="Textures/Inventory Items/stonemossycube.png" visibleToMouse="true" childLayout="center" align="center" valign="center" height="90%" width="90%">
-                   					      <interact onClick="setType(StoneMossy)" />
+                   					      <interact onClick="setType(StoneMossy,subpanel32)" />
                    					     <effect>
                    					         
              								<onHover name="hint" hintText="StoneMossy"/>
@@ -479,9 +544,9 @@
            								 </effect>
                    					 </image>
                    					 </panel>
-                   					 <panel height="100%" width="14%" align="center" childLayout="center"  backgroundImage="Textures/Inventory Items/weaponsgrid.png">
+                   					 <panel id="subpanel33" height="100%" width="14%" align="center" childLayout="center"  backgroundImage="Textures/Inventory Items/weaponsgrid.png">
                    					 <image filename="Textures/Inventory Items/woodcube.png" visibleToMouse="true" childLayout="center" align="center" valign="center" height="90%" width="90%">
-                   					      <interact onClick="setType(Wood)" />
+                   					      <interact onClick="setType(Wood,subpanel33)" />
                    					     <effect>
                    					         
              								<onHover name="hint" hintText="Wood"/>
@@ -491,9 +556,9 @@
            								 </effect>
                    					 </image>
                    					 </panel>
-                   					 <panel height="100%" width="14%" align="center" childLayout="center"  backgroundImage="Textures/Inventory Items/weaponsgrid.png">
+                   					 <panel id="subpanel34" height="100%" width="14%" align="center" childLayout="center"  backgroundImage="Textures/Inventory Items/weaponsgrid.png">
                    					 <image filename="Textures/Inventory Items/wood2cube.png" visibleToMouse="true" childLayout="center" align="center" valign="center" height="90%" width="90%">
-                   					      <interact onClick="setType(Wood2)" />
+                   					      <interact onClick="setType(Wood2,subpanel34)" />
                    					     <effect>
                    					         
              								<onHover name="hint" hintText="Wood2"/>
@@ -503,9 +568,9 @@
            								 </effect>
                    					 </image>
                    					 </panel>
-                   					 <panel height="100%" width="14%" align="center" childLayout="center"  backgroundImage="Textures/Inventory Items/weaponsgrid.png">
+                   					 <panel id="subpanel35" height="100%" width="14%" align="center" childLayout="center"  backgroundImage="Textures/Inventory Items/weaponsgrid.png">
                    					 <image filename="Textures/Inventory Items/wood3cube.png" visibleToMouse="true" childLayout="center" align="center" valign="center" height="90%" width="90%">
-                   					      <interact onClick="setType(Wood3)" />
+                   					      <interact onClick="setType(Wood3,subpanel35)" />
                    					     <effect>
              								<onHover name="hint" hintText="Wood3"/>
              								<onHover name="imageSize" maxSize="15%" >
@@ -518,9 +583,9 @@
            					 </panel>
            					  <panel id="panel6" height="14%" width="100%" align="center" childLayout="horizontal" >
            					      <panel height="100%" width="1%"></panel>
-           					      <panel height="100%" width="14%" align="center" childLayout="center"  backgroundImage="Textures/Inventory Items/weaponsgrid.png">
+           					      <panel id="subpanel36" height="100%" width="14%" align="center" childLayout="center"  backgroundImage="Textures/Inventory Items/weaponsgrid.png">
                 					<image filename="Textures/Inventory Items/wood4cube.png" visibleToMouse="true" childLayout="center" align="center" valign="center" height="90%" width="90%">
-                   					     <interact onClick="setType(Wood4)" />
+                   					     <interact onClick="setType(Wood4,subpanel36)" />
                    					     <effect>
                    					         
              								<onHover name="hint" hintText="Wood4"/>
@@ -530,9 +595,9 @@
            								 </effect>
                    					 </image>
                    					 </panel>
-                   					 <panel height="100%" width="14%" align="center" childLayout="center"  backgroundImage="Textures/Inventory Items/weaponsgrid.png">
+                   					 <panel id="subpanel37" height="100%" width="14%" align="center" childLayout="center"  backgroundImage="Textures/Inventory Items/weaponsgrid.png">
                    					 <image filename="Textures/Inventory Items/wood5cube.png" visibleToMouse="true" childLayout="center" align="center" valign="center" height="90%" width="90%">
-                   					      <interact onClick="setType(Wood5)" />
+                   					      <interact onClick="setType(Wood5,subpanel37)" />
                    					     <effect>
                    					         
              								<onHover name="hint" hintText="Wood5"/>
@@ -542,9 +607,9 @@
            								 </effect>
                    					 </image>
                    					 </panel>
-                   					 <panel height="100%" width="14%" align="center" childLayout="center"  backgroundImage="Textures/Inventory Items/weaponsgrid.png">
+                   					 <panel id="subpanel38" height="100%" width="14%" align="center" childLayout="center"  backgroundImage="Textures/Inventory Items/weaponsgrid.png">
                    					 <image filename="Textures/Inventory Items/blackcube.png" visibleToMouse="true" childLayout="center" align="center" valign="center" height="90%" width="90%">
-                   					      <interact onClick="setType(Black)" />
+                   					      <interact onClick="setType(Black,subpanel38)" />
                    					     <effect>
                    					         
              								<onHover name="hint" hintText="Black"/>
@@ -554,9 +619,9 @@
            								 </effect>
                    					 </image>
                    					 </panel>
-                   					 <panel height="100%" width="14%" align="center" childLayout="center"  backgroundImage="Textures/Inventory Items/weaponsgrid.png">
+                   					 <panel id="subpanel39" height="100%" width="14%" align="center" childLayout="center"  backgroundImage="Textures/Inventory Items/weaponsgrid.png">
                    					 <image filename="Textures/Inventory Items/bluecube.png" visibleToMouse="true" childLayout="center" align="center" valign="center" height="90%" width="90%">
-                   					      <interact onClick="setType(Blue)" />
+                   					      <interact onClick="setType(Blue,subpanel39)" />
                    					     <effect>
                    					         
              								<onHover name="hint" hintText="Blue"/>
@@ -566,9 +631,9 @@
            								 </effect>
                    					 </image>
                    					 </panel>
-                   					 <panel height="100%" width="14%" align="center" childLayout="center"  backgroundImage="Textures/Inventory Items/weaponsgrid.png">
+                   					 <panel id="subpanel40" height="100%" width="14%" align="center" childLayout="center"  backgroundImage="Textures/Inventory Items/weaponsgrid.png">
                    					 <image filename="Textures/Inventory Items/browncube.png" visibleToMouse="true" childLayout="center" align="center" valign="center" height="90%" width="90%">
-                   					      <interact onClick="setType(Brown)" />
+                   					      <interact onClick="setType(Brown,subpanel40)" />
                    					     <effect>
                    					         
              								<onHover name="hint" hintText="Brown"/>
@@ -578,9 +643,9 @@
            								 </effect>
                    					 </image>
                    					 </panel>
-                   					 <panel height="100%" width="14%" align="center" childLayout="center"  backgroundImage="Textures/Inventory Items/weaponsgrid.png">
+                   					 <panel id="subpanel41" height="100%" width="14%" align="center" childLayout="center"  backgroundImage="Textures/Inventory Items/weaponsgrid.png">
                    					 <image filename="Textures/Inventory Items/graycube.png" visibleToMouse="true" childLayout="center" align="center" valign="center" height="90%" width="90%">
-                   					      <interact onClick="setType(Gray)" />
+                   					      <interact onClick="setType(Gray,subpanel41)" />
                    					     <effect>
                    					         
              								<onHover name="hint" hintText="Gray"/>
@@ -590,9 +655,9 @@
            								 </effect>
                    					 </image>
                    					 </panel>
-                   					 <panel height="100%" width="14%" align="center" childLayout="center"  backgroundImage="Textures/Inventory Items/weaponsgrid.png">
+                   					 <panel id="subpanel42" height="100%" width="14%" align="center" childLayout="center"  backgroundImage="Textures/Inventory Items/weaponsgrid.png">
                    					 <image filename="Textures/Inventory Items/greencube.png" visibleToMouse="true" childLayout="center" align="center" valign="center" height="90%" width="90%">
-                   					      <interact onClick="setType(Green)" />
+                   					      <interact onClick="setType(Green,subpanel42)" />
                    					     <effect>
                    					         
              								<onHover name="hint" hintText="Green"/>
@@ -606,9 +671,9 @@
            					 </panel>
 							 <panel id="panel7" height="14%" width="100%" align="center" childLayout="horizontal"  >
 							     <panel height="100%" width="1%"></panel>
-							     <panel height="100%" width="14%" align="center" childLayout="center"  backgroundImage="Textures/Inventory Items/weaponsgrid.png">
+							     <panel id="subpanel43" height="100%" width="14%" align="center" childLayout="center"  backgroundImage="Textures/Inventory Items/weaponsgrid.png">
                 					 <image filename="Textures/Inventory Items/lightbluecube.png" visibleToMouse="true" childLayout="center" align="center" valign="center" height="90%" width="90%">
-                   					      <interact onClick="setType(LightBlue)" />
+                   					      <interact onClick="setType(LightBlue,subpanel43)" />
                    					     <effect>
                    					         
              								<onHover name="hint" hintText="LightBlue"/>
@@ -618,9 +683,9 @@
            								 </effect>
                    					 </image>
                    					 </panel>
-                   					 <panel height="100%" width="14%" align="center" childLayout="center"  backgroundImage="Textures/Inventory Items/weaponsgrid.png">
+                   					 <panel id="subpanel44" height="100%" width="14%" align="center" childLayout="center"  backgroundImage="Textures/Inventory Items/weaponsgrid.png">
                 					<image filename="Textures/Inventory Items/orangecube.png" visibleToMouse="true" childLayout="center" align="center" valign="center" height="90%" width="90%">
-                   					     <interact onClick="setType(Orange)" />
+                   					     <interact onClick="setType(Orange,subpanel44)" />
                    					     <effect>
                    					         
              								<onHover name="hint" hintText="Orange"/>
@@ -630,9 +695,9 @@
            								 </effect>
                    					 </image>
                    					 </panel>
-                   					 <panel height="100%" width="14%" align="center" childLayout="center"  backgroundImage="Textures/Inventory Items/weaponsgrid.png">
+                   					 <panel id="subpanel45" height="100%" width="14%" align="center" childLayout="center"  backgroundImage="Textures/Inventory Items/weaponsgrid.png">
                    					 <image filename="Textures/Inventory Items/pinkcube.png" visibleToMouse="true" childLayout="center" align="center" valign="center" height="90%" width="90%">
-                   					      <interact onClick="setType(Pink)" />
+                   					      <interact onClick="setType(Pink,subpanel45)" />
                    					     <effect>
                    					         
              								<onHover name="hint" hintText="Pink"/>
@@ -642,9 +707,9 @@
            								 </effect>
                    					 </image>
                    					 </panel>
-                   					 <panel height="100%" width="14%" align="center" childLayout="center"  backgroundImage="Textures/Inventory Items/weaponsgrid.png">
+                   					 <panel id="subpanel46" height="100%" width="14%" align="center" childLayout="center"  backgroundImage="Textures/Inventory Items/weaponsgrid.png">
                    					 <image filename="Textures/Inventory Items/purplecube.png" visibleToMouse="true" childLayout="center" align="center" valign="center" height="90%" width="90%">
-                   					      <interact onClick="setType(Purple)" />
+                   					      <interact onClick="setType(Purple,subpanel46)" />
                    					     <effect>
                    					         
              								<onHover name="hint" hintText="Purple"/>
@@ -654,9 +719,9 @@
            								 </effect>
                    					 </image>
                    					 </panel>
-                   					 <panel height="100%" width="14%" align="center" childLayout="center"  backgroundImage="Textures/Inventory Items/weaponsgrid.png">
+                   					 <panel id="subpanel47" height="100%" width="14%" align="center" childLayout="center"  backgroundImage="Textures/Inventory Items/weaponsgrid.png">
                    					 <image filename="Textures/Inventory Items/redcube.png" visibleToMouse="true" childLayout="center" align="center" valign="center" height="90%" width="90%">
-                   					      <interact onClick="setType(Red)" />
+                   					      <interact onClick="setType(Red,subpanel47)" />
                    					     <effect>
                    					         
              								<onHover name="hint" hintText="Red"/>
@@ -666,9 +731,9 @@
            								 </effect>
                    					 </image>
                    					 </panel>
-                   					 <panel height="100%" width="14%" align="center" childLayout="center"  backgroundImage="Textures/Inventory Items/weaponsgrid.png">
+                   					 <panel id="subpanel48" height="100%" width="14%" align="center" childLayout="center"  backgroundImage="Textures/Inventory Items/weaponsgrid.png">
                    					 <image filename="Textures/Inventory Items/whitecube.png" visibleToMouse="true" childLayout="center" align="center" valign="center" height="90%" width="90%">
-                   					      <interact onClick="setType(White)" />
+                   					      <interact onClick="setType(White,subpanel48)" />
                    					     <effect>
                    					         
              								<onHover name="hint" hintText="White"/>
@@ -678,9 +743,9 @@
            								 </effect>
                    					 </image>
                    					 </panel>
-                   					 <panel height="100%" width="14%" align="center" childLayout="center"  backgroundImage="Textures/Inventory Items/weaponsgrid.png">
+                   					 <panel id="subpanel49" height="100%" width="14%" align="center" childLayout="center"  backgroundImage="Textures/Inventory Items/weaponsgrid.png">
                    					 <image filename="Textures/Inventory Items/yellowcube.png" visibleToMouse="true" childLayout="center" align="center" valign="center" height="90%" width="90%">
-                   					      <interact onClick="setType(Yellow)" />
+                   					      <interact onClick="setType(Yellow,subpanel49)" />
                    					     <effect>
                    					         
              								<onHover name="hint" hintText="Yellow"/>
@@ -698,9 +763,10 @@
 					<control id="tab_2" name="tab" caption="Wedges" >
 					    <panel id="tab_2_content" childLayout="vertical" align="center" valign="center" width="100%" height="100%">
 							<panel id="panel21" height="25%" width="100%" childLayout="horizontal">
-					    	    <panel  height="100%" width="33%" childLayout="center"  backgroundImage="Textures/Inventory Items/weaponsgrid.png" >
-					    	    	<image filename="Textures/Wedges Texture/hardened_clay_stained_black.png" visibleToMouse="true" childLayout="center" align="center" valign="center" height="80%" width="80%">
-                   					      <interact onClick="setType(W_BLACK)" />
+					    	    <panel  id="subpanel50" height="100%" width="33%" childLayout="center"  backgroundImage="Textures/Inventory Items/weaponsgrid.png" >
+					    	    	<interact onClick="setType(W_BLACK,subpanel50)" />
+					    	    	<image filename="Textures/Wedges/black_w.png" visibleToMouse="true" childLayout="center" align="center" valign="center" height="80%" width="80%">
+                   					      <interact onClick="setType(W_BLACK,subpanel50)" />
                    					     <effect>
              								<onHover name="hint" hintText="Black"/>
              								<onHover name="imageSize" maxSize="15%" >
@@ -709,9 +775,10 @@
            								 </effect>
                    					 </image>
 					    		</panel>
-					    		<panel  height="100%" width="33%" childLayout="center"  backgroundImage="Textures/Inventory Items/weaponsgrid.png" >
-					    	    	<image filename="Textures/Wedges Texture/hardened_clay_stained_blue.png" visibleToMouse="true" childLayout="center" align="center" valign="center" height="80%" width="80%">
-                   					      <interact onClick="setType(W_BLUE)" />
+					    		<panel id="subpanel51" height="100%" width="33%" childLayout="center"  backgroundImage="Textures/Inventory Items/weaponsgrid.png" >
+					    	    	<interact onClick="setType(W_BLUE,subpanel51)" />
+					    	    	<image filename="Textures/Wedges/blue_w.png" visibleToMouse="true" childLayout="center" align="center" valign="center" height="80%" width="80%">
+                   					      <interact onClick="setType(W_BLUE,subpanel51)" />
                    					     <effect>
              								<onHover name="hint" hintText="Blue"/>
              								<onHover name="imageSize" maxSize="15%" >
@@ -720,9 +787,10 @@
            								 </effect>
                    					 </image>
 					    		</panel>
-					    		<panel  height="100%" width="33%" childLayout="center"  backgroundImage="Textures/Inventory Items/weaponsgrid.png" >
-					    	    	<image filename="Textures/Wedges Texture/hardened_clay_stained_brown.png" visibleToMouse="true" childLayout="center" align="center" valign="center" height="80%" width="80%">
-                   					      <interact onClick="setType(W_BROWN)" />
+					    		<panel  id="subpanel52" height="100%" width="33%" childLayout="center"  backgroundImage="Textures/Inventory Items/weaponsgrid.png" >
+					    	    	<interact onClick="setType(W_BROWN,subpanel52)" />
+					    	    	<image filename="Textures/Wedges/brown_w.png" visibleToMouse="true" childLayout="center" align="center" valign="center" height="80%" width="80%">
+                   					      <interact onClick="setType(W_BROWN,subpanel52)" />
                    					     <effect>
              								<onHover name="hint" hintText="Brown"/>
              								<onHover name="imageSize" maxSize="15%" >
@@ -733,9 +801,10 @@
 					    		</panel>
 					    	</panel>
 					    	<panel id="panel22" height="25%" width="100%" childLayout="horizontal">
-					    	    <panel  height="100%" width="33%" childLayout="center" backgroundImage="Textures/Inventory Items/weaponsgrid.png">
-					    	    	<image filename="Textures/Wedges Texture/hardened_clay_stained_cyan.png" visibleToMouse="true" childLayout="center" align="center" valign="center" height="80%" width="80%">
-                   					      <interact onClick="setType(W_GRAY)"/>
+					    	    <panel  id="subpanel53" height="100%" width="33%" childLayout="center" backgroundImage="Textures/Inventory Items/weaponsgrid.png">
+					    	    	<interact onClick="setType(W_GRAY,subpanel53)"/>
+					    	    	<image filename="Textures/Wedges/gray_w.png" visibleToMouse="true" childLayout="center" align="center" valign="center" height="80%" width="80%">
+                   					      <interact onClick="setType(W_GRAY,subpanel53)"/>
                    					     <effect>
              								<onHover name="hint" hintText="Gray"/>
              								<onHover name="imageSize" maxSize="15%" >
@@ -744,9 +813,10 @@
            								 </effect>
                    					 </image>
 					    		</panel>
-					    		<panel  height="100%" width="33%" childLayout="center"  backgroundImage="Textures/Inventory Items/weaponsgrid.png" >
-					    	    	<image filename="Textures/Wedges Texture/hardened_clay_stained_green.png" visibleToMouse="true" childLayout="center" align="center" valign="center" height="80%" width="80%">
-                   					      <interact onClick="setType(W_GREEN)"/>
+					    		<panel  id="subpanel54" height="100%" width="33%" childLayout="center"  backgroundImage="Textures/Inventory Items/weaponsgrid.png" >
+					    	    	<interact onClick="setType(W_GREEN,subpanel54)"/>
+					    	    	<image filename="Textures/Wedges/green_w.png" visibleToMouse="true" childLayout="center" align="center" valign="center" height="80%" width="80%">
+                   					      <interact onClick="setType(W_GREEN,subpanel54)"/>
                    					     <effect>
              								<onHover name="hint" hintText="Green"/>
              								<onHover name="imageSize" maxSize="15%" >
@@ -755,9 +825,10 @@
            								 </effect>
                    					 </image>
 					    		</panel>
-					    		<panel  height="100%" width="33%" childLayout="center"  backgroundImage="Textures/Inventory Items/weaponsgrid.png">
-					    	    	<image filename="Textures/Wedges Texture/hardened_clay_stained_light_blue.png" visibleToMouse="true" childLayout="center" align="center" valign="center" height="80%" width="80%">
-                   					      <interact onClick="setType(W_LIGHT_BLUE)" />
+					    		<panel  id="subpanel55" height="100%" width="33%" childLayout="center"  backgroundImage="Textures/Inventory Items/weaponsgrid.png">
+					    	    	<interact onClick="setType(W_LIGHT_BLUE,subpanel55)" />
+					    	    	<image filename="Textures/Wedges/light_blue_w.png" visibleToMouse="true" childLayout="center" align="center" valign="center" height="80%" width="80%">
+                   					      <interact onClick="setType(W_LIGHT_BLUE,subpanel55)" />
                    					     <effect>
              								<onHover name="hint" hintText="Light Blue"/>
              								<onHover name="imageSize" maxSize="15%" >
@@ -768,9 +839,10 @@
 					    		</panel>
 					    	</panel>
 					    	<panel id="panel23" height="25%" width="100%" childLayout="horizontal">
-					    	    <panel height="100%" width="33%" childLayout="center"  backgroundImage="Textures/Inventory Items/weaponsgrid.png"> 
-					    	    	<image filename="Textures/Wedges Texture/hardened_clay_stained_orange.png" visibleToMouse="true" childLayout="center" align="center" valign="center" height="80%" width="80%">
-                   					      <interact onClick="setType(W_ORANGE)"/>
+					    	    <panel id="subpanel56" height="100%" width="33%" childLayout="center"  backgroundImage="Textures/Inventory Items/weaponsgrid.png"> 
+					    	    	<interact onClick="setType(W_ORANGE,subpanel56)"/>
+					    	    	<image filename="Textures/Wedges/orange_w.png" visibleToMouse="true" childLayout="center" align="center" valign="center" height="80%" width="80%">
+                   					      <interact onClick="setType(W_ORANGE,subpanel56)"/>
                    					     <effect>
              								<onHover name="hint" hintText="Orange"/>
              								<onHover name="imageSize" maxSize="15%" >
@@ -779,9 +851,10 @@
            								 </effect>
                    					 </image>
 					    		</panel>
-					    		<panel height="100%" width="33%" childLayout="center"  backgroundImage="Textures/Inventory Items/weaponsgrid.png" >
-					    	    	<image filename="Textures/Wedges Texture/hardened_clay_stained_pink.png" visibleToMouse="true" childLayout="center" align="center" valign="center" height="80%" width="80%">
-                   					      <interact onClick="setType(W_PINK)" />
+					    		<panel id="subpanel57" height="100%" width="33%" childLayout="center"  backgroundImage="Textures/Inventory Items/weaponsgrid.png" >
+					    	    	<interact onClick="setType(W_PINK,subpanel57)" />
+					    	    	<image filename="Textures/Wedges/pink_w.png" visibleToMouse="true" childLayout="center" align="center" valign="center" height="80%" width="80%">
+                   					      <interact onClick="setType(W_PINK,subpanel57)" />
                    					     <effect>
              								<onHover name="hint" hintText="Pink"/>
              								<onHover name="imageSize" maxSize="15%" >
@@ -790,9 +863,10 @@
            								 </effect>
                    					 </image>
 					    		</panel>
-					    		<panel height="100%" width="33%" childLayout="center"  backgroundImage="Textures/Inventory Items/weaponsgrid.png" >
-					    	    	<image filename="Textures/Wedges Texture/hardened_clay_stained_purple.png" visibleToMouse="true" childLayout="center" align="center" valign="center" height="80%" width="80%">
-                   					      <interact onClick="setType(W_PURPLE)" />
+					    		<panel id="subpanel58" height="100%" width="33%" childLayout="center"  backgroundImage="Textures/Inventory Items/weaponsgrid.png" >
+					    	    	<interact onClick="setType(W_PURPLE,subpanel58)" />
+					    	    	<image filename="Textures/Wedges/purple_w.png" visibleToMouse="true" childLayout="center" align="center" valign="center" height="80%" width="80%">
+                   					      <interact onClick="setType(W_PURPLE,subpanel58)" />
                    					     <effect>
              								<onHover name="hint" hintText="Purple"/>
              								<onHover name="imageSize" maxSize="15%" >
@@ -803,9 +877,10 @@
 					    		</panel>
 					    	</panel>
 					    	<panel id="panel24" height="25%" width="100%" childLayout="horizontal">
-					    	    <panel height="100%" width="33%" childLayout="center"  backgroundImage="Textures/Inventory Items/weaponsgrid.png" >
-					    	    	<image filename="Textures/Wedges Texture/hardened_clay_stained_red.png" visibleToMouse="true" childLayout="center" align="center" valign="center" height="80%" width="80%">
-                   					      <interact onClick="setType(W_RED)" />
+					    	    <panel id="subpanel59" height="100%" width="33%" childLayout="center"  backgroundImage="Textures/Inventory Items/weaponsgrid.png" >
+					    	    	<interact onClick="setType(W_RED,subpanel59)" />
+					    	    	<image filename="Textures/Wedges/red_w.png" visibleToMouse="true" childLayout="center" align="center" valign="center" height="80%" width="80%">
+                   					      <interact onClick="setType(W_RED,subpanel59)" />
                    					     <effect>
              								<onHover name="hint" hintText="Red"/>
              								<onHover name="imageSize" maxSize="15%" >
@@ -814,9 +889,10 @@
            								 </effect>
                    					 </image>
 					    		</panel>
-					    		<panel height="100%" width="33%" childLayout="center"  backgroundImage="Textures/Inventory Items/weaponsgrid.png" >
-					    	    	<image filename="Textures/Wedges Texture/hardened_clay_stained_white.png" visibleToMouse="true" childLayout="center" align="center" valign="center" height="80%" width="80%">
-                   					      <interact onClick="setType(W_WHITE)"/>
+					    		<panel id="subpanel60" height="100%" width="33%" childLayout="center"  backgroundImage="Textures/Inventory Items/weaponsgrid.png" >
+					    	    	<interact onClick="setType(W_WHITE,subpanel60)"/>
+					    	    	<image filename="Textures/Wedges/white_w.png" visibleToMouse="true" childLayout="center" align="center" valign="center" height="80%" width="80%">
+                   					      <interact onClick="setType(W_WHITE,subpanel60)"/>
                    					     <effect>
              								<onHover name="hint" hintText="White"/>
              								<onHover name="imageSize" maxSize="15%" >
@@ -825,9 +901,10 @@
            								 </effect>
                    					 </image>
 					    		</panel>
-					    		<panel height="100%" width="33%" childLayout="center"  backgroundImage="Textures/Inventory Items/weaponsgrid.png">
-					    			<image filename="Textures/Wedges Texture/hardened_clay_stained_yellow.png" visibleToMouse="true" childLayout="center" align="center" valign="center" height="80%" width="80%">
-                   					      <interact onClick="setType(W_YELLOW)"/>
+					    		<panel id="subpanel61" height="100%" width="33%" childLayout="center"  backgroundImage="Textures/Inventory Items/weaponsgrid.png">
+					    			<interact onClick="setType(W_YELLOW,subpanel61)"/>
+					    			<image filename="Textures/Wedges/yellow_w.png" visibleToMouse="true" childLayout="center" align="center" valign="center" height="80%" width="80%">
+                   					      <interact onClick="setType(W_YELLOW,subpanel61)"/>
                    					     <effect>
              								<onHover name="hint" hintText="Yellow"/>
              								<onHover name="imageSize" maxSize="15%" >
@@ -841,9 +918,10 @@
     				</control>
     				<control id="tab_3" name="tab" caption="Weapons" >
 						<panel id="tab_3_content" childLayout="vertical" align="center" valign="center" width="100%" height="97%"  >
-							 <panel id="panel31" height="23%" width="100%" childLayout="center" backgroundImage="Textures/Inventory Items/weaponsgrid.png" paddingRight="18px">
+							 <panel id="subpanel62" height="23%" width="100%" childLayout="center" backgroundImage="Textures/Inventory Items/weaponsgrid.png" paddingRight="18px">
+							 	<interact onClick="setType(ROCKETLAUNCHER,subpanel62)"/>
 							 	<image filename="Textures/rocketlauncher.png" visibleToMouse="true" childLayout="center" align="center" valign="center" height="90%" width="70%">
-                   					      <interact onClick="setType(ROCKETLAUNCHER)"/>
+                   					      <interact onClick="setType(ROCKETLAUNCHER,subpanel62)"/>
                    					     <effect>
              								<onHover name="hint" hintText="Rocket Laucher"/>
              								<onHover name="imageSize" maxSize="10%" >
@@ -853,9 +931,10 @@
                    					 </image>
                    					 <control name="label" color="#003ff" text="x3" align="right" valign="bottom"></control>
 							 </panel>
-							 <panel id="panel32" height="20%" width="100%" childLayout="center" backgroundImage="Textures/Inventory Items/weaponsgrid.png" paddingRight="18px">
+							 <panel id="subpanel63" height="20%" width="100%" childLayout="center" backgroundImage="Textures/Inventory Items/weaponsgrid.png" paddingRight="18px">
+							 	<interact onClick="setType(SHOTGUN,subpanel63)" />
 							 	<image filename="Textures/shotgun.png" visibleToMouse="true" childLayout="center" align="center" valign="center" height="90%" width="60%">
-                   					      <interact onClick="setType(SHOTGUN)" />
+                   					      <interact onClick="setType(SHOTGUN,subpanel63)" />
                    					     <effect>
                    					         
              								<onHover name="hint" hintText="Shotgun"/>
@@ -866,11 +945,12 @@
                    					 </image>
                    					 <control name="label" color="#003ff" text="x3" align="right" valign="bottom"></control>
 							 </panel>
-							 <panel id="panel33" height="20%" width="100%" childLayout="center" backgroundImage="Textures/Inventory Items/weaponsgrid.png" paddingRight="18px">
+							 <panel id="subpanel64" height="20%" width="100%" childLayout="center" backgroundImage="Textures/Inventory Items/weaponsgrid.png" paddingRight="18px">
+							 	<interact onClick="setType(RIFLE,subpanel64)" />
 							 	<image filename="Textures/rifle.png" visibleToMouse="true" childLayout="center" align="center" valign="center" height="90%" width="70%">
-                   					      <interact onClick="setType(RIFLE)" />
+                   					      <interact onClick="setType(RIFLE,subpanel64)" />
                    					     <effect>
-             								<onHover name="hint" hintText="Rifle"/>
+             								<onHover name="hint" hintText="Machine Gun"/>
              								<onHover name="imageSize" maxSize="10%" >
                             					<hover hoverFalloffType="none" hoverWidth="100%" hoverHeight="100%" hoverFalloffConstraint="both"/>
                    							</onHover>
@@ -878,9 +958,10 @@
                    					 </image>
                    					 <control name="label" color="#003ff" text="x3" align="right" valign="bottom"></control>
 							 </panel>
-							 <panel id="panel34" height="20%" width="100%" childLayout="center" backgroundImage="Textures/Inventory Items/weaponsgrid.png" paddingRight="18px">
+							 <panel id="subpanel65" height="20%" width="100%" childLayout="center" backgroundImage="Textures/Inventory Items/weaponsgrid.png" paddingRight="18px">
+							 	 <interact onClick="setType(LASER,subpanel65)" />
 							 	<image filename="Textures/lasergun.png" visibleToMouse="true" childLayout="center" align="center" valign="center" height="90%" width="80%">
-                   					      <interact onClick="setType(LASER)" />
+                   					      <interact onClick="setType(LASER,subpanel65)" />
                    					     <effect>
              								<onHover name="hint" hintText="Laser Rifle"/>
              								<onHover name="imageSize" maxSize="10%" >
@@ -890,9 +971,10 @@
                    					 </image>
                    					 <control name="label" color="#003ff" text="x3" align="right" valign="bottom"></control>
 							 </panel>
-							 <panel id="panel35" height="20%" width="100%" childLayout="center" backgroundImage="Textures/Inventory Items/weaponsgrid.png" paddingRight="18px">
+							 <panel id="subpanel66" height="20%" width="100%" childLayout="center" backgroundImage="Textures/Inventory Items/weaponsgrid.png" paddingRight="18px">
+							 	<interact onClick="setType(SNIPER,subpanel66)"/>
 							 	<image filename="Textures/sniper.png" visibleToMouse="true" childLayout="center" align="center" valign="center" height="90%" width="90%">
-                   					      <interact onClick="setType(SNIPER)"/>
+                   					      <interact onClick="setType(SNIPER,subpanel66)"/>
                    					     <effect>
              								<onHover name="hint" hintText="Sniper"/>
              								<onHover name="imageSize" maxSize="10%" >
@@ -907,11 +989,12 @@
     				<control id="tab_4" name="tab" caption="Power Ups" >
     				    <panel id="tab_4_content" childLayout="vertical" align="center" valign="center" width="100%" height="100%">
 					    	<panel id="panel41" height="25%" width="100%" childLayout="horizontal">
-					    	    <panel  height="100%" width="33%" childLayout="center"  backgroundImage="Textures/Inventory Items/weaponsgrid.png" paddingRight="13px">
+					    	    <panel  id="subpanel67" height="100%" width="33%" childLayout="center"  backgroundImage="Textures/Inventory Items/weaponsgrid.png" paddingRight="13px">
+					    	    	<interact onClick="setType(MINHEALTH,subpanel67)" />
 					    	    	<image filename="Textures/MinHealth.png" visibleToMouse="true" childLayout="center" align="center" valign="center" height="80%" width="80%">
-                   					      <interact onClick="setType(MINHEALTH)" />
+                   					      <interact onClick="setType(MINHEALTH,subpanel67)" />
                    					     <effect>
-             								<onHover name="hint" hintText="Min Health"/>
+             								<onHover name="hint" hintText="Min Health (Restores 15% of health)"/>
              								<onHover name="imageSize" maxSize="15%" >
                             					<hover hoverFalloffType="none" hoverWidth="100%" hoverHeight="100%" hoverFalloffConstraint="both"/>
                    							</onHover>
@@ -919,11 +1002,12 @@
                    					 </image>
                    					 <control name="label" color="#003ff" text="x3" align="right" valign="bottom"></control>
 					    		</panel>
-					    		<panel  height="100%" width="33%" childLayout="center"  backgroundImage="Textures/Inventory Items/weaponsgrid.png" paddingRight="13px">
+					    		<panel  id="subpanel68" height="100%" width="33%" childLayout="center"  backgroundImage="Textures/Inventory Items/weaponsgrid.png" paddingRight="13px">
+					    	    	<interact onClick="setType(MIDHEALTH,subpanel68)" />
 					    	    	<image filename="Textures/MidHealth.png" visibleToMouse="true" childLayout="center" align="center" valign="center" height="80%" width="80%">
-                   					      <interact onClick="setType(MIDHEALTH)" />
+                   					      <interact onClick="setType(MIDHEALTH,subpanel68)" />
                    					     <effect>
-             								<onHover name="hint" hintText="Mid Health"/>
+             								<onHover name="hint" hintText="Mid Health (Restores 50% of health)"/>
              								<onHover name="imageSize" maxSize="15%" >
                             					<hover hoverFalloffType="none" hoverWidth="100%" hoverHeight="100%" hoverFalloffConstraint="both"/>
                    							</onHover>
@@ -931,11 +1015,12 @@
                    					 </image>
                    					 <control name="label" color="#003ff" text="x3" align="right" valign="bottom"></control>
 					    		</panel>
-					    		<panel  height="100%" width="33%" childLayout="center"  backgroundImage="Textures/Inventory Items/weaponsgrid.png" paddingRight="13px">
+					    		<panel  id="subpanel69" height="100%" width="33%" childLayout="center"  backgroundImage="Textures/Inventory Items/weaponsgrid.png" paddingRight="13px">
+					    	    	<interact onClick="setType(MAXHEALTH,subpanel69)" />
 					    	    	<image filename="Textures/MaxHealth.png" visibleToMouse="true" childLayout="center" align="center" valign="center" height="80%" width="80%">
-                   					      <interact onClick="setType(MAXHEALTH)" />
+                   					      <interact onClick="setType(MAXHEALTH,subpanel69)" />
                    					     <effect>
-             								<onHover name="hint" hintText="Max Health"/>
+             								<onHover name="hint" hintText="Max Health (Restores 200% of health)"/>
              								<onHover name="imageSize" maxSize="15%" >
                             					<hover hoverFalloffType="none" hoverWidth="100%" hoverHeight="100%" hoverFalloffConstraint="both"/>
                    							</onHover>
@@ -945,11 +1030,12 @@
 					    		</panel>
 					    	</panel>
 					    	<panel id="panel42" height="25%" width="100%" childLayout="horizontal">
-					    	    <panel  height="100%" width="33%" childLayout="center" backgroundImage="Textures/Inventory Items/weaponsgrid.png" paddingRight="13px">
+					    	    <panel  id="subpanel70" height="100%" width="33%" childLayout="center" backgroundImage="Textures/Inventory Items/weaponsgrid.png" paddingRight="13px">
+					    	    	<interact onClick="setType(MINARMOR,subpanel70)"/>
 					    	    	<image filename="Textures/MinArmor.png" visibleToMouse="true" childLayout="center" align="center" valign="center" height="80%" width="80%">
-                   					      <interact onClick="setType(MINARMOR)"/>
+                   					      <interact onClick="setType(MINARMOR,subpanel70)"/>
                    					     <effect>
-             								<onHover name="hint" hintText="Min Armor"/>
+             								<onHover name="hint" hintText="Min Armor (Restores 15% of armor)"/>
              								<onHover name="imageSize" maxSize="15%" >
                             					<hover hoverFalloffType="none" hoverWidth="100%" hoverHeight="100%" hoverFalloffConstraint="both"/>
                    							</onHover>
@@ -957,11 +1043,12 @@
                    					 </image>
                    					 <control name="label" color="#003ff" text="x3" align="right" valign="bottom"></control>
 					    		</panel>
-					    		<panel  height="100%" width="33%" childLayout="center"  backgroundImage="Textures/Inventory Items/weaponsgrid.png" paddingRight="13px">
+					    		<panel  id="subpanel71" height="100%" width="33%" childLayout="center"  backgroundImage="Textures/Inventory Items/weaponsgrid.png" paddingRight="13px">
+					    	    	<interact onClick="setType(MIDARMOR,subpanel71)"/>
 					    	    	<image filename="Textures/MidArmor.png" visibleToMouse="true" childLayout="center" align="center" valign="center" height="80%" width="80%">
-                   					      <interact onClick="setType(MIDARMOR)"/>
+                   					      <interact onClick="setType(MIDARMOR,subpanel71)"/>
                    					     <effect>
-             								<onHover name="hint" hintText="Mid Armor"/>
+             								<onHover name="hint" hintText="Mid Armor (Restores 50% of armor)"/>
              								<onHover name="imageSize" maxSize="15%" >
                             					<hover hoverFalloffType="none" hoverWidth="100%" hoverHeight="100%" hoverFalloffConstraint="both"/>
                    							</onHover>
@@ -969,11 +1056,12 @@
                    					 </image>
                    					 <control name="label" color="#003ff" text="x3" align="right" valign="bottom"></control>
 					    		</panel>
-					    		<panel  height="100%" width="33%" childLayout="center"  backgroundImage="Textures/Inventory Items/weaponsgrid.png" paddingRight="13px">
+					    		<panel  id="subpanel72" height="100%" width="33%" childLayout="center"  backgroundImage="Textures/Inventory Items/weaponsgrid.png" paddingRight="13px">
+					    	    	<interact onClick="setType(MAXARMOR,subpanel72)" />
 					    	    	<image filename="Textures/MaxArmor.png" visibleToMouse="true" childLayout="center" align="center" valign="center" height="80%" width="80%">
-                   					      <interact onClick="setType(MAXARMOR)" />
+                   					      <interact onClick="setType(MAXARMOR,subpanel72)" />
                    					     <effect>
-             								<onHover name="hint" hintText="Max Armor"/>
+             								<onHover name="hint" hintText="Max Armor (Restores 200% of armor)"/>
              								<onHover name="imageSize" maxSize="15%" >
                             					<hover hoverFalloffType="none" hoverWidth="100%" hoverHeight="100%" hoverFalloffConstraint="both"/>
                    							</onHover>
@@ -983,11 +1071,12 @@
 					    		</panel>
 					    	</panel>
 					    	<panel id="panel43" height="25%" width="100%" childLayout="horizontal">
-					    	    <panel height="100%" width="33%" childLayout="center"  backgroundImage="Textures/Inventory Items/weaponsgrid.png" paddingRight="13px">
+					    	    <panel id="subpanel73" height="100%" width="33%" childLayout="center"  backgroundImage="Textures/Inventory Items/weaponsgrid.png" paddingRight="13px">
+					    	    	<interact onClick="setType(ULTRADAMAGE,subpanel73)"/>
 					    	    	<image filename="Textures/ultradamage.png" visibleToMouse="true" childLayout="center" align="center" valign="center" height="80%" width="80%">
-                   					      <interact onClick="setType(ULTRADAMAGE)"/>
+                   					      <interact onClick="setType(ULTRADAMAGE,subpanel73)"/>
                    					     <effect>
-             								<onHover name="hint" hintText="UltraDamage"/>
+             								<onHover name="hint" hintText="UltraDamage (Triplicates damages for 30 seconds)"/>
              								<onHover name="imageSize" maxSize="15%" >
                             					<hover hoverFalloffType="none" hoverWidth="100%" hoverHeight="100%" hoverFalloffConstraint="both"/>
                    							</onHover>
@@ -995,11 +1084,12 @@
                    					 </image>
                    					 <control name="label" color="#003ff" text="x3" align="right" valign="bottom"></control>
 					    		</panel>
-					    		<panel height="100%" width="33%" childLayout="center"  backgroundImage="Textures/Inventory Items/weaponsgrid.png" paddingRight="13px">
+					    		<panel id="subpanel74" height="100%" width="33%" childLayout="center"  backgroundImage="Textures/Inventory Items/weaponsgrid.png" paddingRight="13px">
+					    	    	<interact onClick="setType(HASTE,subpanel74)" />
 					    	    	<image filename="Textures/haste.png" visibleToMouse="true" childLayout="center" align="center" valign="center" height="80%" width="80%">
-                   					      <interact onClick="setType(HASTE)" />
+                   					      <interact onClick="setType(HASTE,subpanel74)" />
                    					     <effect>
-             								<onHover name="hint" hintText="Haste"/>
+             								<onHover name="hint" hintText="Haste (Increases move and fire speed for 30 seconds)"/>
              								<onHover name="imageSize" maxSize="15%" >
                             					<hover hoverFalloffType="none" hoverWidth="100%" hoverHeight="100%" hoverFalloffConstraint="both"/>
                    							</onHover>
@@ -1007,11 +1097,12 @@
                    					 </image>
                    					 <control name="label" color="#003ff" text="x3" align="right" valign="bottom"></control>
 					    		</panel>
-					    		<panel height="100%" width="33%" childLayout="center"  backgroundImage="Textures/Inventory Items/weaponsgrid.png" paddingRight="13px">
+					    		<panel id="subpanel75" height="100%" width="33%" childLayout="center"  backgroundImage="Textures/Inventory Items/weaponsgrid.png" paddingRight="13px">
+					    	    	<interact onClick="setType(REGENERATION,subpanel75)" />
 					    	    	<image filename="Textures/regeneration.png" visibleToMouse="true" childLayout="center" align="center" valign="center" height="80%" width="80%">
-                   					      <interact onClick="setType(REGENERATION)" />
+                   					      <interact onClick="setType(REGENERATION,subpanel75)" />
                    					     <effect>
-             								<onHover name="hint" hintText="Regeneration"/>
+             								<onHover name="hint" hintText="Regeneration (Regenerates health for 30 seconds)"/>
              								<onHover name="imageSize" maxSize="15%" >
                             					<hover hoverFalloffType="none" hoverWidth="100%" hoverHeight="100%" hoverFalloffConstraint="both"/>
                    							</onHover>
@@ -1021,11 +1112,12 @@
 					    		</panel>
 					    	</panel>
 					    	<panel id="panel44" height="25%" width="100%" childLayout="horizontal">
-					    	    <panel height="100%" width="33%" childLayout="center"  backgroundImage="Textures/Inventory Items/weaponsgrid.png" paddingRight="13px">
+					    	    <panel id="subpanel76" height="100%" width="33%" childLayout="center"  backgroundImage="Textures/Inventory Items/weaponsgrid.png" paddingRight="13px">
+					    	    	<interact onClick="setType(UNTOUCHABLE,subpanel76)" />
 					    	    	<image filename="Textures/untouchable.png" visibleToMouse="true" childLayout="center" align="center" valign="center" height="80%" width="80%">
-                   					      <interact onClick="setType(UNTOUCHABLE)" />
+                   					      <interact onClick="setType(UNTOUCHABLE,subpanel76)" />
                    					     <effect>
-             								<onHover name="hint" hintText="Untouchable"/>
+             								<onHover name="hint" hintText="Untouchable (Makes invulnerable for 30 seconds)"/>
              								<onHover name="imageSize" maxSize="15%" >
                             					<hover hoverFalloffType="none" hoverWidth="100%" hoverHeight="100%" hoverFalloffConstraint="both"/>
                    							</onHover>
@@ -1033,11 +1125,12 @@
                    					 </image>
                    					 <control name="label" color="#003ff" text="x3" align="right" valign="bottom"></control>
 					    		</panel>
-					    		<panel height="100%" width="33%" childLayout="center"  backgroundImage="Textures/Inventory Items/weaponsgrid.png" paddingRight="13px">
+					    		<panel id="subpanel77" height="100%" width="33%" childLayout="center"  backgroundImage="Textures/Inventory Items/weaponsgrid.png" paddingRight="13px">
+					    	    	 <interact onClick="setType(AMMO,subpanel77)"/>
 					    	    	<image filename="Textures/ammo.png" visibleToMouse="true" childLayout="center" align="center" valign="center" height="80%" width="80%">
-                   					      <interact onClick="setType(AMMO)"/>
+                   					      <interact onClick="setType(AMMO,subpanel77)"/>
                    					     <effect>
-             								<onHover name="hint" hintText="Ammo"/>
+             								<onHover name="hint" hintText="Ammo (Refills weapons charger)"/>
              								<onHover name="imageSize" maxSize="15%" >
                             					<hover hoverFalloffType="none" hoverWidth="100%" hoverHeight="100%" hoverFalloffConstraint="both"/>
                    							</onHover>

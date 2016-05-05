@@ -2,6 +2,7 @@ package Editor;
 
 import com.jme3.asset.AssetManager;
 import com.jme3.material.Material;
+import com.jme3.material.RenderState.BlendMode;
 import com.jme3.math.ColorRGBA;
 import com.jme3.texture.Texture;
 
@@ -11,8 +12,8 @@ public class ComponentLoader {
 	private Material materials[];
 	private Texture texture[];
 	private Texture terrainTexture;
-	private int sizeMaterials = 74;
-	private int sizeTextures = 64;
+	private int sizeMaterials = 76;
+	private int sizeTextures = 65;
 
 	private ComponentLoader() {
 
@@ -176,6 +177,10 @@ public class ComponentLoader {
 			return materials[72];
 		case W_YELLOW:
 			return materials[73];
+		case SPAWN:
+			return materials[74];
+		case GLASS:
+			return materials[75];
 		default:
 			return materials[0];
 
@@ -292,6 +297,10 @@ public class ComponentLoader {
 		materials[71].setTexture("ColorMap", texture[61]);
 		materials[72].setTexture("ColorMap", texture[62]);
 		materials[73].setTexture("ColorMap", texture[63]);
+		materials[74].setColor("Color", ColorRGBA.LightGray);
+		materials[74].setColor("GlowColor", ColorRGBA.LightGray);
+		materials[75].setTexture("ColorMap", texture[52]);
+		materials[75].getAdditionalRenderState().setBlendMode(BlendMode.Alpha);
 
 	}
 
@@ -425,6 +434,8 @@ public class ComponentLoader {
 				+ "Wedges Texture/hardened_clay_stained_white.png");
 		texture[63] = assetManager.loadTexture(CubikArenaPath.getTexturespath()
 				+ "Wedges Texture/hardened_clay_stained_yellow.png");
+		texture[64] = assetManager.loadTexture(CubikArenaPath.getTexturespath()
+				+ "glass.png");
 
 	}
 

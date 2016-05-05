@@ -9,12 +9,18 @@ import com.jme3.niftygui.NiftyJmeDisplay;
 import de.lessvoid.nifty.Nifty;
 import de.lessvoid.nifty.controls.ListBox;
 import de.lessvoid.nifty.controls.TextField;
+import de.lessvoid.nifty.elements.Element;
+import de.lessvoid.nifty.elements.render.ImageRenderer;
+import de.lessvoid.nifty.render.NiftyImage;
 import de.lessvoid.nifty.screen.Screen;
 import de.lessvoid.nifty.screen.ScreenController;
 
 public class MyScreenController implements ScreenController {
 	Nifty nifty;
 	NiftyJmeDisplay display;
+	String name = "subpanel1";
+	Element popupClearElement;
+	Element popupBackElement;
 
 	public MyScreenController(NiftyJmeDisplay display) {
 
@@ -23,10 +29,26 @@ public class MyScreenController implements ScreenController {
 
 	}
 
-	public void setType(String string) {
+	public void setName(String name) {
+		NiftyImage image = nifty.getRenderEngine().createImage(
+				nifty.getCurrentScreen(), "Textures/weaponsgrid.png", false);
+		Element element = nifty.getCurrentScreen().findElementByName(this.name);
+		element.getRenderer(ImageRenderer.class).setImage(image);
+		this.name = name;
+	}
+
+	public void changeImage() {
+		NiftyImage image = nifty.getRenderEngine().createImage(
+				nifty.getCurrentScreen(), "Textures/selectedgrid.png", false);
+		Element element = nifty.getCurrentScreen().findElementByName(name);
+		element.getRenderer(ImageRenderer.class).setImage(image);
+	}
+
+	public void setType(String string, String name) {
+		setName(name);
+		changeImage();
 
 		CubeType type = CubeType.valueOf(string.toUpperCase());
-
 		EditorManager.getIstance().setCurrentType(type);
 		if (EditorManager.getIstance().isWedgeActive()) {
 			EditorManager.getIstance().nodoModel.detachAllChildren();
@@ -71,12 +93,8 @@ public class MyScreenController implements ScreenController {
 		nifty.setIgnoreKeyboardEvents(true);
 	}
 
-	public void clearMap() {
-		EditorManager.getIstance().clearScene();
-	}
-
 	public void backToMenu() {
-
+		EditorManager.getIstance().stop = true;
 	}
 
 	public void saveScreen() {
@@ -107,6 +125,44 @@ public class MyScreenController implements ScreenController {
 
 	}
 
+	public void clearMap() {
+		EditorManager.getIstance().clearScene();
+		closePopup("popupClearMap");
+	}
+
+	private void init() {
+		this.popupClearElement = nifty.createPopup("popupClearMap");
+		this.popupBackElement = nifty.createPopup("popupBackToMenu");
+	}
+
+	public void popup(String name) {
+		switch (name) {
+		case "popupClearMap":
+			nifty.showPopup(nifty.getCurrentScreen(),
+					popupClearElement.getId(), null);
+			break;
+		case "popupBackToMenu":
+			nifty.showPopup(nifty.getCurrentScreen(), popupBackElement.getId(),
+					null);
+			break;
+		default:
+			break;
+		}
+	}
+
+	public void closePopup(String name) {
+		switch (name) {
+		case "popupClearMap":
+			nifty.closePopup(popupClearElement.getId());
+			break;
+		case "popupBackToMenu":
+			nifty.closePopup(popupBackElement.getId());
+			break;
+		default:
+			break;
+		}
+	}
+
 	@Override
 	public void onEndScreen() {
 		// TODO Auto-generated method stub
@@ -115,7 +171,7 @@ public class MyScreenController implements ScreenController {
 
 	@Override
 	public void onStartScreen() {
-		// TODO Auto-generated method stub
+		init();
 
 	}
 
