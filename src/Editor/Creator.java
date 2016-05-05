@@ -272,7 +272,6 @@ public class Creator {
 
 		switch (currentType) {
 		case ROCKETLAUNCHER:
-
 			return rocketLauncherSize < maxElement;
 		case SHOTGUN:
 			return shotgunSize < maxElement;
@@ -363,6 +362,63 @@ public class Creator {
 			break;
 		default:
 
+		}
+
+	}
+
+	public int getCounter(String name) {
+		CubeType cubeType = CubeType.valueOf(name);
+		switch (cubeType) {
+		case ROCKETLAUNCHER:
+			return maxElement - rocketLauncherSize;
+
+		case SHOTGUN:
+			return maxElement - shotgunSize;
+
+		case RIFLE:
+			return maxElement - rifleSize;
+
+		case LASER:
+			return maxElement - laserSize;
+
+		case SNIPER:
+			return maxElement - sniperSize;
+
+		case MINHEALTH:
+			return maxElement - minHealthSize;
+
+		case MIDHEALTH:
+			return maxElement - midHealthSize;
+
+		case MAXHEALTH:
+			return maxElement - maxHealthSize;
+
+		case MINARMOR:
+			return maxElement - minArmorSize;
+
+		case MIDARMOR:
+			return maxElement - midArmorSize;
+
+		case MAXARMOR:
+			return maxElement - maxArmorSize;
+
+		case HASTE:
+			return maxElement - hasteSize;
+
+		case AMMO:
+			return maxElement - ammoSize;
+
+		case REGENERATION:
+			return maxElement - regenerationSize;
+
+		case ULTRADAMAGE:
+			return maxElement - ultradamageSize;
+
+		case UNTOUCHABLE:
+			return maxElement - untouchableSize;
+
+		default:
+			return 0;
 		}
 
 	}

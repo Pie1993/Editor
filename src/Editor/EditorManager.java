@@ -57,6 +57,7 @@ public class EditorManager {
 
 	private AppStateManager stateManager;
 	private Node rootNode;
+	boolean events;
 
 	public void update() {
 		camDir.set(cam.getDirection());

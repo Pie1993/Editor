@@ -102,7 +102,7 @@ public class MyActionListener implements ActionListener {
 		}
 
 		if (name.equals("activeMouse") && isPressed
-				&& nifty.getCurrentScreen().getScreenId().equals("GScreen0")) {
+				&& EditorManager.getIstance().events) {
 
 			activeMouse = !activeMouse;
 			flyCam.setDragToRotate(activeMouse);

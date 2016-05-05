@@ -299,7 +299,7 @@ public class ComponentLoader {
 		materials[73].setTexture("ColorMap", texture[63]);
 		materials[74].setColor("Color", ColorRGBA.LightGray);
 		materials[74].setColor("GlowColor", ColorRGBA.LightGray);
-		materials[75].setTexture("ColorMap", texture[52]);
+		materials[75].setTexture("ColorMap", texture[64]);
 		materials[75].getAdditionalRenderState().setBlendMode(BlendMode.Alpha);
 
 	}

@@ -22,6 +22,7 @@ public class MapFile {
 		try {
 			exporter.save(EditorManager.getIstance().nodoScena, file);
 		} catch (IOException ex) {
+
 		}
 		EditorManager.getIstance().nodoScena.attachChild(EditorManager
 				.getIstance().terrainQuad);

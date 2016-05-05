@@ -64,7 +64,7 @@ public class MyEditor extends SimpleApplication {
 		nifty.fromXml("./Xml/LScreen.xml", "GScreen0", myScreenController);
 
 		guiViewPort.addProcessor(display);
-		nifty.setIgnoreKeyboardEvents(true);
+		myScreenController.lockEvents(true);
 
 		ScreenSaveMap screenSaveMap = new ScreenSaveMap(nifty, display,
 				guiViewPort, myScreenController);

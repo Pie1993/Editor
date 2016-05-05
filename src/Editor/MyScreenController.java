@@ -68,7 +68,7 @@ public class MyScreenController implements ScreenController {
 		EditorManager.getIstance().clearScene();
 		MapFile.loadMap(selection);
 		changeScreen("GScreen0");
-		nifty.setIgnoreKeyboardEvents(true);
+		lockEvents(true);
 
 	}
 
@@ -90,7 +90,7 @@ public class MyScreenController implements ScreenController {
 			e.printStackTrace();
 		}
 		changeScreen("GScreen0");
-		nifty.setIgnoreKeyboardEvents(true);
+		lockEvents(true);
 	}
 
 	public void backToMenu() {
@@ -100,7 +100,7 @@ public class MyScreenController implements ScreenController {
 	public void saveScreen() {
 
 		changeScreen("SaveScreen");
-		nifty.setIgnoreKeyboardEvents(false);
+		lockEvents(false);
 
 	}
 
@@ -109,14 +109,21 @@ public class MyScreenController implements ScreenController {
 		fillMyListBox();
 
 		changeScreen("LoadScreen");
-		nifty.setIgnoreKeyboardEvents(false);
+
+		lockEvents(false);
+
+	}
+
+	public void lockEvents(boolean value) {
+		nifty.setIgnoreKeyboardEvents(value);
+		EditorManager.getIstance().events = value;
 
 	}
 
 	public void Return() {
 
 		changeScreen("GScreen0");
-		nifty.setIgnoreKeyboardEvents(true);
+		lockEvents(true);
 	}
 
 	@Override
@@ -140,10 +147,13 @@ public class MyScreenController implements ScreenController {
 		case "popupClearMap":
 			nifty.showPopup(nifty.getCurrentScreen(),
 					popupClearElement.getId(), null);
+			lockEvents(false);
+
 			break;
 		case "popupBackToMenu":
 			nifty.showPopup(nifty.getCurrentScreen(), popupBackElement.getId(),
 					null);
+			lockEvents(false);
 			break;
 		default:
 			break;
@@ -154,9 +164,11 @@ public class MyScreenController implements ScreenController {
 		switch (name) {
 		case "popupClearMap":
 			nifty.closePopup(popupClearElement.getId());
+			lockEvents(true);
 			break;
 		case "popupBackToMenu":
 			nifty.closePopup(popupBackElement.getId());
+			lockEvents(true);
 			break;
 		default:
 			break;
