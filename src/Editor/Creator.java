@@ -7,6 +7,7 @@ import com.jme3.bullet.control.CharacterControl;
 import com.jme3.bullet.control.RigidBodyControl;
 import com.jme3.material.Material;
 import com.jme3.math.ColorRGBA;
+import com.jme3.math.FastMath;
 import com.jme3.math.Vector3f;
 import com.jme3.renderer.queue.RenderQueue.Bucket;
 import com.jme3.scene.Geometry;
@@ -29,8 +30,15 @@ public class Creator {
 			sniperSize, minHealthSize, midHealthSize, maxHealthSize,
 			minArmorSize, midArmorSize, maxArmorSize, hasteSize, ammoSize,
 			regenerationSize, ultradamageSize, untouchableSize;
-	private int maxElement = 3;
+	
+	final int MAX_MIN_POWER_UP = 20;
+	final int MAX_MID_POWER_UP = 4; 
+	final int MAX_SPECIAL_POWER_UP = 1;
+	final int MAX_AMMO = 10;
+	final int MAX_WEAPON = 3;
+	 
 	private AssetManager assetManager;
+	private MyScreenController myScreenController;
 
 	public Geometry createModelCube() {
 		WireBox wireBoxCube = new WireBox();
@@ -69,7 +77,6 @@ public class Creator {
 		updateInformation(currentType);
 		switch (currentType) {
 		case HASTE:
-
 			tmp = new Cube(haste, posx, posy, posz, currentType);
 			return tmp;
 		case MINHEALTH:
@@ -134,30 +141,26 @@ public class Creator {
 			return tmp;
 		case GLASS:
 			tmp = new Cube(geometry, posx, posy, posz, currentType);
-			tmp.geometry.setMaterial(ComponentLoader.getIstance().getMaterial(
-					currentType));
+			tmp.geometry.setMaterial(ComponentLoader.getIstance().getMaterial(currentType));
 			tmp.geometry.setQueueBucket(Bucket.Transparent);
 			return tmp;
-
 		default:
 			tmp = new Cube(geometry, posx, posy, posz, currentType);
-			tmp.geometry.setMaterial(ComponentLoader.getIstance().getMaterial(
-					currentType));
-
+			tmp.geometry.setMaterial(ComponentLoader.getIstance().getMaterial(currentType));
 			return tmp;
+			
 		}
 
 	}
 
-	public void init(AssetManager assetManager) {
-
+	public void init(AssetManager assetManager, MyScreenController myScreenController) {
+		this.myScreenController=myScreenController;
 		this.assetManager = assetManager;
 		initPrototypeCube();
 	}
 
 	public void reset() {
 		rocketLauncherSize = shotgunSize = rifleSize = laserSize = sniperSize = minHealthSize = midHealthSize = maxHealthSize = minArmorSize = midArmorSize = maxArmorSize = hasteSize = ammoSize = regenerationSize = ultradamageSize = untouchableSize = 0;
-
 	}
 
 	public static Creator getIstance() {
@@ -213,8 +216,6 @@ public class Creator {
 				CubeType.HASTE));
 		haste.scale(modelScale);
 		ammo = assetManager.loadModel(CubikArenaPath.getAmmopath());
-		ammo.setMaterial(ComponentLoader.getIstance()
-				.getMaterial(CubeType.AMMO));
 		ammo.scale(modelScale);
 		armor = assetManager.loadModel(CubikArenaPath.getArmorpath());
 		armor.scale(modelScale);
@@ -227,7 +228,7 @@ public class Creator {
 				.getUltradamagepath());
 		ultradamage.setMaterial(ComponentLoader.getIstance().getMaterial(
 				CubeType.ULTRADAMAGE));
-		ultradamage.scale(modelScale);
+		ultradamage.scale(0.09f);
 		untouchable = assetManager.loadModel(CubikArenaPath
 				.getUntouchablepath());
 		untouchable.setMaterial(ComponentLoader.getIstance().getMaterial(
@@ -239,16 +240,13 @@ public class Creator {
 		rocketLauncher = assetManager.loadModel(CubikArenaPath
 				.getRocketlauncherpath());
 		rocketLauncher.scale(0.15f);
-		chainsaw = assetManager.loadModel(CubikArenaPath.getChainsawpath());
-		chainsaw.scale(weaponsScale);
 		laser = assetManager.loadModel(CubikArenaPath.getLaserpath());
 		laser.scale(weaponsScale);
 		shotgun = assetManager.loadModel(CubikArenaPath.getShotgunpath());
 		shotgun.scale(0.075f);
 		sniper = assetManager.loadModel(CubikArenaPath.getSniperpath());
-		sniper.setMaterial(ComponentLoader.getIstance().getMaterial(
-				CubeType.SNIPER));
-		sniper.scale(weaponsScale + 0.01f);
+		sniper.rotate(0, FastMath.PI, 0);
+		sniper.scale(0.031f);
 		rifle = assetManager.loadModel(CubikArenaPath.getRiflepath());
 		rifle.scale(0.09f);
 	}
@@ -272,37 +270,37 @@ public class Creator {
 
 		switch (currentType) {
 		case ROCKETLAUNCHER:
-			return rocketLauncherSize < maxElement;
+			return rocketLauncherSize < MAX_WEAPON;
 		case SHOTGUN:
-			return shotgunSize < maxElement;
+			return shotgunSize < MAX_WEAPON;
 		case RIFLE:
-			return rifleSize < maxElement;
+			return rifleSize < MAX_WEAPON;
 		case LASER:
-			return laserSize < maxElement;
+			return laserSize < MAX_WEAPON;
 		case SNIPER:
-			return sniperSize < maxElement;
+			return sniperSize < MAX_WEAPON;
 		case MINHEALTH:
-			return minHealthSize < maxElement;
+			return minHealthSize < MAX_MIN_POWER_UP;
 		case MIDHEALTH:
-			return midHealthSize < maxElement;
+			return midHealthSize < MAX_MID_POWER_UP;
 		case MAXHEALTH:
-			return maxHealthSize < maxElement;
+			return maxHealthSize < MAX_SPECIAL_POWER_UP;
 		case MINARMOR:
-			return minArmorSize < maxElement;
+			return minArmorSize < MAX_MIN_POWER_UP;
 		case MIDARMOR:
-			return midArmorSize < maxElement;
+			return midArmorSize < MAX_MID_POWER_UP;
 		case MAXARMOR:
-			return maxArmorSize < maxElement;
+			return maxArmorSize < MAX_SPECIAL_POWER_UP;
 		case HASTE:
-			return hasteSize < maxElement;
+			return hasteSize < MAX_SPECIAL_POWER_UP;
 		case AMMO:
-			return ammoSize < maxElement;
+			return ammoSize < MAX_AMMO;
 		case REGENERATION:
-			return regenerationSize < maxElement;
+			return regenerationSize < MAX_SPECIAL_POWER_UP;
 		case ULTRADAMAGE:
-			return ultradamageSize < maxElement;
+			return ultradamageSize < MAX_SPECIAL_POWER_UP;
 		case UNTOUCHABLE:
-			return untouchableSize < maxElement;
+			return untouchableSize < MAX_SPECIAL_POWER_UP;
 		default:
 			return true;
 		}
@@ -314,108 +312,124 @@ public class Creator {
 		switch (cubeType) {
 		case ROCKETLAUNCHER:
 			rocketLauncherSize--;
+			myScreenController.updateItemsCounter(cubeType,getCounter(cubeType));
 			break;
 		case SHOTGUN:
 			shotgunSize--;
+			myScreenController.updateItemsCounter(cubeType,getCounter(cubeType));
 			break;
 		case RIFLE:
 			rifleSize--;
+			myScreenController.updateItemsCounter(cubeType,getCounter(cubeType));
 			break;
 		case LASER:
 			laserSize--;
+			myScreenController.updateItemsCounter(cubeType,getCounter(cubeType));
 			break;
 		case SNIPER:
 			sniperSize--;
+			myScreenController.updateItemsCounter(cubeType,getCounter(cubeType));
 			break;
 		case MINHEALTH:
 			minHealthSize--;
+			myScreenController.updateItemsCounter(cubeType,getCounter(cubeType));
 			break;
 		case MIDHEALTH:
 			midHealthSize--;
+			myScreenController.updateItemsCounter(cubeType,getCounter(cubeType));
 			break;
 		case MAXHEALTH:
 			maxHealthSize--;
+			myScreenController.updateItemsCounter(cubeType,getCounter(cubeType));
 			break;
 		case MINARMOR:
 			minArmorSize--;
+			myScreenController.updateItemsCounter(cubeType,getCounter(cubeType));
 			break;
 		case MIDARMOR:
 			midArmorSize--;
+			myScreenController.updateItemsCounter(cubeType,getCounter(cubeType));
 			break;
 		case MAXARMOR:
 			maxArmorSize--;
+			myScreenController.updateItemsCounter(cubeType,getCounter(cubeType));
 			break;
 		case HASTE:
 			hasteSize--;
+			myScreenController.updateItemsCounter(cubeType,getCounter(cubeType));
 			break;
 		case AMMO:
 			ammoSize--;
+			myScreenController.updateItemsCounter(cubeType,getCounter(cubeType));
 			break;
 		case REGENERATION:
 			regenerationSize--;
+			myScreenController.updateItemsCounter(cubeType,getCounter(cubeType));
 			break;
 		case ULTRADAMAGE:
 			ultradamageSize--;
+			myScreenController.updateItemsCounter(cubeType,getCounter(cubeType));
 			break;
 		case UNTOUCHABLE:
 			untouchableSize--;
+			myScreenController.updateItemsCounter(cubeType,getCounter(cubeType));
 			break;
 		default:
-
+			return;
 		}
 
 	}
 
-	public int getCounter(String name) {
-		CubeType cubeType = CubeType.valueOf(name);
+	public int getCounter(CubeType cubeType ) {
+		
 		switch (cubeType) {
 		case ROCKETLAUNCHER:
-			return maxElement - rocketLauncherSize;
+			return MAX_WEAPON - rocketLauncherSize;
 
 		case SHOTGUN:
-			return maxElement - shotgunSize;
+			return MAX_WEAPON - shotgunSize;
 
 		case RIFLE:
-			return maxElement - rifleSize;
+			return MAX_WEAPON - rifleSize;
 
 		case LASER:
-			return maxElement - laserSize;
+			return MAX_WEAPON - laserSize;
 
 		case SNIPER:
-			return maxElement - sniperSize;
+			return MAX_WEAPON - sniperSize;
 
 		case MINHEALTH:
-			return maxElement - minHealthSize;
+			return MAX_MIN_POWER_UP - minHealthSize;
 
 		case MIDHEALTH:
-			return maxElement - midHealthSize;
+			return MAX_MID_POWER_UP - midHealthSize;
 
 		case MAXHEALTH:
-			return maxElement - maxHealthSize;
+			return MAX_SPECIAL_POWER_UP - maxHealthSize;
 
 		case MINARMOR:
-			return maxElement - minArmorSize;
+			return MAX_MIN_POWER_UP - minArmorSize;
 
 		case MIDARMOR:
-			return maxElement - midArmorSize;
+			return MAX_MID_POWER_UP - midArmorSize;
 
 		case MAXARMOR:
-			return maxElement - maxArmorSize;
+			return MAX_SPECIAL_POWER_UP - maxArmorSize;
 
 		case HASTE:
-			return maxElement - hasteSize;
+			return MAX_SPECIAL_POWER_UP - hasteSize;
 
 		case AMMO:
-			return maxElement - ammoSize;
+			return MAX_AMMO - ammoSize;
 
 		case REGENERATION:
-			return maxElement - regenerationSize;
+			return MAX_SPECIAL_POWER_UP - regenerationSize;
 
 		case ULTRADAMAGE:
-			return maxElement - ultradamageSize;
+			return MAX_SPECIAL_POWER_UP - ultradamageSize;
 
 		case UNTOUCHABLE:
-			return maxElement - untouchableSize;
+			return MAX_SPECIAL_POWER_UP - untouchableSize;
 
 		default:
 			return 0;
@@ -475,7 +489,8 @@ public class Creator {
 			untouchableSize++;
 			break;
 		default:
-
+			return;
 		}
+		myScreenController.updateItemsCounter(cubeType,getCounter(cubeType));
 	}
 }

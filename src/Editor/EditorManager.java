@@ -13,6 +13,9 @@ import com.jme3.bullet.control.CharacterControl;
 import com.jme3.bullet.control.RigidBodyControl;
 import com.jme3.collision.CollisionResult;
 import com.jme3.collision.CollisionResults;
+import com.jme3.light.AmbientLight;
+import com.jme3.light.DirectionalLight;
+import com.jme3.math.ColorRGBA;
 import com.jme3.math.FastMath;
 import com.jme3.math.Quaternion;
 import com.jme3.math.Ray;
@@ -58,6 +61,7 @@ public class EditorManager {
 	private AppStateManager stateManager;
 	private Node rootNode;
 	boolean events;
+	
 
 	public void update() {
 		camDir.set(cam.getDirection());
@@ -147,13 +151,14 @@ public class EditorManager {
 
 	public void init(Camera cam, MyActionListener actionListener,
 			AssetManager assetManager, AppStateManager stateManager,
-			Node rootNode) {
+			Node rootNode, MyScreenController myScreenController) {
+		
 		this.cursorPos = new Vector3f(SIZEMAP / 2 - 1, 0, SIZEMAP / 2 - 1);
 		this.cam = cam;
 		this.actionListener = actionListener;
 		this.stateManager = stateManager;
 		this.rootNode = rootNode;
-		Creator.getIstance().init(assetManager);
+		Creator.getIstance().init(assetManager, myScreenController);
 		modelCube = Creator.getIstance().createModelCube();
 		wedge = Creator.getIstance().createWedge();
 		nodoModel = new BatchNode();
@@ -162,9 +167,26 @@ public class EditorManager {
 		player = Creator.getIstance().createPlayer();
 		cam.setLocation(new Vector3f(0, 0, 0));
 		initScene();
+		initLight();
 		initBulletAppState();
 		initPhysicsSpace();
-
+		myScreenController.changeImage();
+		myScreenController.initCounter();
+	}
+	
+	private void initLight(){
+		
+		AmbientLight light = new AmbientLight();
+		light.setColor(ColorRGBA.White);
+		DirectionalLight sun = new DirectionalLight();
+		sun.setDirection((new Vector3f(-0.5f, -0.5f, -0.5f)).normalizeLocal());
+		sun.setColor(ColorRGBA.White);
+		DirectionalLight sun2 = new DirectionalLight();
+		sun2.setDirection((new Vector3f(0.5f, -0.5f, 0.5f)).normalizeLocal());
+		sun2.setColor(ColorRGBA.White);
+		rootNode.addLight(sun);
+		rootNode.addLight(sun2); 
+		rootNode.addLight(light);
 	}
 
 	private void initScene() {

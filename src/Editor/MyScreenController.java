@@ -7,10 +7,12 @@ import java.io.IOException;
 import com.jme3.niftygui.NiftyJmeDisplay;
 
 import de.lessvoid.nifty.Nifty;
+import de.lessvoid.nifty.controls.Label;
 import de.lessvoid.nifty.controls.ListBox;
 import de.lessvoid.nifty.controls.TextField;
 import de.lessvoid.nifty.elements.Element;
 import de.lessvoid.nifty.elements.render.ImageRenderer;
+import de.lessvoid.nifty.elements.render.TextRenderer;
 import de.lessvoid.nifty.render.NiftyImage;
 import de.lessvoid.nifty.screen.Screen;
 import de.lessvoid.nifty.screen.ScreenController;
@@ -77,6 +79,11 @@ public class MyScreenController implements ScreenController {
 		nifty.gotoScreen(string);
 
 	}
+	
+	public void updateItemsCounter(CubeType cubeType,int num){
+		Element niftyElement = nifty.getCurrentScreen().findElementByName(cubeType.name());
+		niftyElement.getRenderer(TextRenderer.class).setText("x"+String.valueOf(num));
+	}
 
 	public void saveMap() {
 
@@ -135,13 +142,51 @@ public class MyScreenController implements ScreenController {
 	public void clearMap() {
 		EditorManager.getIstance().clearScene();
 		closePopup("popupClearMap");
+		initCounter();
 	}
 
-	private void init() {
+	private void initPopup() {
 		this.popupClearElement = nifty.createPopup("popupClearMap");
 		this.popupBackElement = nifty.createPopup("popupBackToMenu");
 	}
 
+	public void initCounter(){
+		Element niftyElement;
+		for(CubeType type : CubeType.values()){
+			niftyElement = nifty.getCurrentScreen().findElementByName(type.name());
+			switch (type) {
+			case ROCKETLAUNCHER:
+			case SHOTGUN:
+			case RIFLE:
+			case LASER:
+			case SNIPER:
+				niftyElement.getRenderer(TextRenderer.class).setText("x"+Creator.getIstance().MAX_WEAPON);
+				break;
+			case MINHEALTH:
+			case MINARMOR:
+				niftyElement.getRenderer(TextRenderer.class).setText("x"+Creator.getIstance().MAX_MIN_POWER_UP);
+				break;
+			case MIDHEALTH:
+			case MIDARMOR:
+				niftyElement.getRenderer(TextRenderer.class).setText("x"+Creator.getIstance().MAX_MID_POWER_UP);
+				break;
+			case MAXHEALTH:
+			case MAXARMOR:
+			case HASTE:
+			case REGENERATION:
+			case ULTRADAMAGE:
+			case UNTOUCHABLE:
+				niftyElement.getRenderer(TextRenderer.class).setText("x"+Creator.getIstance().MAX_SPECIAL_POWER_UP);
+				break;
+			case AMMO:
+				niftyElement.getRenderer(TextRenderer.class).setText("x"+Creator.getIstance().MAX_AMMO);
+				break;
+			default:
+				break;
+			}
+		}
+	}
+	
 	public void popup(String name) {
 		switch (name) {
 		case "popupClearMap":
@@ -174,6 +219,8 @@ public class MyScreenController implements ScreenController {
 			break;
 		}
 	}
+	
+
 
 	@Override
 	public void onEndScreen() {
@@ -183,13 +230,13 @@ public class MyScreenController implements ScreenController {
 
 	@Override
 	public void onStartScreen() {
-		init();
-
+		initPopup();
 	}
 
 	public void fillMyListBox() {
 
-		Screen screen = nifty.getScreen("LoadScreen");
+		Screen screen = nifty.getScreen("Lo"
+				+ "adScreen");
 		FilenameFilter filenameFilter = new FilenameFilter() {
 
 			@Override

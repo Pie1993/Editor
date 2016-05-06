@@ -194,9 +194,14 @@ public class ComponentLoader {
 		// material
 		materials = new Material[sizeMaterials];
 		texture = new Texture[sizeTextures];
-		for (int i = 0; i < sizeMaterials; i++)
+		for (int i = 0; i < sizeMaterials; i++){
 			materials[i] = new Material(assetManager,
-					"Common/MatDefs/Misc/Unshaded.j3md");
+					"Common/MatDefs/Light/Lighting.j3md");
+			materials[i].setColor("Diffuse", ColorRGBA.White);
+			materials[i].setColor("Specular", ColorRGBA.White);
+			materials[i].setBoolean("UseMaterialColors",true);
+			materials[i].setFloat("Shininess", 5f);
+		}
 		loadTextures();
 		loadMaterials();
 		terrainTexture = texture[9];
@@ -213,93 +218,93 @@ public class ComponentLoader {
 
 	private void loadMaterials() {
 
-		materials[0].setTexture("ColorMap", texture[0]);
-		materials[1].setTexture("ColorMap", texture[1]);
-		materials[2].setTexture("ColorMap", texture[2]);
-		materials[3].setTexture("ColorMap", texture[3]);
-		materials[4].setTexture("ColorMap", texture[4]);
-		materials[5].setTexture("ColorMap", texture[5]);
-		materials[6].setTexture("ColorMap", texture[6]);
-		materials[7].setTexture("ColorMap", texture[7]);
-		materials[8].setTexture("ColorMap", texture[8]);
-		materials[9].setTexture("ColorMap", texture[9]);
-		materials[10].setTexture("ColorMap", texture[10]);
-		materials[11].setTexture("ColorMap", texture[11]);
-		materials[12].setTexture("ColorMap", texture[12]);
-		materials[13].setTexture("ColorMap", texture[13]);
-		materials[14].setTexture("ColorMap", texture[14]);
-		materials[15].setTexture("ColorMap", texture[15]);
-		materials[16].setTexture("ColorMap", texture[16]);
-		materials[17].setTexture("ColorMap", texture[17]);
-		materials[18].setTexture("ColorMap", texture[18]);
-		materials[19].setTexture("ColorMap", texture[19]);
-		materials[20].setTexture("ColorMap", texture[20]);
-		materials[21].setTexture("ColorMap", texture[21]);
-		materials[22].setTexture("ColorMap", texture[22]);
-		materials[23].setTexture("ColorMap", texture[23]);
-		materials[24].setTexture("ColorMap", texture[24]);
-		materials[25].setTexture("ColorMap", texture[25]);
-		materials[26].setTexture("ColorMap", texture[26]);
-		materials[27].setTexture("ColorMap", texture[27]);
-		materials[28].setTexture("ColorMap", texture[28]);
-		materials[29].setTexture("ColorMap", texture[29]);
-		materials[30].setTexture("ColorMap", texture[30]);
-		materials[31].setTexture("ColorMap", texture[31]);
-		materials[32].setTexture("ColorMap", texture[32]);
-		materials[33].setTexture("ColorMap", texture[33]);
-		materials[34].setTexture("ColorMap", texture[34]);
-		materials[35].setTexture("ColorMap", texture[35]);
-		materials[36].setTexture("ColorMap", texture[36]);
-		materials[37].setTexture("ColorMap", texture[37]);
-		materials[38].setTexture("ColorMap", texture[38]);
-		materials[39].setTexture("ColorMap", texture[39]);
-		materials[40].setTexture("ColorMap", texture[40]);
-		materials[41].setTexture("ColorMap", texture[41]);
-		materials[42].setTexture("ColorMap", texture[42]);
-		materials[43].setTexture("ColorMap", texture[43]);
-		materials[44].setTexture("ColorMap", texture[44]);
-		materials[45].setTexture("ColorMap", texture[45]);
-		materials[46].setTexture("ColorMap", texture[46]);
-		materials[47].setTexture("ColorMap", texture[47]);
-		materials[48].setTexture("ColorMap", texture[48]);
-		materials[49].setColor("Color", ColorRGBA.Green);
+		materials[0].setTexture("DiffuseMap", texture[0]);
+		materials[1].setTexture("DiffuseMap", texture[1]);
+		materials[2].setTexture("DiffuseMap", texture[2]);
+		materials[3].setTexture("DiffuseMap", texture[3]);
+		materials[4].setTexture("DiffuseMap", texture[4]);
+		materials[5].setTexture("DiffuseMap", texture[5]);
+		materials[6].setTexture("DiffuseMap", texture[6]);
+		materials[7].setTexture("DiffuseMap", texture[7]);
+		materials[8].setTexture("DiffuseMap", texture[8]);
+		materials[9].setTexture("DiffuseMap", texture[9]);
+		materials[10].setTexture("DiffuseMap", texture[10]);
+		materials[11].setTexture("DiffuseMap", texture[11]);
+		materials[12].setTexture("DiffuseMap", texture[12]);
+		materials[13].setTexture("DiffuseMap", texture[13]);
+		materials[14].setTexture("DiffuseMap", texture[14]);
+		materials[15].setTexture("DiffuseMap", texture[15]);
+		materials[16].setTexture("DiffuseMap", texture[16]);
+		materials[17].setTexture("DiffuseMap", texture[17]);
+		materials[18].setTexture("DiffuseMap", texture[18]);
+		materials[19].setTexture("DiffuseMap", texture[19]);
+		materials[20].setTexture("DiffuseMap", texture[20]);
+		materials[21].setTexture("DiffuseMap", texture[21]);
+		materials[22].setTexture("DiffuseMap", texture[22]);
+		materials[23].setTexture("DiffuseMap", texture[23]);
+		materials[24].setTexture("DiffuseMap", texture[24]);
+		materials[25].setTexture("DiffuseMap", texture[25]);
+		materials[26].setTexture("DiffuseMap", texture[26]);
+		materials[27].setTexture("DiffuseMap", texture[27]);
+		materials[28].setTexture("DiffuseMap", texture[28]);
+		materials[29].setTexture("DiffuseMap", texture[29]);
+		materials[30].setTexture("DiffuseMap", texture[30]);
+		materials[31].setTexture("DiffuseMap", texture[31]);
+		materials[32].setTexture("DiffuseMap", texture[32]);
+		materials[33].setTexture("DiffuseMap", texture[33]);
+		materials[34].setTexture("DiffuseMap", texture[34]);
+		materials[35].setTexture("DiffuseMap", texture[35]);
+		materials[36].setTexture("DiffuseMap", texture[36]);
+		materials[37].setTexture("DiffuseMap", texture[37]);
+		materials[38].setTexture("DiffuseMap", texture[38]);
+		materials[39].setTexture("DiffuseMap", texture[39]);
+		materials[40].setTexture("DiffuseMap", texture[40]);
+		materials[41].setTexture("DiffuseMap", texture[41]);
+		materials[42].setTexture("DiffuseMap", texture[42]);
+		materials[43].setTexture("DiffuseMap", texture[43]);
+		materials[44].setTexture("DiffuseMap", texture[44]);
+		materials[45].setTexture("DiffuseMap", texture[45]);
+		materials[46].setTexture("DiffuseMap", texture[46]);
+		materials[47].setTexture("DiffuseMap", texture[47]);
+		materials[48].setTexture("DiffuseMap", texture[48]);
+//		materials[49].setColor("Color", ColorRGBA.Green);
 		materials[49].setColor("GlowColor", ColorRGBA.Green);
-		materials[50].setColor("Color", ColorRGBA.Green);
+//		materials[50].setColor("Color", ColorRGBA.Green);
 		materials[50].setColor("GlowColor", ColorRGBA.Green);
-		materials[51].setColor("Color", ColorRGBA.Yellow);
+//		materials[51].setColor("Color", ColorRGBA.Yellow);
 		materials[51].setColor("GlowColor", ColorRGBA.Yellow);
-		materials[52].setColor("Color", ColorRGBA.Yellow);
+//		materials[52].setColor("Color", ColorRGBA.Yellow);
 		materials[52].setColor("GlowColor", ColorRGBA.Yellow);
-		materials[53].setColor("Color", ColorRGBA.Blue);
+//		materials[53].setColor("Color", ColorRGBA.Blue);
 		materials[53].setColor("GlowColor", ColorRGBA.Blue);
-		materials[54].setColor("Color", ColorRGBA.Red);
+//		materials[54].setColor("Color", ColorRGBA.Red);
 		materials[54].setColor("GlowColor", ColorRGBA.Red);
-		materials[55].setColor("Color", ColorRGBA.Orange);
+//		materials[55].setColor("Color", ColorRGBA.Orange);
 		materials[55].setColor("GlowColor", ColorRGBA.Orange);
-		materials[56].setColor("Color", ColorRGBA.Magenta);
+//		materials[56].setColor("Color", ColorRGBA.Magenta);
 		materials[56].setColor("GlowColor", ColorRGBA.Magenta);
-		materials[57].setColor("Color", ColorRGBA.White);
+//		materials[57].setColor("Color", ColorRGBA.White);
 		materials[57].setColor("GlowColor", ColorRGBA.White);
-		materials[58].setColor("Color", ColorRGBA.Cyan);
+//		materials[58].setColor("Color", ColorRGBA.Cyan);
 		materials[58].setColor("GlowColor", ColorRGBA.Cyan);
-		materials[59].setTexture("ColorMap", texture[49]);
-		materials[60].setTexture("ColorMap", texture[50]);
-		materials[61].setTexture("ColorMap", texture[51]);
-		materials[62].setTexture("ColorMap", texture[52]);
-		materials[63].setTexture("ColorMap", texture[53]);
-		materials[64].setTexture("ColorMap", texture[54]);
-		materials[65].setTexture("ColorMap", texture[55]);
-		materials[66].setTexture("ColorMap", texture[56]);
-		materials[67].setTexture("ColorMap", texture[57]);
-		materials[68].setTexture("ColorMap", texture[58]);
-		materials[69].setTexture("ColorMap", texture[59]);
-		materials[70].setTexture("ColorMap", texture[60]);
-		materials[71].setTexture("ColorMap", texture[61]);
-		materials[72].setTexture("ColorMap", texture[62]);
-		materials[73].setTexture("ColorMap", texture[63]);
-		materials[74].setColor("Color", ColorRGBA.LightGray);
+//		materials[59].setTexture("DiffuseMap", texture[49]);
+//		materials[60].setTexture("DiffuseMap", texture[50]);
+		materials[61].setTexture("DiffuseMap", texture[51]);
+		materials[62].setTexture("DiffuseMap", texture[52]);
+		materials[63].setTexture("DiffuseMap", texture[53]);
+		materials[64].setTexture("DiffuseMap", texture[54]);
+		materials[65].setTexture("DiffuseMap", texture[55]);
+		materials[66].setTexture("DiffuseMap", texture[56]);
+		materials[67].setTexture("DiffuseMap", texture[57]);
+		materials[68].setTexture("DiffuseMap", texture[58]);
+		materials[69].setTexture("DiffuseMap", texture[59]);
+		materials[70].setTexture("DiffuseMap", texture[60]);
+		materials[71].setTexture("DiffuseMap", texture[61]);
+		materials[72].setTexture("DiffuseMap", texture[62]);
+		materials[73].setTexture("DiffuseMap", texture[63]);
+//		materials[74].setColor("Color", ColorRGBA.LightGray);
 		materials[74].setColor("GlowColor", ColorRGBA.LightGray);
-		materials[75].setTexture("ColorMap", texture[64]);
+		materials[75].setTexture("DiffuseMap", texture[64]);
 		materials[75].getAdditionalRenderState().setBlendMode(BlendMode.Alpha);
 
 	}
@@ -403,10 +408,10 @@ public class ComponentLoader {
 				+ "wool_colored_white.png");
 		texture[48] = assetManager.loadTexture(CubikArenaPath.getTexturespath()
 				+ "wool_colored_yellow.png");
-		texture[49] = assetManager.loadTexture(CubikArenaPath.getTexturespath()
-				+ "AmmoTexture.png");
-		texture[50] = assetManager.loadTexture(CubikArenaPath.getTexturespath()
-				+ "Snipertexture.png");
+//		texture[49] = assetManager.loadTexture(CubikArenaPath.getTexturespath()
+//				+ "AmmoTexture.png");
+//		texture[50] = assetManager.loadTexture(CubikArenaPath.getTexturespath()
+//				+ "Snipertexture.png");
 		texture[51] = assetManager.loadTexture(CubikArenaPath.getTexturespath()
 				+ "RifleTexture.png");
 

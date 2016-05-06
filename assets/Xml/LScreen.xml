@@ -929,7 +929,7 @@
                    							</onHover>
            								 </effect>
                    					 </image>
-                   					 <control name="label" color="#003ff" text="x3" align="right" valign="bottom"></control>
+                   					 <control id="ROCKETLAUNCHER" name="label" color="#003ff" text="" align="right" valign="bottom" width="5%"></control>
 							 </panel>
 							 <panel id="subpanel63" height="20%" width="100%" childLayout="center" backgroundImage="Textures/Inventory Items/weaponsgrid.png" paddingRight="18px">
 							 	<interact onClick="setType(SHOTGUN,subpanel63)" />
@@ -943,7 +943,7 @@
                    							</onHover>
            								 </effect>
                    					 </image>
-                   					 <control name="label" color="#003ff" text="x3" align="right" valign="bottom"></control>
+                   					 <control id="SHOTGUN" name="label" color="#003ff" text="" align="right" valign="bottom" width="5%"></control>
 							 </panel>
 							 <panel id="subpanel64" height="20%" width="100%" childLayout="center" backgroundImage="Textures/Inventory Items/weaponsgrid.png" paddingRight="18px">
 							 	<interact onClick="setType(RIFLE,subpanel64)" />
@@ -956,7 +956,7 @@
                    							</onHover>
            								 </effect>
                    					 </image>
-                   					 <control name="label" color="#003ff" text="x3" align="right" valign="bottom"></control>
+                   					 <control id="RIFLE" name="label" color="#003ff" text="" align="right" valign="bottom" width="5%"></control>
 							 </panel>
 							 <panel id="subpanel65" height="20%" width="100%" childLayout="center" backgroundImage="Textures/Inventory Items/weaponsgrid.png" paddingRight="18px">
 							 	 <interact onClick="setType(LASER,subpanel65)" />
@@ -969,7 +969,7 @@
                    							</onHover>
            								 </effect>
                    					 </image>
-                   					 <control name="label" color="#003ff" text="x3" align="right" valign="bottom"></control>
+                   					 <control id="LASER" name="label" color="#003ff" text="" align="right" valign="bottom" width="5%"></control>
 							 </panel>
 							 <panel id="subpanel66" height="20%" width="100%" childLayout="center" backgroundImage="Textures/Inventory Items/weaponsgrid.png" paddingRight="18px">
 							 	<interact onClick="setType(SNIPER,subpanel66)"/>
@@ -982,7 +982,7 @@
                    							</onHover>
            								 </effect>
                    					 </image>
-                   					 <control name="label" color="#003ff" text="x3" align="right" valign="bottom"></control>
+                   					 <control id="SNIPER" name="label" color="#003ff" text="" align="right" valign="bottom" width="5%"></control>
 							 </panel>
 					    </panel>
     				</control>
@@ -1000,7 +1000,7 @@
                    							</onHover>
            								 </effect>
                    					 </image>
-                   					 <control name="label" color="#003ff" text="x3" align="right" valign="bottom"></control>
+                   					 <control id="MINHEALTH" name="label" color="#003ff" text="" align="right" valign="bottom" width="25%"></control>
 					    		</panel>
 					    		<panel  id="subpanel68" height="100%" width="33%" childLayout="center"  backgroundImage="Textures/Inventory Items/weaponsgrid.png" paddingRight="13px">
 					    	    	<interact onClick="setType(MIDHEALTH,subpanel68)" />
@@ -1013,7 +1013,7 @@
                    							</onHover>
            								 </effect>
                    					 </image>
-                   					 <control name="label" color="#003ff" text="x3" align="right" valign="bottom"></control>
+                   					 <control id="MIDHEALTH" name="label" color="#003ff" text="" align="right" valign="bottom" width="25%"></control>
 					    		</panel>
 					    		<panel  id="subpanel69" height="100%" width="33%" childLayout="center"  backgroundImage="Textures/Inventory Items/weaponsgrid.png" paddingRight="13px">
 					    	    	<interact onClick="setType(MAXHEALTH,subpanel69)" />
@@ -1026,7 +1026,7 @@
                    							</onHover>
            								 </effect>
                    					 </image>
-                   					 <control name="label" color="#003ff" text="x3" align="right" valign="bottom"></control>
+                   					 <control id="MAXHEALTH" name="label" color="#003ff" text="" align="right" valign="bottom" width="25%"></control>
 					    		</panel>
 					    	</panel>
 					    	<panel id="panel42" height="25%" width="100%" childLayout="horizontal">
@@ -1041,7 +1041,7 @@
                    							</onHover>
            								 </effect>
                    					 </image>
-                   					 <control name="label" color="#003ff" text="x3" align="right" valign="bottom"></control>
+                   					 <control id="MINARMOR" name="label" color="#003ff" text="" align="right" valign="bottom" width="25%"></control>
 					    		</panel>
 					    		<panel  id="subpanel71" height="100%" width="33%" childLayout="center"  backgroundImage="Textures/Inventory Items/weaponsgrid.png" paddingRight="13px">
 					    	    	<interact onClick="setType(MIDARMOR,subpanel71)"/>
@@ -1054,7 +1054,7 @@
                    							</onHover>
            								 </effect>
                    					 </image>
-                   					 <control name="label" color="#003ff" text="x3" align="right" valign="bottom"></control>
+                   					 <control id="MIDARMOR" name="label" color="#003ff" text="" align="right" valign="bottom" width="25%"></control>
 					    		</panel>
 					    		<panel  id="subpanel72" height="100%" width="33%" childLayout="center"  backgroundImage="Textures/Inventory Items/weaponsgrid.png" paddingRight="13px">
 					    	    	<interact onClick="setType(MAXARMOR,subpanel72)" />
@@ -1067,7 +1067,7 @@
                    							</onHover>
            								 </effect>
                    					 </image>
-                   					 <control name="label" color="#003ff" text="x3" align="right" valign="bottom"></control>
+                   					 <control id="MAXARMOR" name="label" color="#003ff" text="" align="right" valign="bottom" width="25%"></control>
 					    		</panel>
 					    	</panel>
 					    	<panel id="panel43" height="25%" width="100%" childLayout="horizontal">
@@ -1082,7 +1082,7 @@
                    							</onHover>
            								 </effect>
                    					 </image>
-                   					 <control name="label" color="#003ff" text="x3" align="right" valign="bottom"></control>
+                   					 <control id="ULTRADAMAGE" name="label" color="#003ff" text="" align="right" valign="bottom" width="25%"></control>
 					    		</panel>
 					    		<panel id="subpanel74" height="100%" width="33%" childLayout="center"  backgroundImage="Textures/Inventory Items/weaponsgrid.png" paddingRight="13px">
 					    	    	<interact onClick="setType(HASTE,subpanel74)" />
@@ -1095,7 +1095,7 @@
                    							</onHover>
            								 </effect>
                    					 </image>
-                   					 <control name="label" color="#003ff" text="x3" align="right" valign="bottom"></control>
+                   					 <control id="HASTE" name="label" color="#003ff" text="" align="right" valign="bottom" width="25%"></control>
 					    		</panel>
 					    		<panel id="subpanel75" height="100%" width="33%" childLayout="center"  backgroundImage="Textures/Inventory Items/weaponsgrid.png" paddingRight="13px">
 					    	    	<interact onClick="setType(REGENERATION,subpanel75)" />
@@ -1108,7 +1108,7 @@
                    							</onHover>
            								 </effect>
                    					 </image>
-                   					 <control name="label" color="#003ff" text="x3" align="right" valign="bottom"></control>
+                   					 <control id="REGENERATION" name="label" color="#003ff" text="" align="right" valign="bottom" width="25%"></control>
 					    		</panel>
 					    	</panel>
 					    	<panel id="panel44" height="25%" width="100%" childLayout="horizontal">
@@ -1123,7 +1123,7 @@
                    							</onHover>
            								 </effect>
                    					 </image>
-                   					 <control name="label" color="#003ff" text="x3" align="right" valign="bottom"></control>
+                   					 <control id="UNTOUCHABLE" name="label" color="#003ff" text="" align="right" valign="bottom" width="25%" ></control>
 					    		</panel>
 					    		<panel id="subpanel77" height="100%" width="33%" childLayout="center"  backgroundImage="Textures/Inventory Items/weaponsgrid.png" paddingRight="13px">
 					    	    	 <interact onClick="setType(AMMO,subpanel77)"/>
@@ -1136,7 +1136,7 @@
                    							</onHover>
            								 </effect>
                    					 </image>
-                   					 <control name="label" color="#003ff" text="x3" align="right" valign="bottom"></control>
+                   					 <control id="AMMO" name="label" color="#003ff" text="" align="right" valign="bottom" width="25%"></control>
 					    		</panel>
 					    		<panel height="100%" width="33%" childLayout="center"  backgroundImage="Textures/Inventory Items/weaponsgrid.png">
 					    		</panel>
